@@ -58,7 +58,7 @@ const HomePage = () => {
   };
   return (
     <ContainerEl>
-      <WrapperEl margin="15px 0 0 0">
+      <WrapperEl margin="15px 0 0 0" padding="0 8px">
         <H5 fontWeight="400">Project</H5>
       </WrapperEl>
       <WrapperEl margin="20px 0 0 0">

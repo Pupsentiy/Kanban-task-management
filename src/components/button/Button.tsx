@@ -56,6 +56,7 @@ export interface IButtonProps {
   fontSize?: string;
   width?: string;
   height?: string;
+  hoverBackColor?:string;
 }
 
 const Button: FC<IButtonProps> = (props) => {
@@ -74,6 +75,7 @@ const Button: FC<IButtonProps> = (props) => {
       fontSize={props.fontSize}
       width={props.width}
       height={props.height}
+      hoverBackColor={props.hoverBackColor}
     >
       {props.children}
     </ButtonEl>

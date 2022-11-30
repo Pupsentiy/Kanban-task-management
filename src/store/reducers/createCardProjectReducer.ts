@@ -28,30 +28,27 @@ export interface ITask {
   numberTask: string;
   titleTask: string;
   description: string;
-  cretateTaskDate: string; //Date
+  createTaskDate: string; //Date
   proccesTime: string; //Date
   finishDate: string; //date
   priorityTask: string;
   files: string; // File
   currentStatus: string;
   // subTask?: [];
-  comment: string;
+  comments: TComment[];
 }
 
-type TCreateTaskPayload = {
-  id: string;
-  titleTask: string;
-};
+export type TComment = {
+id:string;
+text:string;
+}
+
 
 export interface ICreateCardProject {
   projects: ICard[];
   selectTask: ITask;
   toggleModalEditTask: boolean;
 }
-
-type TCreateProjectPayload = string;
-
-// type TActions = TCreateTaskPayload | TCreateProjectPayload | ICreateCardProject | ITask | ICard | any
 
 const getFromLocalStorage = (key: string) => {
   if (!key || typeof window === "undefined") {
@@ -100,13 +97,13 @@ export const createCardProject = (
               titleTask: action.payload.titleTask,
               numberTask: id,
               description: "",
-              cretateTaskDate: currentTime,
+              createTaskDate: currentTime,
               proccesTime: "",
               finishDate: "",
               priorityTask: "",
               files: "",
               currentStatus: "",
-              comment: "",
+              comments: [],
             };
             return {
               ...project,
@@ -124,31 +121,34 @@ export const createCardProject = (
       };
 
     case EDIT_TASK:
-      const { title }: any = action.payload;
+      const column : any = action.payload.title;
       return {
         ...state,
         projects: state.projects.map((project) => {
           if (project.id === action.payload.id) {
             return{
               ...project,
-               [title]:project[title].map((item: any) => {
-                if (item.id === action.payload.task.id) {
-                  const newObj = {
+               [column]:project[column].map((task:ITask) => {
+                if (task.id === action.payload.task.id) {
+                  const comment:TComment = {id:uuidv4(),text:action.payload.task.comments}
+                  // const newComments = item.comments.push(comment)
+                  // console.log(newComments)
+                  const editTask = {
                     id: action.payload.task.id,
                     titleTask: action.payload.task.titleTask,
                     numberTask: action.payload.task.numberTask,
                     description: action.payload.task.description,
-                    cretateTaskDate: action.payload.task.currentTime,
+                    createTaskDate: action.payload.task.createTaskDate,
                     proccesTime: action.payload.task.proccesTime,
                     finishDate: action.payload.task.finishDate,
                     priorityTask: action.payload.task.priorityTask,
                     files: action.payload.task.files,
                     currentStatus: action.payload.task.currentStatus,
-                    comment: action.payload.task.comment,
+                    comments: [...task.comments, comment]
                   };
-                  return newObj
+                  return editTask
                 }
-                return item
+                return task
               })
           
             }
@@ -172,3 +172,4 @@ export const createCardProject = (
       return state;
   }
 };
+
