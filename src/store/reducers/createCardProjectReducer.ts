@@ -132,7 +132,6 @@ export const createCardProject = (
                 if (task.id === action.payload.task.id) {
                   const comment:TComment = {id:uuidv4(),text:action.payload.task.comments}
                   // const newComments = item.comments.push(comment)
-                  // console.log(newComments)
                   const editTask = {
                     id: action.payload.task.id,
                     titleTask: action.payload.task.titleTask,
