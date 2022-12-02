@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -16,6 +16,7 @@ import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { CiEdit } from "react-icons/ci";
+import { RootState } from "../../store/store";
 
 export const ContainerColumn = styled.div<{ borderColor: string }>`
   background: #ebecf0;
@@ -72,13 +73,13 @@ export const ContentTask = styled.div`
 
 export interface IColumnProps {
   project: ITask[];
-  title: string;
+  column: string;
   // id:string;
   //styles
   borderColor: string;
 }
 
-const Column: FC<IColumnProps> = ({ borderColor, project, title }) => {
+const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -88,25 +89,26 @@ const Column: FC<IColumnProps> = ({ borderColor, project, title }) => {
     setAddTitle(event.target.value);
   };
 
+
   const addTask = () => {
     dispatch(setCreateTask(addTitle, id));
     setAddInput(false);
   };
 
-  const openModal = (task: ITask, title: string) => {
+  const openModal = (task: ITask, column: string) => {
     dispatch(setOpenEditTaskModal());
-    dispatch(setSelectTask(task, title));
+    dispatch(setSelectTask(task, column));
   };
   
   return (
     <ContainerColumn borderColor={borderColor}>
       <HeaderColumn>
-        <H6>{title}</H6>
+        <H6>{column}</H6>
       </HeaderColumn>
       <OtherColumn>
         {project &&
           project.map((task: ITask, i: number) => (
-            <ContainerTaks key={i} onClick={() => openModal(task, title)}>
+            <ContainerTaks key={i} onClick={() => openModal(task, column)}>
               <ContentTask>
                 <Flex
                   alignItems="start"
@@ -121,7 +123,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, title }) => {
               </ContentTask>
             </ContainerTaks>
           ))}
-        {title === "Queue" ? (
+        {column === "Queue" ? (
           addInput ? (
             <Flex flexDirection="column" margin="0 0 10px 0">
               <InputTitleTaskEl

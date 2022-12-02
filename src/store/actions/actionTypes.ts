@@ -41,17 +41,17 @@ export const setCloseEditTaskModal = () => ({
   payload: false,
 });
 
-export const setSelectTask = (task: ITask,title:string) => ({
+export const setSelectTask = (task: ITask,column:string) => ({
   type: SELECTE_TASK,
-  payload: {task,title},
+  payload: {task,column},
 });
 
 export const setEditTask = (
   task: ITask,
   id: string | undefined,
-  title:string,
+  column:string,
 
 ) => ({
   type: EDIT_TASK,
-  payload: { task,id, title  },
+  payload: { task,id, column,  },
 });

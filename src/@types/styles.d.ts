@@ -19,7 +19,7 @@ declare module "*.gif" {
   export default content;
 }
 
-declare module 'uuid';
+declare module 'uuid'
 
 declare module 'redux-persist/lib/storage'
 

@@ -39,10 +39,11 @@ export interface ITask {
 }
 
 export type TComment = {
-id:string;
-text:string;
-}
-
+  id: string;
+  text: string;
+  subComments: TComment[];
+  [key: string]: any;
+};
 
 export interface ICreateCardProject {
   projects: ICard[];
@@ -60,7 +61,7 @@ const getFromLocalStorage = (key: string) => {
 const initialState: ICreateCardProject = {
   projects: getFromLocalStorage("card")
     ? JSON.parse(getFromLocalStorage("card") || "{}")
-    : ([] as any[]),
+    : ([] as ICard[]),
   selectTask: {} as ITask,
   toggleModalEditTask: false,
 };
@@ -86,7 +87,7 @@ export const createCardProject = (
         ],
       };
     case CREATE_TASK:
-      const id = uuidv4().slice(0, 4);
+      const id:string = uuidv4().slice(0, 4);
       let currentTime = new Date().toLocaleString();
       return {
         ...state,
@@ -121,17 +122,15 @@ export const createCardProject = (
       };
 
     case EDIT_TASK:
-      const column : any = action.payload.title;
+      const column: string = action.payload.column;
       return {
         ...state,
         projects: state.projects.map((project) => {
           if (project.id === action.payload.id) {
-            return{
+            return {
               ...project,
-               [column]:project[column].map((task:ITask) => {
+              [column]: project[column].map((task: ITask) => {
                 if (task.id === action.payload.task.id) {
-                  const comment:TComment = {id:uuidv4(),text:action.payload.task.comments}
-                  // const newComments = item.comments.push(comment)
                   const editTask = {
                     id: action.payload.task.id,
                     titleTask: action.payload.task.titleTask,
@@ -143,14 +142,15 @@ export const createCardProject = (
                     priorityTask: action.payload.task.priorityTask,
                     files: action.payload.task.files,
                     currentStatus: action.payload.task.currentStatus,
-                    comments: [...task.comments, comment]
+                    comments: action.payload.task.comments,
                   };
-                  return editTask
+                  console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                  return editTask;
                 }
-                return task
-              })
-          
-            }
+
+                return task;
+              }),
+            };
           } else {
             return project;
           }
@@ -171,4 +171,3 @@ export const createCardProject = (
       return state;
   }
 };
-

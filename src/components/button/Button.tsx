@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, RefObject } from "react";
 import styled from "styled-components";
 
 export const ButtonEl = styled.button<{
@@ -12,8 +12,11 @@ export const ButtonEl = styled.button<{
   width?: string;
   height?: string;
   active?: boolean;
-  hoverBackColor?:string;
+  hoverBackColor?: string;
+  display?: string;
+  cursor?: string;
 }>`
+  display: ${(props) => props.display || "block"};
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   margin: ${(props) => props.margin || "0"};
@@ -24,7 +27,7 @@ export const ButtonEl = styled.button<{
   font-size: ${(props) => props.fontSize || "14px"};
   line-height: 20px;
   font-weight: 400;
-  cursor: pointer;
+  cursor: ${(props) => props.cursor || "pointer"};
   background: ${(props) => props.background || "transparent"};
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
@@ -32,12 +35,12 @@ export const ButtonEl = styled.button<{
   &:active {
     border: none;
     font-size: ${(props) => props.fontSize || "14px"};
-    color: #172b4d;
+    color: ${(props) => props.color || "#000"};
     line-height: 20px;
   }
 
-  &:hover{
-    background:${(props) => props.hoverBackColor || 'transparent'}
+  &:hover {
+    background: ${(props) => props.hoverBackColor || "transparent"};
   }
 `;
 
@@ -46,6 +49,7 @@ export interface IButtonProps {
   children: string | JSX.Element;
   type?: "button" | "submit" | "reset" | undefined;
 
+  display?: string;
   active?: boolean;
   background?: string;
   borderRadius?: string;
@@ -56,7 +60,8 @@ export interface IButtonProps {
   fontSize?: string;
   width?: string;
   height?: string;
-  hoverBackColor?:string;
+  hoverBackColor?: string;
+  cursor?: string;
 }
 
 const Button: FC<IButtonProps> = (props) => {
@@ -66,6 +71,7 @@ const Button: FC<IButtonProps> = (props) => {
       active={props.active}
       type={props.type}
       //styles
+      display={props.display}
       background={props.background}
       borderRadius={props.borderRadius}
       padding={props.padding}
@@ -76,6 +82,7 @@ const Button: FC<IButtonProps> = (props) => {
       width={props.width}
       height={props.height}
       hoverBackColor={props.hoverBackColor}
+      cursor={props.cursor}
     >
       {props.children}
     </ButtonEl>

@@ -22,17 +22,17 @@ const DetailsPage = () => {
       <Flex>
         <Column
           project={selectProject?.queue}
-          title={title.queue}
+          column={title.queue}
           borderColor="#ff0000"
         />
         <Column
           project={selectProject?.development}
-          title={title.development}
+          column={title.development}
           borderColor="#ffa500"
         />
         <Column
           project={selectProject?.done}
-          title={title.done}
+          column={title.done}
           borderColor="#04ff00"
         />
       <ModalEditTask  />
