@@ -58,8 +58,7 @@ export const ModalTextArea = styled.textarea<{
   fontSize: string;
   boxShadow?: string;
   margin?: string;
-  focusBoxShadow?:string;
-
+  focusBoxShadow?: string;
 }>`
   font-size: ${(props) => props.fontSize || "16px"};
   overflow: hidden;
@@ -75,9 +74,9 @@ export const ModalTextArea = styled.textarea<{
   box-shadow: ${(props) => props.boxShadow || "none"};
   border-radius: 5px;
   position: relative;
-
+  line-hight: 17px;
   &:focus {
-    box-shadow:${props => props.focusBoxShadow}
+    box-shadow: ${(props) => props.focusBoxShadow};
   }
 `;
 
@@ -86,11 +85,12 @@ export const ModalBodyWrapper = styled.div`
   display: flex;
 `;
 
-export const CommentBox = styled.div`
+export const CommentBox = styled.div<{ focus: boolean }>`
   background: #fff;
-  padding: 10px;
+  padding: 4px;
   border-radius: 5px;
-  box-shadow: inset 0 0 0 1px #dfe1e6;
+  box-shadow: ${({ focus }) =>
+    focus === true ? "inset 0 0 0 2px #5f9ea0" : "inset 0 0 0 1px #dfe1e6;"};
 `;
 
 export const CommentsWrapper = styled.div`
@@ -122,10 +122,12 @@ const ModalEditTask: FC = () => {
   const [changeHeaderTask, setChangeHeaderTask] = useState<boolean>(false);
   const [changeDescriptionTask, setChangeDescriptionTask] =
     useState<boolean>(false);
-  const [idSelectComment, setIdSelectComment] = useState('')
+  const [idSelectComment, setIdSelectComment] = useState("");
   const [task, setTask] = useState<ITask>(selectTask.task);
   const [commentTextValue, setCommentTextValue] = useState<string>("");
 
+  const [checkFocusTextArComments, setCheckFocusTextArComments] =
+    useState<boolean>(false);
   useEffect(() => {
     setTask(selectTask.task);
   }, [selectTask.task]);
@@ -151,35 +153,39 @@ const ModalEditTask: FC = () => {
       subComments: [],
     };
     if (commentTextValue !== "") {
-      if(idSelectComment !== ""){
-        setTask({...task,
-          ...task.comments.map(comment => {
-            if(comment.id === idSelectComment){
-              const obj = {
-                id:comment.id,
-                text:commentTextValue,
-                subComments:comment.subComments.concat(newComment)
-              }
-              console.log(obj)
-               return obj
-            }
-          })
-        });
-        
-      }else{
+      if (idSelectComment !== "") {
         setTask({
           ...task,
-          comments: task.comments.concat(newComment),
+          comments: task.comments.map((comment) => {
+            if (comment.id === idSelectComment) {
+              
+              const newSubComment = {
+                id: comment.id,
+                text: comment.text,
+                subComments: [...comment.subComments,newComment],
+              
+              };
+              console.log(newSubComment)
+              return newSubComment;
+            }
+            return comment;
+          }),
+        });
+      } else {
+        setTask({
+          ...task,
+          comments: [...task.comments,newComment],
         });
       }
     }
-    setCommentTextValue("")
+    setCommentTextValue("");
     setIdSelectComment("");
   };
-
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
   };
+  // console.log(task);
+  
   return (
     <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -196,8 +202,7 @@ const ModalEditTask: FC = () => {
                     height="33px"
                     fontSize="18px"
                     boxShadow="inset 0 0 0 2px #dfe1e6;"
-                    focusBoxShadow=' inset 0 0 0 2px #5f9ea0'
-
+                    focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                     value={task.titleTask}
                     name="titleTask"
                     onBlur={() => (setChangeHeaderTask(false), saveTask())}
@@ -261,7 +266,7 @@ const ModalEditTask: FC = () => {
                         autoFocus
                         fontSize="15px"
                         boxShadow="inset 0 0 0 2px #dfe1e6;"
-                        focusBoxShadow=' inset 0 0 0 2px #5f9ea0'
+                        focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                         name="description"
                         value={task.description}
                         onBlur={() => (setChangeHeaderTask(false), saveTask())}
@@ -308,14 +313,19 @@ const ModalEditTask: FC = () => {
                   <Flex alignItems="center" padding="10px 0">
                     <H6>Действия</H6>
                   </Flex>
-                  <CommentBox>
+                  <CommentBox focus={checkFocusTextArComments}>
                     <ModalTextArea
                       fontSize="15px"
-                      height="33px"
+                      height="24px"
                       //
+                      ref={TextAreaRef}
                       placeholder="Напишите коментарий"
                       name="comments"
                       value={commentTextValue}
+                      onFocus={() => {
+                        setCheckFocusTextArComments(true);
+                      }}
+                      onBlur={() => setCheckFocusTextArComments(false)}
                       onChange={(
                         event: React.ChangeEvent<HTMLTextAreaElement>
                       ) => onChangeComment(event)}
@@ -349,9 +359,29 @@ const ModalEditTask: FC = () => {
                           </PDiscriptionEl>
                           <AiOutlinePlus
                             cursor="pointer"
-                            onClick={() => setIdSelectComment(comment.id)}
+                            onClick={() => (
+                              setIdSelectComment(comment.id),
+                              TextAreaRef?.current?.focus(),
+                              setCheckFocusTextArComments(true)
+                            )}
                           />
                         </Flex>
+                        <div>
+                          {comment.subComments.map((subComment, i) => (
+                            <div key={i}>
+                              <div>{subComment.text}</div>
+
+                              <AiOutlinePlus
+                                cursor="pointer"
+                                onClick={() => (
+                                  setIdSelectComment(subComment.id),
+                                  TextAreaRef?.current?.focus(),
+                                  setCheckFocusTextArComments(true)
+                                )}
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </CommentsWrapper>
                     ))}
                 </Flex>
