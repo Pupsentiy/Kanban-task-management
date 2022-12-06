@@ -18,6 +18,7 @@ import { RootState } from "../../store/store";
 import { IToggleCreProModal } from "../../store/reducers/creteProModalToggleReducer";
 import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
 import { useParams } from "react-router-dom";
+import Comments from "../comments/Comments";
 
 export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
@@ -93,19 +94,6 @@ export const CommentBox = styled.div<{ focus: boolean }>`
     focus === true ? "inset 0 0 0 2px #5f9ea0" : "inset 0 0 0 1px #dfe1e6;"};
 `;
 
-export const CommentsWrapper = styled.div`
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
-  box-sizing: border-box;
-  clear: both;
-  display: inline-block;
-  margin: 4px 2px 4px 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 export const ModalOther = styled.div``;
 export const ModalNavigation = styled.div``;
 
@@ -146,7 +134,7 @@ const ModalEditTask: FC = () => {
   const closeModal = () => {
     dispatch(setCloseEditTaskModal());
   };
-  const saveComments = () => {
+  const addComments = () => {
     const newComment: TComment = {
       id: uuidv4(),
       text: commentTextValue,
@@ -158,36 +146,35 @@ const ModalEditTask: FC = () => {
           ...task,
           comments: task.comments.map((comment) => {
             if (comment.id === idSelectComment) {
-              
-              const newSubComment = {
-                id: comment.id,
-                text: comment.text,
-                subComments: [...comment.subComments,newComment],
-              
-              };
-              console.log(newSubComment)
-              return newSubComment;
+              comment.subComments.push(newComment);
+            } else {
+              comment.subComments.map((sub) => {
+                if (sub.id === idSelectComment) {
+                  sub.subComments.push(newComment);
+                }
+              });
             }
+
             return comment;
           }),
         });
       } else {
         setTask({
           ...task,
-          comments: [...task.comments,newComment],
+          comments: [...task.comments, newComment],
         });
       }
     }
     setCommentTextValue("");
     setIdSelectComment("");
   };
-  const saveTask = () => {
+  const addTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
   };
-  // console.log(task);
-  
+  console.log(task);
+
   return (
-    <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
+    <Modal onClick={() => (addTask(), closeModal())} active={activeModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalWrapperHeader>
           <Flex alignItems="start" justifyContent="flex-start">
@@ -205,13 +192,13 @@ const ModalEditTask: FC = () => {
                     focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                     value={task.titleTask}
                     name="titleTask"
-                    onBlur={() => (setChangeHeaderTask(false), saveTask())}
+                    onBlur={() => (setChangeHeaderTask(false), addTask())}
                     onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                       onChangeTask(event)
                     }
                   />
                   <Button
-                    onClick={() => (setChangeHeaderTask(false), saveTask())}
+                    onClick={() => (setChangeHeaderTask(false), addTask())}
                     margin="0 0 0 8px"
                     fontSize="14px"
                     padding="6px 12px"
@@ -233,7 +220,7 @@ const ModalEditTask: FC = () => {
             </Flex>
             <span>
               <TfiClose
-                onClick={() => (saveTask(), closeModal())}
+                onClick={() => (addTask(), closeModal())}
                 cursor="pointer"
               />
             </span>
@@ -269,7 +256,7 @@ const ModalEditTask: FC = () => {
                         focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                         name="description"
                         value={task.description}
-                        onBlur={() => (setChangeHeaderTask(false), saveTask())}
+                        onBlur={() => (setChangeHeaderTask(false), addTask())}
                         onChange={(
                           event: React.ChangeEvent<HTMLTextAreaElement>
                         ) => onChangeTask(event)}
@@ -277,7 +264,7 @@ const ModalEditTask: FC = () => {
                       <Flex margin="5px 0 0 0">
                         <Button
                           onClick={() => (
-                            setChangeDescriptionTask(false), saveTask()
+                            setChangeDescriptionTask(false), addTask()
                           )}
                           fontSize="14px"
                           padding="6px 12px"
@@ -341,49 +328,18 @@ const ModalEditTask: FC = () => {
                       cursor={
                         commentTextValue === "" ? "not-allowed" : "pointer"
                       }
-                      onClick={() => saveComments()}
+                      onClick={() => addComments()}
                     >
                       Сохранить
                     </Button>
                   </CommentBox>
-                  {task?.comments &&
-                    task?.comments?.map((comment: TComment, i: number) => (
-                      <CommentsWrapper key={i}>
-                        <Flex
-                          alignItems="center"
-                          padding="8px 12px"
-                          justifyContent="space-between"
-                        >
-                          <PDiscriptionEl color="#000" lineHeight="0">
-                            {comment.text}
-                          </PDiscriptionEl>
-                          <AiOutlinePlus
-                            cursor="pointer"
-                            onClick={() => (
-                              setIdSelectComment(comment.id),
-                              TextAreaRef?.current?.focus(),
-                              setCheckFocusTextArComments(true)
-                            )}
-                          />
-                        </Flex>
-                        <div>
-                          {comment.subComments.map((subComment, i) => (
-                            <div key={i}>
-                              <div>{subComment.text}</div>
 
-                              <AiOutlinePlus
-                                cursor="pointer"
-                                onClick={() => (
-                                  setIdSelectComment(subComment.id),
-                                  TextAreaRef?.current?.focus(),
-                                  setCheckFocusTextArComments(true)
-                                )}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </CommentsWrapper>
-                    ))}
+                  <Comments
+                    items={task?.comments}
+                    setIdSelectComment={setIdSelectComment}
+                    setCheckFocusTextArComments={setCheckFocusTextArComments}
+                    TextAreaRef={TextAreaRef}
+                  />
                 </Flex>
               </Flex>
             </ModalOther>
