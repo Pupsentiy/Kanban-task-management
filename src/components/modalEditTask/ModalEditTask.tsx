@@ -168,13 +168,13 @@ const ModalEditTask: FC = () => {
     setCommentTextValue("");
     setIdSelectComment("");
   };
-  const addTask = () => {
+  const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
   };
   console.log(task);
 
   return (
-    <Modal onClick={() => (addTask(), closeModal())} active={activeModal}>
+    <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalWrapperHeader>
           <Flex alignItems="start" justifyContent="flex-start">
@@ -192,13 +192,13 @@ const ModalEditTask: FC = () => {
                     focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                     value={task.titleTask}
                     name="titleTask"
-                    onBlur={() => (setChangeHeaderTask(false), addTask())}
+                    onBlur={() => (setChangeHeaderTask(false), saveTask())}
                     onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                       onChangeTask(event)
                     }
                   />
                   <Button
-                    onClick={() => (setChangeHeaderTask(false), addTask())}
+                    onClick={() => (setChangeHeaderTask(false), saveTask())}
                     margin="0 0 0 8px"
                     fontSize="14px"
                     padding="6px 12px"
@@ -220,7 +220,7 @@ const ModalEditTask: FC = () => {
             </Flex>
             <span>
               <TfiClose
-                onClick={() => (addTask(), closeModal())}
+                onClick={() => (saveTask(), closeModal())}
                 cursor="pointer"
               />
             </span>
@@ -256,7 +256,7 @@ const ModalEditTask: FC = () => {
                         focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
                         name="description"
                         value={task.description}
-                        onBlur={() => (setChangeHeaderTask(false), addTask())}
+                        onBlur={() => (setChangeHeaderTask(false), saveTask())}
                         onChange={(
                           event: React.ChangeEvent<HTMLTextAreaElement>
                         ) => onChangeTask(event)}
@@ -264,7 +264,7 @@ const ModalEditTask: FC = () => {
                       <Flex margin="5px 0 0 0">
                         <Button
                           onClick={() => (
-                            setChangeDescriptionTask(false), addTask()
+                            setChangeDescriptionTask(false), saveTask()
                           )}
                           fontSize="14px"
                           padding="6px 12px"
