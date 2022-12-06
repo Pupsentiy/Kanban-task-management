@@ -116,6 +116,7 @@ const ModalEditTask: FC = () => {
 
   const [checkFocusTextArComments, setCheckFocusTextArComments] =
     useState<boolean>(false);
+    const [selectCommet,setSelectComments] = useState<TComment | null>(null)
   useEffect(() => {
     setTask(selectTask.task);
   }, [selectTask.task]);
@@ -134,44 +135,43 @@ const ModalEditTask: FC = () => {
   const closeModal = () => {
     dispatch(setCloseEditTaskModal());
   };
-  const addComments = () => {
-    const newComment: TComment = {
-      id: uuidv4(),
-      text: commentTextValue,
-      subComments: [],
-    };
-    if (commentTextValue !== "") {
-      if (idSelectComment !== "") {
-        setTask({
-          ...task,
-          comments: task.comments.map((comment) => {
-            if (comment.id === idSelectComment) {
-              comment.subComments.push(newComment);
-            } else {
-              comment.subComments.map((sub) => {
-                if (sub.id === idSelectComment) {
-                  sub.subComments.push(newComment);
-                }
-              });
-            }
 
-            return comment;
-          }),
-        });
-      } else {
-        setTask({
-          ...task,
-          comments: [...task.comments, newComment],
-        });
-      }
+  const newComment: TComment = {
+    id: uuidv4(),
+    text: commentTextValue,
+    subComments: [],
+  };
+
+  const addComments = () => {
+      setTask({
+        ...task,
+        comments: [...task.comments, newComment],
+      });
+    setCommentTextValue("");
+  };
+
+  const addSubCommetns = () => {
+    if (selectCommet?.id === idSelectComment) {
+      selectCommet?.subComments.push(newComment);
     }
     setCommentTextValue("");
-    setIdSelectComment("");
   };
+
+  const saveComments = () => {
+    if (commentTextValue !== "") {
+      if(idSelectComment !== ""){
+        addSubCommetns()
+      }else{
+        addComments()
+      }
+    }
+    setIdSelectComment('')
+  }
+
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
   };
-  console.log(task);
+  // console.log(task);
 
   return (
     <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
@@ -328,7 +328,7 @@ const ModalEditTask: FC = () => {
                       cursor={
                         commentTextValue === "" ? "not-allowed" : "pointer"
                       }
-                      onClick={() => addComments()}
+                      onClick={() => saveComments()}
                     >
                       Сохранить
                     </Button>
@@ -339,6 +339,8 @@ const ModalEditTask: FC = () => {
                     setIdSelectComment={setIdSelectComment}
                     setCheckFocusTextArComments={setCheckFocusTextArComments}
                     TextAreaRef={TextAreaRef}
+                    addSubCommetns={addSubCommetns}
+                    setSelectComments={setSelectComments}
                   />
                 </Flex>
               </Flex>

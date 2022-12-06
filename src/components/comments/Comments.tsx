@@ -13,22 +13,31 @@ export const CommentsWrapper = styled.div`
   display: inline-block;
   margin: 4px 2px 4px 0;
   max-width: 100%;
+  width:100%;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const ContainerEL = styled.div`
+margin: 0px 0 0 20px;
+`
 
 export interface IComments {
   items: TComment[];
   setIdSelectComment: React.Dispatch<React.SetStateAction<string>>;
   setCheckFocusTextArComments: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectComments:React.Dispatch<React.SetStateAction<TComment | null>>
   TextAreaRef: React.RefObject<HTMLTextAreaElement>;
+  addSubCommetns:() => void
 }
 
 const Comments: FC<IComments> = ({
   items,
   setIdSelectComment,
   setCheckFocusTextArComments,
+  setSelectComments,
   TextAreaRef,
+  addSubCommetns
 }) => {
   return (
     <>
@@ -48,20 +57,24 @@ const Comments: FC<IComments> = ({
                 onClick={() => (
                   setIdSelectComment(comment.id),
                   TextAreaRef?.current?.focus(),
-                  setCheckFocusTextArComments(true)
+                  setCheckFocusTextArComments(true),
+                  setSelectComments(comment),
+                  addSubCommetns()
                 )}
               />
             </Flex>
-            <div>
-              {comment?.subComments && comment?.subComments?.length ? (
+             <ContainerEL>
+             {comment?.subComments && comment?.subComments?.length ? (
                 <Comments
                   items={comment.subComments}
                   setIdSelectComment={setIdSelectComment}
                   setCheckFocusTextArComments={setCheckFocusTextArComments}
                   TextAreaRef={TextAreaRef}
+                  addSubCommetns={addSubCommetns}
+                  setSelectComments={setSelectComments}
                 />
               ) : null}
-            </div>
+             </ContainerEL>
           </CommentsWrapper>
         ))}
     </>

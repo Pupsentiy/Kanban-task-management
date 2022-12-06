@@ -144,7 +144,7 @@ export const createCardProject = (
                     currentStatus: action.payload.task.currentStatus,
                     comments: action.payload.task.comments,
                   };
-                  console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                  // console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                   return editTask;
                 }
 
