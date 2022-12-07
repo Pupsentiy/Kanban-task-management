@@ -80,14 +80,19 @@ export const H5 = styled.h5<{ margin?: string; fontWeight?: string }>`
   margin: ${(props) => props.margin || "0"};
 `;
 
-export const H6 = styled.h6<{ margin?: string; color?:string; fontWeight?:string; width?:string;}>`
-  font-weight:${props => props.fontWeight || '600'};
+export const H6 = styled.h6<{
+  margin?: string;
+  color?: string;
+  fontWeight?: string;
+  width?: string;
+}>`
+  font-weight: ${(props) => props.fontWeight || "600"};
   font-size: 16px;
   line-height: 100%;
   word-wrap: break-word;
-  color:${props => props.color || '#000'};
+  color: ${(props) => props.color || "#000"};
   margin: ${(props) => props.margin || "0"};
-  width:${props => props.width || 'auto'}
+  width: ${(props) => props.width || "auto"};
 `;
 export const PDiscriptionEl = styled.p<{
   display?: string;
@@ -98,7 +103,7 @@ export const PDiscriptionEl = styled.p<{
   lineHeight?: string;
   fontSize?: string;
   fontWeight?: string;
-  cursor?:string;
+  cursor?: string;
 }>`
   color: ${(props) => props.color || "#fff"};
   font-size: ${(props) => props.fontSize || "14px"};
@@ -108,8 +113,8 @@ export const PDiscriptionEl = styled.p<{
   display: ${(props) => props.display || "block"};
   flex-direction: ${(props) => props.flexDirectin || "start"};
   margin: ${(props) => props.margin || "0"};
-  cursor:${props => props.cursor || 'default'};
-  &span{
+  cursor: ${(props) => props.cursor || "default"};
+  &span {
     text-decoration: underline;
   }
 `;
@@ -127,16 +132,18 @@ export const Flex = styled.div<{
   margin?: string;
   flexDirection?: string;
   width?: string;
-  padding?:string;
+  padding?: string;
+  position?:string;
 }>`
+  position: ${props => props.position || 'initial' };
   width: ${(props) => props.width || "auto"};
   display: flex;
   justify-content: ${(props) => props.justifyContent || "start"};
   align-items: ${(props) => props.alignItems || "left"};
-  margin: ${(props) => props.margin|| "0"};
+  margin: ${(props) => props.margin || "0"};
   flex-direction: ${(props) => props.flexDirection || "row"};
-  padding: ${(props) => props.padding|| "0"};
-  span{
+  padding: ${(props) => props.padding || "0"};
+  span {
     margin: 4px;
     padding: 4px;
     display: flex;
@@ -161,7 +168,7 @@ export const NavLinkEL = styled(NavLink)<{
   margin?: string;
   fontSize?: string;
   width?: string;
-  minHeight?:string;
+  minHeight?: string;
 }>`
   display: ${(props) => props.display || "flex"};
   align-items: ${(props) => props.alignItems || "start"};
@@ -173,5 +180,5 @@ export const NavLinkEL = styled(NavLink)<{
   color: ${(props) => props.color || "#000"};
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
-  min-height:${props => props.minHeight || 'auto'}
+  min-height: ${(props) => props.minHeight || "auto"};
 `;

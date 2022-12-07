@@ -6,7 +6,13 @@ import { TfiClose } from "react-icons/tfi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsLaptop, BsTextLeft, BsTextIndentLeft } from "react-icons/bs";
 import { IoMdArrowDroprightCircle } from "react-icons/io";
-import { Flex, H2, H6, PDiscriptionEl } from "../../styles/index.styled";
+import {
+  Flex,
+  H2,
+  H6,
+  PDiscriptionEl,
+  WrapperEl,
+} from "../../styles/index.styled";
 import Button, { ButtonEl } from "../button/Button";
 import {
   setCloseEditTaskModal,
@@ -24,7 +30,8 @@ export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
   padding: 20px 0;
   background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  overflow-y: auto;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -37,23 +44,35 @@ export const Modal = styled.div<{ active: boolean }>`
   min-height: 100vh;
 `;
 
+export const ContainerIcon = styled.div<{
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+}>`
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  padding: 4px;
+  margin: 4px;
+  top: ${(props) => props.top || "auto"};
+  bottom: ${(props) => props.bottom || "auto"};
+  left: ${(props) => props.left || "auto"};
+  right: ${(props) => props.right || "auto"};
+`;
+
 export const ModalContent = styled.div`
   padding: 10px 5px;
   border-radius: 5px;
   background-color: #ecf1fb;
   min-height: 500px;
-  min-width: 660px;
-  width: 660px;
+  width: 860px;
 `;
 export const ModalWrapperHeader = styled.div`
   padding: 5px 5px 8px;
-  span {
-    margin: 4px;
-    padding: 4px;
-    display: flex;
-  }
+  position: relative;
+  height: 32px;
 `;
-// убрать бордер у техкстареа
 export const ModalTextArea = styled.textarea<{
   height?: string;
   fontSize: string;
@@ -67,7 +86,7 @@ export const ModalTextArea = styled.textarea<{
   height: ${(props) => props.height || "80px"};
   box-shadow: none;
   resize: none;
-  min-width: 450px;
+  width: 100%;
   outline: none;
   border: none;
   padding: 5px 2px 2px 5px;
@@ -75,7 +94,7 @@ export const ModalTextArea = styled.textarea<{
   box-shadow: ${(props) => props.boxShadow || "none"};
   border-radius: 5px;
   position: relative;
-  line-hight: 17px;
+  line-height: 17px;
   &:focus {
     box-shadow: ${(props) => props.focusBoxShadow};
   }
@@ -84,6 +103,8 @@ export const ModalTextArea = styled.textarea<{
 export const ModalBodyWrapper = styled.div`
   padding: 5px 5px 8px;
   display: flex;
+  width: 100%;
+  flex-direaction: column;
 `;
 
 export const CommentBox = styled.div<{ focus: boolean }>`
@@ -94,8 +115,14 @@ export const CommentBox = styled.div<{ focus: boolean }>`
     focus === true ? "inset 0 0 0 2px #5f9ea0" : "inset 0 0 0 1px #dfe1e6;"};
 `;
 
-export const ModalOther = styled.div``;
-export const ModalNavigation = styled.div``;
+export const ModalOther = styled.div`
+  padding: 0 5px 0 0;
+  width: 80%;
+`;
+export const ModalNavigation = styled.div`
+  padding: 0 5px;
+  width: 50%;
+`;
 
 const ModalEditTask: FC = () => {
   const { id } = useParams();
@@ -116,7 +143,7 @@ const ModalEditTask: FC = () => {
 
   const [checkFocusTextArComments, setCheckFocusTextArComments] =
     useState<boolean>(false);
-    const [selectCommet,setSelectComments] = useState<TComment | null>(null)
+  const [selectCommet, setSelectComments] = useState<TComment | null>(null);
   useEffect(() => {
     setTask(selectTask.task);
   }, [selectTask.task]);
@@ -143,10 +170,10 @@ const ModalEditTask: FC = () => {
   };
 
   const addComments = () => {
-      setTask({
-        ...task,
-        comments: [...task.comments, newComment],
-      });
+    setTask({
+      ...task,
+      comments: [...task.comments, newComment],
+    });
     setCommentTextValue("");
   };
 
@@ -159,14 +186,14 @@ const ModalEditTask: FC = () => {
 
   const saveComments = () => {
     if (commentTextValue !== "") {
-      if(idSelectComment !== ""){
-        addSubCommetns()
-      }else{
-        addComments()
+      if (idSelectComment !== "") {
+        addSubCommetns();
+      } else {
+        addComments();
       }
     }
-    setIdSelectComment('')
-  }
+    setIdSelectComment("");
+  };
 
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
@@ -178,15 +205,15 @@ const ModalEditTask: FC = () => {
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalWrapperHeader>
           <Flex alignItems="start" justifyContent="flex-start">
-            <span>
+            <ContainerIcon top="3px">
               <BsLaptop fontSize="20px" />
-            </span>
-            <Flex flexDirection="column" margin="0 10px" width="100%">
+            </ContainerIcon>
+            <Flex flexDirection="column" margin="0 40px" width="100%">
               {changeHeaderTask ? (
-                <Flex alignItems="center">
+                <Flex alignItems="center" width="100%">
                   <ModalTextArea
                     autoFocus
-                    height="33px"
+                    height="28px"
                     fontSize="18px"
                     boxShadow="inset 0 0 0 2px #dfe1e6;"
                     focusBoxShadow=" inset 0 0 0 2px #5f9ea0"
@@ -200,7 +227,6 @@ const ModalEditTask: FC = () => {
                   <Button
                     onClick={() => (setChangeHeaderTask(false), saveTask())}
                     margin="0 0 0 8px"
-                    fontSize="14px"
                     padding="6px 12px"
                     background="#5f9ea094"
                     hoverBackColor="#5f9ea0"
@@ -210,36 +236,39 @@ const ModalEditTask: FC = () => {
                 </Flex>
               ) : (
                 <H2
+                  margin="6px"
                   fontSize="20px"
-                  margin="8px 0 8px 0"
                   onClick={() => setChangeHeaderTask(true)}
                 >
                   {task?.titleTask}
                 </H2>
               )}
             </Flex>
-            <span>
+            <ContainerIcon right="0" top="3px">
               <TfiClose
                 onClick={() => (saveTask(), closeModal())}
                 cursor="pointer"
               />
-            </span>
+            </ContainerIcon>
           </Flex>
         </ModalWrapperHeader>
         <ModalBodyWrapper>
-          <Flex>
+          <Flex width="100%">
             <ModalOther>
-              <Flex alignItems="top" margin="5px 0">
-                <span>
+              <Flex alignItems="top" margin="5px 0" width="100%">
+                <ContainerIcon>
                   <BsTextLeft fontSize="22px" />
-                </span>
-                <Flex flexDirection="column" margin="0 10px" width="100%">
-                  <Flex alignItems="center" padding="5px 5px 5px 0">
+                </ContainerIcon>
+                <Flex flexDirection="column" width="100%">
+                  <Flex
+                    alignItems="center"
+                    padding="5px 5px 5px 0"
+                    margin="0 0 0 40px"
+                  >
                     <H6>Описание</H6>
                     <Button
                       onClick={() => setChangeDescriptionTask(true)}
                       margin="0 0 0 8px"
-                      fontSize="14px"
                       padding="6px 12px"
                       background="#5f9ea094"
                       hoverBackColor="#5f9ea0"
@@ -248,7 +277,7 @@ const ModalEditTask: FC = () => {
                     </Button>
                   </Flex>
                   {changeDescriptionTask ? (
-                    <Flex flexDirection="column">
+                    <Flex flexDirection="column" margin="0 0 0 40px">
                       <ModalTextArea
                         autoFocus
                         fontSize="15px"
@@ -262,7 +291,8 @@ const ModalEditTask: FC = () => {
                         ) => onChangeTask(event)}
                       />
                       <Flex margin="5px 0 0 0">
-                        <Button
+                        <Button                     
+
                           onClick={() => (
                             setChangeDescriptionTask(false), saveTask()
                           )}
@@ -286,17 +316,19 @@ const ModalEditTask: FC = () => {
                       </Flex>
                     </Flex>
                   ) : (
-                    <PDiscriptionEl color="#000">
-                      {task?.description}
-                    </PDiscriptionEl>
+                    <WrapperEl margin="0 0 0 40px">
+                      <PDiscriptionEl color="#000">
+                        {task?.description}
+                      </PDiscriptionEl>
+                    </WrapperEl>
                   )}
                 </Flex>
               </Flex>
               <Flex alignItems="top" margin="5px 0">
-                <span>
+                <ContainerIcon>
                   <BsTextIndentLeft fontSize="22px" />
-                </span>
-                <Flex flexDirection="column" margin="0 10px">
+                </ContainerIcon>
+                <Flex flexDirection="column" margin="0 0 0 40px">
                   <Flex alignItems="center" padding="10px 0">
                     <H6>Действия</H6>
                   </Flex>
@@ -333,7 +365,6 @@ const ModalEditTask: FC = () => {
                       Сохранить
                     </Button>
                   </CommentBox>
-
                   <Comments
                     items={task?.comments}
                     setIdSelectComment={setIdSelectComment}
@@ -359,5 +390,4 @@ const ModalEditTask: FC = () => {
     </Modal>
   );
 };
-
 export default ModalEditTask;

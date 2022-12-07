@@ -10,16 +10,13 @@ export const CommentsWrapper = styled.div`
   box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
   box-sizing: border-box;
   clear: both;
-  display: inline-block;
   margin: 4px 2px 4px 0;
-  max-width: 100%;
-  width:100%;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
 export const ContainerEL = styled.div`
-margin: 0px 0 0 20px;
+padding: 0px 0 0 10px;
 `
 
 export interface IComments {
@@ -46,10 +43,11 @@ const Comments: FC<IComments> = ({
           <CommentsWrapper key={i}>
             <Flex
               alignItems="center"
-              padding="8px 12px"
+              padding="8px 3px 2px 12px"
               justifyContent="space-between"
+              width="100%"
             >
-              <PDiscriptionEl color="#000" lineHeight="0">
+              <PDiscriptionEl color="#000" lineHeight="normal">
                 {comment.text}
               </PDiscriptionEl>
               <AiOutlinePlus
