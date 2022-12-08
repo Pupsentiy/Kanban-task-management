@@ -1,5 +1,5 @@
+import { now } from "moment";
 import { v4 as uuidv4 } from "uuid";
-import { OtherColumn } from "../../components/column/Column";
 import {
   CLOSE_EDIT_TASK_MODAL,
   CREATE_CARD_PROJECT,
@@ -28,9 +28,9 @@ export interface ITask {
   numberTask: string;
   titleTask: string;
   description: string;
-  createTaskDate: string; //Date
+  createTaskDate: Date; //Date
   proccesTime: string; //Date
-  finishDate: string; //date
+  finishDate: Date | null; //date
   priorityTask: string;
   files: string; // File
   currentStatus: string;
@@ -88,7 +88,7 @@ export const createCardProject = (
       };
     case CREATE_TASK:
       const id:string = uuidv4().slice(0, 4);
-      let currentTime = new Date().toLocaleString();
+      let currentTime = new Date()
       return {
         ...state,
         projects: state.projects.map((project) => {
@@ -100,7 +100,7 @@ export const createCardProject = (
               description: "",
               createTaskDate: currentTime,
               proccesTime: "",
-              finishDate: "",
+              finishDate: null,
               priorityTask: "",
               files: "",
               currentStatus: "",
@@ -137,7 +137,7 @@ export const createCardProject = (
                     numberTask: action.payload.task.numberTask,
                     description: action.payload.task.description,
                     createTaskDate: action.payload.task.createTaskDate,
-                    proccesTime: action.payload.task.proccesTime,
+                    proccesTime:  action.payload.task.proccesTime,
                     finishDate: action.payload.task.finishDate,
                     priorityTask: action.payload.task.priorityTask,
                     files: action.payload.task.files,

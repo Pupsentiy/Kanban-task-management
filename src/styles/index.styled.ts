@@ -114,6 +114,7 @@ export const PDiscriptionEl = styled.p<{
   flex-direction: ${(props) => props.flexDirectin || "start"};
   margin: ${(props) => props.margin || "0"};
   cursor: ${(props) => props.cursor || "default"};
+  word-break: break-all;
   &span {
     text-decoration: underline;
   }
@@ -134,20 +135,17 @@ export const Flex = styled.div<{
   width?: string;
   padding?: string;
   position?:string;
+  maxWidth?:string;
 }>`
   position: ${props => props.position || 'initial' };
   width: ${(props) => props.width || "auto"};
+  max-width:${props => props.maxWidth || 'auto'};
   display: flex;
   justify-content: ${(props) => props.justifyContent || "start"};
   align-items: ${(props) => props.alignItems || "left"};
   margin: ${(props) => props.margin || "0"};
   flex-direction: ${(props) => props.flexDirection || "row"};
   padding: ${(props) => props.padding || "0"};
-  span {
-    margin: 4px;
-    padding: 4px;
-    display: flex;
-  }
 `;
 
 export const WrapperEl = styled.div<{ margin?: string; padding?: string }>`

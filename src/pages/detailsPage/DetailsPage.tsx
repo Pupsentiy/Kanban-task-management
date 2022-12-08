@@ -11,7 +11,7 @@ const DetailsPage = () => {
   const cardProject = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
-
+  
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
   const selectProject = Object.values(cardProject).find(

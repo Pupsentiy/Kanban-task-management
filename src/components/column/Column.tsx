@@ -12,7 +12,7 @@ import { ITask } from "../../store/reducers/createCardProjectReducer";
 
 import { ButtonEl } from "../button/Button";
 
-import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
+import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { CiEdit } from "react-icons/ci";
@@ -23,7 +23,7 @@ export const ContainerColumn = styled.div<{ borderColor: string }>`
   width: 33.33%;
   height: 100%;
   margin: 0 4px;
-  box-shadow: 0px 0px 12px 1px #aba6a6;
+  box-shadow: 0px 0px 3px 0px #aba6a6;
   border-radius: 5px;
   padding: 6px 10px;
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
@@ -46,18 +46,21 @@ export const InputTitleTaskEl = styled.textarea`
   height: 40px;
   padding: 2px 5px 0 5px;
   border: none;
-  border-radius: 3px;
+  border-radius: 2px;
   font-size: 15px;
   box-shadow: 0px 0px 4px 1px #aba6a6;
+  &:focus {
+    box-shadow: inset 0 0 0 2px #5f9ea0;
+  }
 `;
 
 export const ContainerTaks = styled.div`
   background: #f5f5dc;
   min-height: 20px;
-  border-radius: 3px;
+  border-radius: 2px;
   margin-bottom: 10px;
-  padding: 6px 8px 2px;
-  box-shadow: 0px 0px 3px 1px #aba6a6;
+  padding: 10px 8px 2px;
+  box-shadow: 0px 0px 2px 1px #aba6a6;
   cursor: pointer;
   &:hover {
     background: #e1e1c3;
@@ -84,22 +87,36 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addTitle, setAddTitle] = useState<string>("");
-
   const changeTitleTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddTitle(event.target.value);
   };
-
 
   const addTask = () => {
     dispatch(setCreateTask(addTitle, id));
     setAddInput(false);
   };
 
-  const openModal = (task: ITask, column: string) => {
-    dispatch(setOpenEditTaskModal());
-    dispatch(setSelectTask(task, column));
+  const getProccesTime = (ms: Date) => {
+    const endTime = new Date();
+    let timeDiff = +endTime - +new Date(ms);
+    let seconds = Math.floor(timeDiff / 1000);
+    let minutes = Math.floor(seconds / 60) % 60;
+    let hours = Math.floor(minutes / 60) % 60;
+    let days = Math.floor(hours / 24) % 24;
+
+    let pad = function (n: string | number) {
+      return n < 10 ? "0" + n : n;
+    };
+    let result = days + "д. " + pad(hours) + "час. : " + pad(minutes) + "мин.";
+    return result;
   };
-  
+  const openModal = (task: ITask, column: string) => {
+    const proccesTime = getProccesTime(task?.createTaskDate);
+    const editTaskTime = { ...task, proccesTime: proccesTime };
+    dispatch(setOpenEditTaskModal());
+    dispatch(setSelectTask(editTaskTime, column));
+  };
+
   return (
     <ContainerColumn borderColor={borderColor}>
       <HeaderColumn>
@@ -115,10 +132,12 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                   justifyContent="space-between"
                   width="100%"
                 >
-                  <H6 fontWeight="400" width="94%">
+                  <H6 fontWeight="400" width="80%">
                     {task.titleTask}
                   </H6>
-                  <CiEdit fontSize="16px" className="icon" display="none" />
+                  <WrapperEl padding="0 5px 0 0">
+                    {"№" + task.numberTask}
+                  </WrapperEl>
                 </Flex>
               </ContentTask>
             </ContainerTaks>
