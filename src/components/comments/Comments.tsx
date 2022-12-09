@@ -13,6 +13,7 @@ export const CommentsWrapper = styled.div`
   margin: 4px 0 4px 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 5px 0;
 `;
 
 export const ContainerEL = styled.div`
@@ -22,7 +23,6 @@ export const ContainerEL = styled.div`
 export interface IComments {
   items: TComment[];
   setIdSelectComment: React.Dispatch<React.SetStateAction<string>>;
-  setCheckFocusTextArComments: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectComments: React.Dispatch<React.SetStateAction<TComment | null>>;
   TextAreaRef: React.RefObject<HTMLTextAreaElement>;
   addSubCommetns: () => void;
@@ -31,7 +31,6 @@ export interface IComments {
 const Comments: FC<IComments> = ({
   items,
   setIdSelectComment,
-  setCheckFocusTextArComments,
   setSelectComments,
   TextAreaRef,
   addSubCommetns,
@@ -56,7 +55,6 @@ const Comments: FC<IComments> = ({
                 onClick={() => (
                   setIdSelectComment(comment.id),
                   TextAreaRef?.current?.focus(),
-                  setCheckFocusTextArComments(true),
                   setSelectComments(comment),
                   addSubCommetns()
                 )}
@@ -73,7 +71,6 @@ const Comments: FC<IComments> = ({
                 <Comments
                   items={comment.subComments}
                   setIdSelectComment={setIdSelectComment}
-                  setCheckFocusTextArComments={setCheckFocusTextArComments}
                   TextAreaRef={TextAreaRef}
                   addSubCommetns={addSubCommetns}
                   setSelectComments={setSelectComments}

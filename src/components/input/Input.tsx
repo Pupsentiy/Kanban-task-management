@@ -46,10 +46,15 @@ export const LabelEl = styled.label<{margin?:string;}>`
 export interface IInputProps {
   label?: string;
   type: string;
+  id?:string;
   error?: string | undefined;
   placeholder?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  defaultChecked?:boolean;
+  checked?:boolean;  
   value?: string;
+  disabled?:boolean;
+  defaultValue?:string
   //styles
   margin?: string;
   border?: string;
@@ -66,13 +71,16 @@ export interface IInputProps {
 
 const Input: FC<IInputProps> = (props) => {
   return (
-    <LabelEl>
+    <LabelEl htmlFor={props.id}>
       {props.label}
       <InputEl
         type={props.type}
         placeholder={props.placeholder}
         onChange={props.onChange}
         value={props.value}
+        id={props.id}
+        disabled={props.disabled}
+        defaultValue={props.defaultValue}
         //styles
         margin={props.margin}
         border={props.border}

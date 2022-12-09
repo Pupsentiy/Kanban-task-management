@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
-import { TfiClose, TfiSaveAlt } from "react-icons/tfi";
+import { TfiClose } from "react-icons/tfi";
 import { BsLaptop, BsTextLeft, BsTextIndentLeft } from "react-icons/bs";
 import {
   Flex,
@@ -22,11 +22,13 @@ import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
 import { useParams } from "react-router-dom";
 import Comments from "../comments/Comments";
 import Moment from "react-moment";
+import DropDown from "../dropDown/DropDown";
+import Input from "../input/Input";
 
 export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
   padding: 20px 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #000000d1;
   overflow-y: auto;
   position: absolute;
   top: 0;
@@ -58,12 +60,14 @@ export const ContainerIcon = styled.div<{
   right: ${(props) => props.right || "auto"};
 `;
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.div<{ active: boolean }>`
   padding: 10px 5px;
   border-radius: 5px;
   background-color: #ecf1fb;
   min-height: 500px;
   width: 860px;
+  transition: 0.5s all;
+  transform: ${({ active }) => (active === true ? `scale(1)` : `scale(0.2)`)};
 `;
 export const ModalWrapperHeader = styled.div`
   padding: 5px 5px 8px;
@@ -88,12 +92,12 @@ export const ModalTextArea = styled.textarea<{
   border: none;
   padding: 5px 2px 2px 5px;
   margin: ${(props) => props.margin || "0"};
-  box-shadow:inset 0 0 0 2px #dfe1e6;
+  box-shadow: inset 0 0 0 2px #dfe1e6;
   border-radius: 5px;
   position: relative;
   line-height: 17px;
   &:focus {
-    box-shadow:inset 0 0 0 2px #5f9ea0;
+    box-shadow: inset 0 0 0 2px #5f9ea0;
   }
 `;
 
@@ -104,16 +108,25 @@ export const ModalBodyWrapper = styled.div`
   flex-direaction: column;
 `;
 
-export const ModalOther = styled.div`
+export const ModalOtherBlock = styled.div`
   width: 70%;
   padding: 0 5px 0 0;
 `;
 export const ModalNavigation = styled.div`
+  position: relative;
   padding: 0 5px;
   width: 30%;
 `;
 
-const ModalEditTask: FC = () => {
+export interface IModalEditTask {
+  activeInputDate: boolean;
+  setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ModalEditTask: FC<IModalEditTask> = ({
+  setActiveInputDate,
+  activeInputDate,
+}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const TextAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -123,16 +136,15 @@ const ModalEditTask: FC = () => {
   const activeModal = useSelector(
     (state: RootState) => state.createCardProject.toggleModalEditTask
   );
+
   const [changeHeaderTask, setChangeHeaderTask] = useState<boolean>(false);
   const [changeDescriptionTask, setChangeDescriptionTask] =
     useState<boolean>(false);
   const [idSelectComment, setIdSelectComment] = useState("");
   const [task, setTask] = useState<ITask>(selectTask.task);
   const [commentTextValue, setCommentTextValue] = useState<string>("");
-
-  const [checkFocusTextArComments, setCheckFocusTextArComments] =
-    useState<boolean>(false);
   const [selectComment, setSelectComments] = useState<TComment | null>(null);
+
   useEffect(() => {
     setTask(selectTask.task);
   }, [selectTask.task]);
@@ -144,6 +156,7 @@ const ModalEditTask: FC = () => {
       [name]: value,
     });
   };
+
   const onChangeComment = (event: { target: { value: string } }) => {
     setCommentTextValue(event.target.value);
   };
@@ -185,12 +198,11 @@ const ModalEditTask: FC = () => {
 
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
+    setActiveInputDate(false)
   };
-  // console.log(task);
-
   return (
     <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
+      <ModalContent onClick={(e) => e.stopPropagation()} active={activeModal}>
         <ModalWrapperHeader>
           <Flex alignItems="start" justifyContent="flex-start">
             <ContainerIcon top="3px">
@@ -240,8 +252,8 @@ const ModalEditTask: FC = () => {
         </ModalWrapperHeader>
         <ModalBodyWrapper>
           <Flex width="100%">
-            <ModalOther>
-              <Flex alignItems="top" margin="5px 0" width="100%">
+            <ModalOtherBlock>
+              <Flex alignItems="top" margin="5px 0 20px 0" width="100%">
                 <ContainerIcon>
                   <BsTextLeft fontSize="22px" />
                 </ContainerIcon>
@@ -298,9 +310,7 @@ const ModalEditTask: FC = () => {
                     </Flex>
                   ) : (
                     <WrapperEl margin="0 0 0 40px">
-                      <PDiscriptionEl color="#000">
-                        {task?.description}
-                      </PDiscriptionEl>
+                      <PDiscriptionEl>{task?.description}</PDiscriptionEl>
                     </WrapperEl>
                   )}
                 </Flex>
@@ -327,10 +337,6 @@ const ModalEditTask: FC = () => {
                       name="comments"
                       value={commentTextValue}
                       ref={TextAreaRef}
-                      onFocus={() => {
-                        setCheckFocusTextArComments(true);
-                      }}
-                      onBlur={() => setCheckFocusTextArComments(false)}
                       onChange={(
                         event: React.ChangeEvent<HTMLTextAreaElement>
                       ) => onChangeComment(event)}
@@ -355,19 +361,95 @@ const ModalEditTask: FC = () => {
                   <Comments
                     items={task?.comments}
                     setIdSelectComment={setIdSelectComment}
-                    setCheckFocusTextArComments={setCheckFocusTextArComments}
                     TextAreaRef={TextAreaRef}
                     addSubCommetns={addSubCommetns}
                     setSelectComments={setSelectComments}
                   />
                 </Flex>
               </Flex>
-            </ModalOther>
+            </ModalOtherBlock>
             <ModalNavigation>
-              <PDiscriptionEl fontSize="14px" color="#000" lineHeight="23px">
-                дата создания: <Moment format="DD.MM.YY - HH:mm">{task?.createTaskDate}</Moment>
+              <PDiscriptionEl margin="0 0 5px 0">
+                Добавить на карточку
               </PDiscriptionEl>
-             дата {task?.proccesTime}
+              <WrapperEl>
+                <Button
+                  background="#4f94cd"
+                  width="100%"
+                  hoverBackColor="#5cacee"
+                  onClick={() => console.log()}
+                >
+                  Даты
+                </Button>
+              </WrapperEl>
+              <DropDown name="Даты">
+                <PDiscriptionEl>
+                  Дата создания:
+                  <Moment format=" DD.MM.YY - HH:mm">
+                    {task?.createTaskDate}
+                  </Moment>
+                </PDiscriptionEl>
+                <PDiscriptionEl>
+                  Время в работе: {task?.proccesTime}
+                </PDiscriptionEl>
+                <PDiscriptionEl>Срок:</PDiscriptionEl>
+                <Flex justifyContent="space-between" alignItems="center">
+                  <WrapperEl margin="0 10px 0 0">
+                    <Input
+                      type="checkbox"
+                      defaultChecked={false}
+                      id='check'
+                      checked={activeInputDate}
+                      onChange={(e:any) => setActiveInputDate(e.target.checked)}
+                    />
+                  </WrapperEl>
+                  <WrapperEl margin="0 10px 0 0">
+                    <Input
+                      border="#091e4240 1px solid"
+                      borderRadius="3px"
+                      height="25px"
+                      type="date"
+                      disabled={!activeInputDate}
+                      onChange={(e: any) => console.log(e.target.value)}
+                      defaultValue={new Date().toISOString().slice(0, 10)}
+                    />
+                  </WrapperEl>
+                  <WrapperEl margin="0 10px 0 0">
+                    <Input
+                      border="#091e4240 1px solid"
+                      borderRadius="3px"
+                      height="25px"
+                      type="time"
+                      disabled={!activeInputDate}
+                      onChange={(e: any) =>
+                        console.log(new Date(e.target.value))
+                      }
+                      defaultValue={
+                        new Date().getHours() + ":" + new Date().getMinutes()
+                      }
+                    />
+                  </WrapperEl>
+                </Flex>
+                <Flex justifyContent="space-between" margin="15px 0 0 0">
+                  <Button
+                  width="50%"
+                    padding="6px 12px"
+                    background="#5f9ea094"
+                    hoverBackColor="#5f9ea0"
+                    margin="0 5px 0 0"
+                  >
+                    Сохранить
+                  </Button>
+                  <Button
+                  width="50%"
+                    padding="6px 12px"
+                    background="transparent"
+                    hoverBackColor="#dfdfdf"
+                  >
+                    Удалить
+                  </Button>
+                </Flex>
+              </DropDown>
             </ModalNavigation>
           </Flex>
         </ModalBodyWrapper>

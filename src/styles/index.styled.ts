@@ -105,7 +105,7 @@ export const PDiscriptionEl = styled.p<{
   fontWeight?: string;
   cursor?: string;
 }>`
-  color: ${(props) => props.color || "#fff"};
+  color: ${(props) => props.color || "#000"};
   font-size: ${(props) => props.fontSize || "14px"};
   line-height: ${(props) => props.lineHeight || "32px"};
   font-weight: ${(props) => props.fontWeight || "400"};

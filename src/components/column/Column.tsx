@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,13 +10,11 @@ import {
 } from "../../store/actions/actionTypes";
 import { ITask } from "../../store/reducers/createCardProjectReducer";
 
-import { ButtonEl } from "../button/Button";
+import Button from "../button/Button";
 
 import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
-import { CiEdit } from "react-icons/ci";
-import { RootState } from "../../store/store";
 
 export const ContainerColumn = styled.div<{ borderColor: string }>`
   background: #ebecf0;
@@ -77,12 +75,12 @@ export const ContentTask = styled.div`
 export interface IColumnProps {
   project: ITask[];
   column: string;
-  // id:string;
+  setActiveInputDate:React.Dispatch<React.SetStateAction<boolean>>;
   //styles
   borderColor: string;
 }
 
-const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
+const Column: FC<IColumnProps> = ({ borderColor, project, column,setActiveInputDate }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -99,18 +97,19 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
   const getProccesTime = (ms: Date) => {
     const endTime = new Date();
     let timeDiff = +endTime - +new Date(ms);
-    let seconds = Math.floor(timeDiff / 1000);
-    let minutes = Math.floor(seconds / 60) % 60;
-    let hours = Math.floor(minutes / 60) % 60;
-    let days = Math.floor(hours / 24) % 24;
+    let days = (timeDiff / 86400000) | 0;
+    let hours = ((timeDiff % 86400000) / 3600000) | 0;
+    let minutes = ((timeDiff - hours * 3600000) / 60000) | 0;
 
     let pad = function (n: string | number) {
       return n < 10 ? "0" + n : n;
     };
+
     let result = days + "д. " + pad(hours) + "час. : " + pad(minutes) + "мин.";
     return result;
   };
   const openModal = (task: ITask, column: string) => {
+    setActiveInputDate(false)
     const proccesTime = getProccesTime(task?.createTaskDate);
     const editTaskTime = { ...task, proccesTime: proccesTime };
     dispatch(setOpenEditTaskModal());
@@ -155,7 +154,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                 justifyContent="space-between"
                 margin="10px 0 0 0"
               >
-                <ButtonEl
+                <Button
                   type="submit"
                   background="#2288c7"
                   color="#fff"
@@ -163,10 +162,10 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                   hoverBackColor="#1874ad"
                 >
                   Создать Задачу
-                </ButtonEl>
-                <ButtonEl type="button" onClick={() => setAddInput(false)}>
+                </Button>
+                <Button type="button" onClick={() => setAddInput(false)}>
                   <TfiClose fontWeight={"700"} fontSize="16px" />
-                </ButtonEl>
+                </Button>
               </Flex>
             </Flex>
           ) : (

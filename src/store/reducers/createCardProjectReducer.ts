@@ -87,8 +87,8 @@ export const createCardProject = (
         ],
       };
     case CREATE_TASK:
-      const id:string = uuidv4().slice(0, 4);
-      let currentTime = new Date()
+      const id: string = uuidv4().slice(0, 4);
+      let currentTime = new Date();
       return {
         ...state,
         projects: state.projects.map((project) => {
@@ -137,7 +137,7 @@ export const createCardProject = (
                     numberTask: action.payload.task.numberTask,
                     description: action.payload.task.description,
                     createTaskDate: action.payload.task.createTaskDate,
-                    proccesTime:  action.payload.task.proccesTime,
+                    proccesTime: action.payload.task.proccesTime,
                     finishDate: action.payload.task.finishDate,
                     priorityTask: action.payload.task.priorityTask,
                     files: action.payload.task.files,
@@ -166,7 +166,6 @@ export const createCardProject = (
         ...state,
         toggleModalEditTask: false,
       };
-
     default:
       return state;
   }
