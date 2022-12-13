@@ -22,6 +22,10 @@ export interface ICard {
   done: ITask[];
   [key: string]: any;
 }
+export type TFinishTDate ={
+  date:'';
+  checkDate:true;
+}
 
 export interface ITask {
   id: string;
@@ -30,7 +34,7 @@ export interface ITask {
   description: string;
   createTaskDate: Date; //Date
   proccesTime: string; //Date
-  finishDate: Date | null; //date
+  finishDate: TFinishTDate | null; //date
   priorityTask: string;
   files: string; // File
   currentStatus: string;

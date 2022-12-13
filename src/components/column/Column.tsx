@@ -75,12 +75,16 @@ export const ContentTask = styled.div`
 export interface IColumnProps {
   project: ITask[];
   column: string;
-  setActiveInputDate:React.Dispatch<React.SetStateAction<boolean>>;
+  // setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
   //styles
   borderColor: string;
 }
 
-const Column: FC<IColumnProps> = ({ borderColor, project, column,setActiveInputDate }) => {
+const Column: FC<IColumnProps> = ({
+  borderColor,
+  project,
+  column,
+}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -99,7 +103,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,setActiveInputD
     let timeDiff = +endTime - +new Date(ms);
     let days = (timeDiff / 86400000) | 0;
     let hours = ((timeDiff % 86400000) / 3600000) | 0;
-    let minutes = ((timeDiff - hours * 3600000) / 60000) | 0;
+    let minutes = ((timeDiff - days * 86400000 - hours * 3600000) / 60000) | 0;
 
     let pad = function (n: string | number) {
       return n < 10 ? "0" + n : n;
@@ -109,7 +113,6 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,setActiveInputD
     return result;
   };
   const openModal = (task: ITask, column: string) => {
-    setActiveInputDate(false)
     const proccesTime = getProccesTime(task?.createTaskDate);
     const editTaskTime = { ...task, proccesTime: proccesTime };
     dispatch(setOpenEditTaskModal());
@@ -134,9 +137,9 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,setActiveInputD
                   <H6 fontWeight="400" width="80%">
                     {task.titleTask}
                   </H6>
-                  <WrapperEl padding="0 5px 0 0">
+                  <Flex margin="0 0 0 5px" width="20%">
                     {"№" + task.numberTask}
-                  </WrapperEl>
+                  </Flex>
                 </Flex>
               </ContentTask>
             </ContainerTaks>

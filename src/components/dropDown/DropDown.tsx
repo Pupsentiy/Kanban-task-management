@@ -1,11 +1,10 @@
-import React, { FC, ReactNode } from "react";
+import  { FC, ReactNode } from "react";
 import { TfiClose } from "react-icons/tfi";
 import styled from "styled-components";
 import { Flex, PDiscriptionEl } from "../../styles/index.styled";
 
 export const DropDownEl = styled.section`
   position: absolute;
-  width: 260px;
   will-change: top, left;
   top: 30px;
   left: 0px;
@@ -23,7 +22,7 @@ export const DropDownHeader = styled.div`
 display:flex;
 align-items:center;
 justify-content:space-between;
-border-bottom:1px solid #000;
+border-bottom:1px solid #5e6c84;
 `
 
 export const DropDownBody = styled.div``;
@@ -37,7 +36,7 @@ const DropDown:FC<IDropDown> = ({ children,name }) => {
   return (
     <DropDownEl>
       <DropDownHeader>
-      <PDiscriptionEl color="#000">
+      <PDiscriptionEl color="#5e6c84">
          {name}
         </PDiscriptionEl>
         <TfiClose cursor="pointer" fontSize='13px'/>
