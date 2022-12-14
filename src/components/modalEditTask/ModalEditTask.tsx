@@ -1,15 +1,7 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { TfiClose } from "react-icons/tfi";
-import { BsLaptop, BsTextLeft, BsTextIndentLeft } from "react-icons/bs";
-import {
-  Flex,
-  H2,
-  H6,
-  PDiscriptionEl,
-  WrapperEl,
-} from "../../styles/index.styled";
+import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import Button from "../button/Button";
 import {
   setCloseEditTaskModal,
@@ -19,11 +11,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
 import { useParams } from "react-router-dom";
-import Comments from "../comments/Comments";
 import DropDown from "../dropDown/DropDown";
-import Date from "./Dates/Dates";
-import { ContainerIcon, Modal, ModalBodyWrapper, ModalContent, ModalNavigation, ModalOtherBlock, ModalTextArea, ModalWrapperHeader } from "./ModalEditTask.styled";
-
+import Dates from "./datesBlock/Dates";
+import {
+  DedlineEl,
+  Modal,
+  ModalBodyWrapper,
+  ModalContent,
+  ModalNavigation,
+  ModalOtherBlock,
+  ModalWrapperHeader,
+  TaskDetailsBlock,
+} from "./ModalEditTask.styled";
+import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
+import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
+import ActionModalEditTask from "./actionBlock/ActionModalEditTask";
+import CheckBox from "../checkBox/CheckBox";
+import Moment from "react-moment";
+import "moment/locale/ru";
 const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -44,6 +49,8 @@ const ModalEditTask: FC = () => {
   const [selectComment, setSelectComments] = useState<TComment | null>(null);
   const [activeInputDate, setActiveInputDate] = useState<boolean>(false);
   const [activeDropDownDate, setActiveDropDownDate] = useState<boolean>(false);
+  const [isOverdue, setIsOverdue] = useState(false);
+
   useEffect(() => {
     setTask(selectTask.task);
   }, [selectTask.task]);
@@ -98,175 +105,76 @@ const ModalEditTask: FC = () => {
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
     setActiveInputDate(false);
-    setActiveDropDownDate(false)
+    setActiveDropDownDate(false);
   };
+
+  const timeIsOverdueDate =
+    Date.parse(String(task?.finishDate)) - new Date().getTime() + 60000;
+
   return (
-    <Modal onClick={() => (saveTask(), closeModal())} active={activeModal}>
+    <Modal
+      onClick={() => {
+        saveTask();
+        closeModal();
+      }}
+      active={activeModal}
+    >
       <ModalContent onClick={(e) => e.stopPropagation()} active={activeModal}>
         <ModalWrapperHeader>
-          <Flex alignItems="start" justifyContent="flex-start">
-            <ContainerIcon top="3px">
-              <BsLaptop fontSize="20px" />
-            </ContainerIcon>
-            <Flex flexDirection="column" margin="0 40px" width="100%">
-              {changeHeaderTask ? (
-                <Flex alignItems="center" width="100%">
-                  <ModalTextArea
-                    autoFocus
-                    height="28px"
-                    fontSize="18px"
-                    value={task.titleTask}
-                    name="titleTask"
-                    onBlur={() => (setChangeHeaderTask(false), saveTask())}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                      onChangeTask(event)
-                    }
-                  />
-                  <Button
-                    onClick={() => (setChangeHeaderTask(false), saveTask())}
-                    margin="0 0 0 8px"
-                    padding="6px 12px"
-                    background="#5f9ea094"
-                    hoverBackColor="#5f9ea0"
-                  >
-                    Сохранить
-                  </Button>
-                </Flex>
-              ) : (
-                <H2
-                  margin="6px"
-                  fontSize="20px"
-                  onClick={() => setChangeHeaderTask(true)}
-                >
-                  {task?.titleTask}
-                </H2>
-              )}
-            </Flex>
-            <ContainerIcon right="0" top="3px">
-              <TfiClose
-                onClick={() => (saveTask(), closeModal())}
-                cursor="pointer"
-              />
-            </ContainerIcon>
-          </Flex>
+          <HeaderModalEditTask
+            setChangeHeaderTask={setChangeHeaderTask}
+            changeHeaderTask={changeHeaderTask}
+            saveTask={saveTask}
+            onChangeTask={onChangeTask}
+            closeModal={closeModal}
+            task={task}
+          />
         </ModalWrapperHeader>
         <ModalBodyWrapper>
           <Flex width="100%">
             <ModalOtherBlock>
-              <Flex alignItems="top" margin="5px 0 20px 0" width="100%">
-                <ContainerIcon>
-                  <BsTextLeft fontSize="22px" />
-                </ContainerIcon>
-                <Flex flexDirection="column" width="100%">
-                  <Flex
-                    alignItems="center"
-                    padding="5px 5px 5px 0"
-                    margin="0 0 0 40px"
-                  >
-                    <H6>Описание</H6>
-                    <Button
-                      onClick={() => setChangeDescriptionTask(true)}
-                      margin="0 0 0 8px"
-                      padding="6px 12px"
-                      background="#5f9ea094"
-                      hoverBackColor="#5f9ea0"
-                    >
-                      Изменить
-                    </Button>
-                  </Flex>
-                  {changeDescriptionTask ? (
-                    <Flex flexDirection="column" margin="0 0 0 40px">
-                      <ModalTextArea
-                        autoFocus
-                        fontSize="15px"
-                        name="description"
-                        value={task.description}
-                        onBlur={() => (setChangeHeaderTask(false), saveTask())}
-                        onChange={(
-                          event: React.ChangeEvent<HTMLTextAreaElement>
-                        ) => onChangeTask(event)}
-                      />
-                      <Flex margin="5px 0 0 0">
-                        <Button
-                          onClick={() => (
-                            setChangeDescriptionTask(false), saveTask()
-                          )}
-                          padding="6px 12px"
-                          background="#5f9ea094"
-                          hoverBackColor="#5f9ea0"
-                          margin="0 5px 0 0"
-                        >
-                          Сохранить
-                        </Button>
-                        <Button
-                          onClick={() => setChangeDescriptionTask(false)}
-                          padding="6px 12px"
-                          background="transparent"
-                          hoverBackColor="#dfdfdf"
-                        >
-                          Отмена
-                        </Button>
-                      </Flex>
+              <TaskDetailsBlock>
+                {task?.finishDate !== null ? (
+                  <DedlineEl>
+                    <PDiscriptionEl>Срок</PDiscriptionEl>
+                    <Flex alignItems="center">
+                      <WrapperEl margin=" 0 5px 0 0">
+                        <CheckBox setActive={setIsOverdue} active={isOverdue} />
+                      </WrapperEl>
+                      <Moment format={" DD MMM - HH:mm"} locale="ru">
+                        {task?.finishDate}
+                      </Moment>
+                      {timeIsOverdueDate < 0 && !isOverdue ? (
+                        <PDiscriptionEl margin="0 0 0 5px">
+                          Просроченно
+                        </PDiscriptionEl>
+                      ) : isOverdue ? (
+                        <PDiscriptionEl margin="0 0 0 5px">
+                          Выполненно
+                        </PDiscriptionEl>
+                      ) : null}
                     </Flex>
-                  ) : (
-                    <WrapperEl margin="0 0 0 40px">
-                      <PDiscriptionEl>{task?.description}</PDiscriptionEl>
-                    </WrapperEl>
-                  )}
-                </Flex>
-              </Flex>
-              <Flex alignItems="top" margin="5px 0">
-                <ContainerIcon>
-                  <BsTextIndentLeft fontSize="22px" />
-                </ContainerIcon>
-                <Flex
-                  flexDirection="column"
-                  margin="0 0 0 40px"
-                  maxWidth="552px"
-                  width="100%"
-                >
-                  <Flex alignItems="center" padding="12px 0">
-                    <H6>Действия</H6>
-                  </Flex>
-                  <Flex margin="0 0 10px 0">
-                    <ModalTextArea
-                      fontSize="15px"
-                      height="36px"
-                      //
-                      placeholder="Напишите коментарий"
-                      name="comments"
-                      value={commentTextValue}
-                      ref={TextAreaRef}
-                      onChange={(
-                        event: React.ChangeEvent<HTMLTextAreaElement>
-                      ) => onChangeComment(event)}
-                    />
-                    <Button
-                      margin="0 0 0 5px"
-                      background={
-                        commentTextValue === "" ? "#091e420a" : "#5f9ea094"
-                      }
-                      color={commentTextValue === "" ? "#a5adba" : "#000"}
-                      hoverBackColor={
-                        commentTextValue === "" ? "#091e420a" : "#5f9ea0"
-                      }
-                      cursor={
-                        commentTextValue === "" ? "not-allowed" : "pointer"
-                      }
-                      onClick={() => saveComments()}
-                    >
-                      Сохранить
-                    </Button>
-                  </Flex>
-                  <Comments
-                    items={task?.comments}
-                    setIdSelectComment={setIdSelectComment}
-                    TextAreaRef={TextAreaRef}
-                    addSubCommetns={addSubCommetns}
-                    setSelectComments={setSelectComments}
-                  />
-                </Flex>
-              </Flex>
+                  </DedlineEl>
+                ) : null}
+              </TaskDetailsBlock>
+              <DescriptionModalEditTask
+                setChangeDescriptionTask={setChangeDescriptionTask}
+                setChangeHeaderTask={setChangeHeaderTask}
+                changeDescriptionTask={changeDescriptionTask}
+                task={task}
+                onChangeTask={onChangeTask}
+                saveTask={saveTask}
+              />
+              <ActionModalEditTask
+                setIdSelectComment={setIdSelectComment}
+                setSelectComments={setSelectComments}
+                addSubCommetns={addSubCommetns}
+                saveComments={saveComments}
+                onChangeComment={onChangeComment}
+                commentTextValue={commentTextValue}
+                task={task}
+                TextAreaRef={TextAreaRef}
+              />
             </ModalOtherBlock>
             <ModalNavigation>
               <PDiscriptionEl margin="0 0 5px 0">
@@ -284,11 +192,13 @@ const ModalEditTask: FC = () => {
               </WrapperEl>
               {activeDropDownDate && (
                 <DropDown name="Даты">
-                  <Date
+                  <Dates
                     activeInputDate={activeInputDate}
                     task={task}
+                    setTask={setTask}
                     setActiveInputDate={setActiveInputDate}
                     setActiveDropDownDate={setActiveDropDownDate}
+                    setIsOverdue={setIsOverdue}
                   />
                 </DropDown>
               )}

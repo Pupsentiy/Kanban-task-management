@@ -1,4 +1,3 @@
-import { now } from "moment";
 import { v4 as uuidv4 } from "uuid";
 import {
   CLOSE_EDIT_TASK_MODAL,
@@ -23,8 +22,8 @@ export interface ICard {
   [key: string]: any;
 }
 export type TFinishTDate ={
-  date:'';
-  checkDate:true;
+  date:any;
+  checkDate:boolean;
 }
 
 export interface ITask {
@@ -32,9 +31,9 @@ export interface ITask {
   numberTask: string;
   titleTask: string;
   description: string;
-  createTaskDate: Date; //Date
+  createTaskDate: Date ; //Date
   proccesTime: string; //Date
-  finishDate: TFinishTDate | null; //date
+  finishDate: Date | null; //date
   priorityTask: string;
   files: string; // File
   currentStatus: string;

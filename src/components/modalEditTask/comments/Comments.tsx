@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-import { TComment } from "../../store/reducers/createCardProjectReducer";
-import { Flex, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
-import Button from "../button/Button";
+import { TComment } from "../../../store/reducers/createCardProjectReducer";
+import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
+import Button from "../../button/Button";
 
 export const CommentsWrapper = styled.div`
   background-color: #fff;
@@ -24,16 +24,16 @@ export interface IComments {
   items: TComment[];
   setIdSelectComment: React.Dispatch<React.SetStateAction<string>>;
   setSelectComments: React.Dispatch<React.SetStateAction<TComment | null>>;
-  TextAreaRef: React.RefObject<HTMLTextAreaElement>;
   addSubCommetns: () => void;
+  TextAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 const Comments: FC<IComments> = ({
   items,
   setIdSelectComment,
   setSelectComments,
-  TextAreaRef,
   addSubCommetns,
+  TextAreaRef,
 }) => {
   return (
     <>
@@ -52,12 +52,12 @@ const Comments: FC<IComments> = ({
                 </PDiscriptionEl>
               </WrapperEl>
               <Button
-                onClick={() => (
-                  setIdSelectComment(comment.id),
-                  TextAreaRef?.current?.focus(),
-                  setSelectComments(comment),
-                  addSubCommetns()
-                )}
+                onClick={() => {
+                  setIdSelectComment(comment.id);
+                  TextAreaRef?.current?.focus();
+                  setSelectComments(comment);
+                  addSubCommetns();
+                }}
                 fontSize="14px"
                 padding="6px 12px"
                 background="transparent"
@@ -71,9 +71,9 @@ const Comments: FC<IComments> = ({
                 <Comments
                   items={comment.subComments}
                   setIdSelectComment={setIdSelectComment}
-                  TextAreaRef={TextAreaRef}
                   addSubCommetns={addSubCommetns}
                   setSelectComments={setSelectComments}
+                  TextAreaRef={TextAreaRef}
                 />
               ) : null}
             </ContainerEL>

@@ -1,49 +1,45 @@
 import { FC, useState } from "react";
 import Moment from "react-moment";
-import styled from "styled-components";
 import { ITask } from "../../../store/reducers/createCardProjectReducer";
 import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
 import Button from "../../button/Button";
+import CheckBox from "../../checkBox/CheckBox";
 import Input from "../../input/Input";
-import checked from "../../../assets/img/checked.svg";
 
-export const CheckBoxNoCheck = styled.div<{ activeInputDate: boolean }>`
-  position: relative;
-  flex-shrink: 0;
-  border-radius: 2px;
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: all 0.2s ease-in-out;
-  background-color: ${({ activeInputDate }) =>
-    activeInputDate ? "#5f9ea0" : "#fafbfc"};
-  box-shadow: ${({ activeInputDate }) =>
-    activeInputDate ? "none" : "inset 0 0 0 2px #dfe1e6"};
-`;
-
-export interface IDate {
+export interface IDates {
   activeInputDate: boolean;
   setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;
+  setTask: React.Dispatch<React.SetStateAction<ITask>>;
+  setIsOverdue:React.Dispatch<React.SetStateAction<boolean>>
   task: ITask;
 }
 
-const dataTime = new Date().getHours() + ":" + new Date().getMinutes()
-const dataDate = new Date().toISOString().slice(0, 10)
-const Dates: FC<IDate> = ({
+const dataTime = new Date().toLocaleString().slice(12,17)
+const dataDate = new Date().toISOString().slice(0,10)
+const Dates: FC<IDates> = ({
   activeInputDate,
   task,
+  setTask,
   setActiveInputDate,
   setActiveDropDownDate,
+  setIsOverdue
 }) => {
   const [time, setTime] = useState(dataTime);
   const [date, setDate] = useState(dataDate);
+
   const closeDropDown = () => {
     setActiveDropDownDate(false);
   };
-console.log(date+' '+time);
-console.log(new Date().toISOString().replace('T',' ').slice(0,16));
+
+  const saveChangeTimeDate = () => {
+    setTask({
+      ...task,
+      finishDate: new Date(date+"T"+ time)
+    });
+    setIsOverdue(false)
+  };
+
   return (
     <>
       <PDiscriptionEl>
@@ -54,12 +50,7 @@ console.log(new Date().toISOString().replace('T',' ').slice(0,16));
       <PDiscriptionEl>Срок:</PDiscriptionEl>
       <Flex justifyContent="space-between" alignItems="center">
         <WrapperEl margin="0 10px 0 0">
-          <CheckBoxNoCheck
-            onClick={() => setActiveInputDate(!activeInputDate)}
-            activeInputDate={activeInputDate}
-          >
-            <img src={checked} alt="checkBox" />
-          </CheckBoxNoCheck>
+          <CheckBox setActive={setActiveInputDate} active={activeInputDate} />
         </WrapperEl>
         <WrapperEl margin="0 10px 0 0">
           <Input
@@ -73,7 +64,7 @@ console.log(new Date().toISOString().replace('T',' ').slice(0,16));
             type="date"
             disabled={!activeInputDate}
             onChange={(e: any) => setDate(e.target.value)}
-            defaultValue={date}
+            defaultValue={dataDate}
           />
         </WrapperEl>
         <WrapperEl margin="0 10px 0 0">
@@ -85,16 +76,20 @@ console.log(new Date().toISOString().replace('T',' ').slice(0,16));
             }
             borderRadius="3px"
             height="25px"
+            //
             type="time"
             disabled={!activeInputDate}
             onChange={(e: any) => setTime(e.target.value)}
-            defaultValue={time}
+            defaultValue={dataTime}
           />
         </WrapperEl>
       </Flex>
       <Flex justifyContent="space-between" margin="15px 0 0 0">
         <Button
-          onClick={() => closeDropDown()}
+          onClick={() => {
+            saveChangeTimeDate();
+            closeDropDown();
+          }}
           width="50%"
           padding="6px 12px"
           background="#5f9ea094"
