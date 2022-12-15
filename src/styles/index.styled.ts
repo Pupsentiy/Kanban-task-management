@@ -104,8 +104,9 @@ export const PDiscriptionEl = styled.p<{
   fontSize?: string;
   fontWeight?: string;
   cursor?: string;
+  textDecoration?:string;
 }>`
-  color: ${(props) => props.color || "#000"};
+  color: ${(props) => props.color || "#5e6c84"};
   font-size: ${(props) => props.fontSize || "14px"};
   line-height: ${(props) => props.lineHeight || "32px"};
   font-weight: ${(props) => props.fontWeight || "400"};
@@ -115,6 +116,7 @@ export const PDiscriptionEl = styled.p<{
   margin: ${(props) => props.margin || "0"};
   cursor: ${(props) => props.cursor || "default"};
   word-break: break-all;
+  text-decoration:${(props) => props.textDecoration || 'none'};
   &span {
     text-decoration: underline;
   }
@@ -209,7 +211,6 @@ export const ModalTextArea = styled.textarea<{
   overflow: hidden;
   overflow-wrap: break-word;
   height: ${(props) => props.height || "80px"};
-  box-shadow: none;
   resize: none;
   width: 100%;
   outline: none;

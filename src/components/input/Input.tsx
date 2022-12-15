@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { PDiscriptionEl } from "../../styles/index.styled";
 
 export const InputEl = styled.input<{
   margin?: string;
@@ -11,6 +12,7 @@ export const InputEl = styled.input<{
   width?: string;
   color?: string;
   boxShadow?: string;
+  borderFocus?:string;
 }>`
   width: ${(props) => props.width || "auto"};
   height:${props => props.height || 'auto'};
@@ -26,7 +28,7 @@ export const InputEl = styled.input<{
   margin: ${(props) => props.margin || "0"};
   box-shadow: ${(props) => props.boxShadow || "none"};
   &:focus {
-    border: ${(props) => props.border || "1px solid #000"};
+    border: ${(props) => props.borderFocus || "1px solid #000"};
     box-shadow: ${(props) => props.boxShadow || "none"};
     -webkit-box-shadow: ${(props) => props.boxShadow || "none"};
     -moz-box-shadow: ${(props) => props.boxShadow || "none"};
@@ -41,6 +43,8 @@ export const LabelEl = styled.label<{margin?:string;}>`
   font-size: 13px;
   text-align: start;
   font-weight: 500;
+  margin:5px 0px;
+  width:100%;
 `;
 
 export interface IInputProps {
@@ -66,13 +70,13 @@ export interface IInputProps {
   height?:string;
   color?: string;
   boxShadow?: string;
-  
+  borderFocus?:string;
 }
 
 const Input: FC<IInputProps> = (props) => {
   return (
     <LabelEl htmlFor={props.id}>
-      {props.label}
+    <PDiscriptionEl lineHeight="17px" fontSize="12px" fontWeight="600x">{props.label}</PDiscriptionEl>
       <InputEl
         type={props.type}
         placeholder={props.placeholder}
@@ -92,6 +96,7 @@ const Input: FC<IInputProps> = (props) => {
         height={props.height}
         color={props.color}
         boxShadow={props.boxShadow}
+        borderFocus={props.borderFocus}
       />
     </LabelEl>
   );

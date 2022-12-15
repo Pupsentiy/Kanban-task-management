@@ -4,6 +4,7 @@ import styled from "styled-components";
 import checked from "../../assets/img/checked.svg";
 
 export const CheckBoxNoCheck = styled.div<{ activeInputDate: boolean }>`
+  cursor:pointer;
   position: relative;
   flex-shrink: 0;
   border-radius: 2px;
@@ -19,15 +20,18 @@ export const CheckBoxNoCheck = styled.div<{ activeInputDate: boolean }>`
 `;
 
 export interface ICheckBox {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
   active: boolean;
+  onClick:(() => void)
 }
 
-const CheckBox: FC<ICheckBox> = ({setActive,active}) => {
+const CheckBox: FC<ICheckBox> = (props) => {
+
+  
+
   return (
     <CheckBoxNoCheck
-      onClick={() => setActive(!active)}
-      activeInputDate={active}
+      onClick={() => props.onClick()}
+      activeInputDate={props.active}
     >
       <img src={checked} alt="checkBox" />
     </CheckBoxNoCheck>

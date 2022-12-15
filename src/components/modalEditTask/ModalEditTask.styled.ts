@@ -18,8 +18,6 @@ export const Modal = styled.div<{ active: boolean }>`
   min-height: 100vh;
 `;
 
-
-
 export const ModalContent = styled.div<{ active: boolean }>`
   padding: 10px 5px;
   border-radius: 5px;
@@ -35,7 +33,6 @@ export const ModalWrapperHeader = styled.div`
   height: 32px;
 `;
 
-
 export const ModalBodyWrapper = styled.div`
   padding: 5px 5px 8px;
   display: flex;
@@ -47,16 +44,36 @@ export const ModalOtherBlock = styled.div`
   width: 70%;
   padding: 15px 5px 0 0;
 `;
-export const ModalNavigation = styled.div`
+export const WrapperNavigation = styled.div`
   position: relative;
   padding: 0 5px;
   width: 30%;
 `;
 
 export const TaskDetailsBlock = styled.div`
-margin-left:40px;
-`
+  margin-left: 40px;
+`;
 
-export const DedlineEl = styled.div`
-
-`
+export const WrapperExpirationDate = styled.div`
+  display: flex;
+  align-items: center;
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 85ms;
+  transition-timing-function: ease;
+  background-color: #5c5d5e21;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size:14px;
+  .overdue {
+    background: #ec9488;
+    margin-left: 5px;
+    padding: 0 5px;
+    border-radius: 3px;
+  }
+  .performed {
+    background: #61bd4f;
+    margin-left: 5px;
+    padding: 0 5px;
+    border-radius: 3px;
+  }
+`;

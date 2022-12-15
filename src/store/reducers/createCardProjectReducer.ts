@@ -37,8 +37,14 @@ export interface ITask {
   priorityTask: string;
   files: string; // File
   currentStatus: string;
-  // subTask?: [];
+  subTasks: ISubTask[];
   comments: TComment[];
+}
+
+export interface ISubTask{
+  id:string,
+  description:string,
+  check:boolean
 }
 
 export type TComment = {
@@ -107,6 +113,7 @@ export const createCardProject = (
               priorityTask: "",
               files: "",
               currentStatus: "",
+              subTasks:[],
               comments: [],
             };
             return {
@@ -145,6 +152,7 @@ export const createCardProject = (
                     priorityTask: action.payload.task.priorityTask,
                     files: action.payload.task.files,
                     currentStatus: action.payload.task.currentStatus,
+                    subTasks:action.payload.task.subTasks,
                     comments: action.payload.task.comments,
                   };
                   // console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');

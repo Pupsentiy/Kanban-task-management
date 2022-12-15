@@ -16,7 +16,8 @@ export const ButtonEl = styled.button<{
   display?: string;
   cursor?: string;
 }>`
-  display: ${(props) => props.display || "block"};
+  align-items:center;
+  display: ${(props) => props.display || "flex"};
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   margin: ${(props) => props.margin || "0"};

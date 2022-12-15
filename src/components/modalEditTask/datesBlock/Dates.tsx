@@ -38,19 +38,24 @@ const Dates: FC<IDates> = ({
       finishDate: new Date(date+"T"+ time)
     });
     setIsOverdue(false)
+    setActiveInputDate(false)
   };
 
+  const openInputDate =()=>{
+    setActiveInputDate(!activeInputDate)
+  }
+  console.log(activeInputDate)
   return (
     <>
       <PDiscriptionEl>
         Дата создания:
-        <Moment format=" DD.MM.YY - HH:mm">{task?.createTaskDate}</Moment>
+        <Moment format=" DD.MM.YY - HHч. : mmм.">{task?.createTaskDate}</Moment>
       </PDiscriptionEl>
       <PDiscriptionEl>Время в работе: {task?.proccesTime}</PDiscriptionEl>
       <PDiscriptionEl>Срок:</PDiscriptionEl>
       <Flex justifyContent="space-between" alignItems="center">
         <WrapperEl margin="0 10px 0 0">
-          <CheckBox setActive={setActiveInputDate} active={activeInputDate} />
+          <CheckBox onClick={() => openInputDate()} active={activeInputDate} />
         </WrapperEl>
         <WrapperEl margin="0 10px 0 0">
           <Input
@@ -63,7 +68,7 @@ const Dates: FC<IDates> = ({
             height="25px"
             type="date"
             disabled={!activeInputDate}
-            onChange={(e: any) => setDate(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
             defaultValue={dataDate}
           />
         </WrapperEl>
@@ -79,7 +84,7 @@ const Dates: FC<IDates> = ({
             //
             type="time"
             disabled={!activeInputDate}
-            onChange={(e: any) => setTime(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTime(e.target.value)}
             defaultValue={dataTime}
           />
         </WrapperEl>

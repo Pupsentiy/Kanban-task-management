@@ -1,8 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
-import Button from "../button/Button";
+import { Flex, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import {
   setCloseEditTaskModal,
   setEditTask,
@@ -14,14 +13,14 @@ import { useParams } from "react-router-dom";
 import DropDown from "../dropDown/DropDown";
 import Dates from "./datesBlock/Dates";
 import {
-  DedlineEl,
   Modal,
   ModalBodyWrapper,
   ModalContent,
-  ModalNavigation,
+  WrapperNavigation,
   ModalOtherBlock,
   ModalWrapperHeader,
   TaskDetailsBlock,
+  WrapperExpirationDate,
 } from "./ModalEditTask.styled";
 import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
 import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
@@ -29,6 +28,11 @@ import ActionModalEditTask from "./actionBlock/ActionModalEditTask";
 import CheckBox from "../checkBox/CheckBox";
 import Moment from "react-moment";
 import "moment/locale/ru";
+import NavigationTask from "./navigation/NavigationTask";
+import Input from "../input/Input";
+import Button from "../button/Button";
+import CreateSubTask from "./createSubTask/CreateSubTask";
+import SubTasks from "./subTasks/SubTasks";
 const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -49,6 +53,8 @@ const ModalEditTask: FC = () => {
   const [selectComment, setSelectComments] = useState<TComment | null>(null);
   const [activeInputDate, setActiveInputDate] = useState<boolean>(false);
   const [activeDropDownDate, setActiveDropDownDate] = useState<boolean>(false);
+  const [activeDropDownSubTask, setActiveDropDownSubTask] =
+    useState<boolean>(false);
   const [isOverdue, setIsOverdue] = useState(false);
 
   useEffect(() => {
@@ -110,7 +116,9 @@ const ModalEditTask: FC = () => {
 
   const timeIsOverdueDate =
     Date.parse(String(task?.finishDate)) - new Date().getTime() + 60000;
-
+  const changeLabelDeadline = () => {
+    setIsOverdue(!isOverdue);
+  };
   return (
     <Modal
       onClick={() => {
@@ -135,26 +143,43 @@ const ModalEditTask: FC = () => {
             <ModalOtherBlock>
               <TaskDetailsBlock>
                 {task?.finishDate !== null ? (
-                  <DedlineEl>
+                  <WrapperEl margin="5px 5px 5px 0px">
                     <PDiscriptionEl>Срок</PDiscriptionEl>
                     <Flex alignItems="center">
                       <WrapperEl margin=" 0 5px 0 0">
-                        <CheckBox setActive={setIsOverdue} active={isOverdue} />
+                        <CheckBox
+                          onClick={() => changeLabelDeadline()}
+                          active={isOverdue}
+                        />
                       </WrapperEl>
-                      <Moment format={" DD MMM - HH:mm"} locale="ru">
-                        {task?.finishDate}
-                      </Moment>
-                      {timeIsOverdueDate < 0 && !isOverdue ? (
-                        <PDiscriptionEl margin="0 0 0 5px">
-                          Просроченно
-                        </PDiscriptionEl>
-                      ) : isOverdue ? (
-                        <PDiscriptionEl margin="0 0 0 5px">
-                          Выполненно
-                        </PDiscriptionEl>
-                      ) : null}
+                      <WrapperExpirationDate>
+                        <Moment format={" DD MMM - HH:mm"} locale="ru">
+                          {task?.finishDate}
+                        </Moment>
+                        {timeIsOverdueDate < 0 && !isOverdue ? (
+                          <span className="overdue">
+                            <PDiscriptionEl
+                              lineHeight="17px"
+                              color="#fff"
+                              fontSize="12px"
+                            >
+                              просрочено
+                            </PDiscriptionEl>
+                          </span>
+                        ) : isOverdue ? (
+                          <span className="performed">
+                            <PDiscriptionEl
+                              lineHeight="17px"
+                              color="#fff"
+                              fontSize="12px"
+                            >
+                              выполнено
+                            </PDiscriptionEl>
+                          </span>
+                        ) : null}
+                      </WrapperExpirationDate>
                     </Flex>
-                  </DedlineEl>
+                  </WrapperEl>
                 ) : null}
               </TaskDetailsBlock>
               <DescriptionModalEditTask
@@ -165,6 +190,10 @@ const ModalEditTask: FC = () => {
                 onChangeTask={onChangeTask}
                 saveTask={saveTask}
               />
+
+              {task?.subTasks.length > 0 && (
+                <SubTasks task={task} setTask={setTask} />
+              )}
               <ActionModalEditTask
                 setIdSelectComment={setIdSelectComment}
                 setSelectComments={setSelectComments}
@@ -176,22 +205,16 @@ const ModalEditTask: FC = () => {
                 TextAreaRef={TextAreaRef}
               />
             </ModalOtherBlock>
-            <ModalNavigation>
+            <WrapperNavigation>
               <PDiscriptionEl margin="0 0 5px 0">
                 Добавить на карточку
               </PDiscriptionEl>
-              <WrapperEl>
-                <Button
-                  background="#5f9ea094"
-                  width="100%"
-                  hoverBackColor="#5f9ea0"
-                  onClick={() => setActiveDropDownDate(true)}
-                >
-                  Даты
-                </Button>
-              </WrapperEl>
+              <NavigationTask
+                setActiveDropDownDate={setActiveDropDownDate}
+                setActiveDropDownSubTask={setActiveDropDownSubTask}
+              />
               {activeDropDownDate && (
-                <DropDown name="Даты">
+                <DropDown name="Даты" setClose={setActiveDropDownDate}>
                   <Dates
                     activeInputDate={activeInputDate}
                     task={task}
@@ -202,7 +225,19 @@ const ModalEditTask: FC = () => {
                   />
                 </DropDown>
               )}
-            </ModalNavigation>
+              {activeDropDownSubTask && (
+                <DropDown
+                  name="Добавление списка задач"
+                  setClose={setActiveDropDownSubTask}
+                >
+                  <CreateSubTask
+                    setActiveDropDownSubTask={setActiveDropDownSubTask}
+                    task={task}
+                    setTask={setTask}
+                  />
+                </DropDown>
+              )}
+            </WrapperNavigation>
           </Flex>
         </ModalBodyWrapper>
       </ModalContent>
