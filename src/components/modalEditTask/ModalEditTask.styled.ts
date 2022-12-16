@@ -46,12 +46,13 @@ export const ModalOtherBlock = styled.div`
 `;
 export const WrapperNavigation = styled.div`
   position: relative;
-  padding: 0 5px;
+  padding: 15px 5px 0 5px;
   width: 30%;
 `;
 
 export const TaskDetailsBlock = styled.div`
   margin-left: 40px;
+  display: flex;
 `;
 
 export const WrapperExpirationDate = styled.div`
@@ -63,7 +64,7 @@ export const WrapperExpirationDate = styled.div`
   background-color: #5c5d5e21;
   padding: 5px 10px;
   border-radius: 3px;
-  font-size:14px;
+  font-size: 14px;
   .overdue {
     background: #ec9488;
     margin-left: 5px;
@@ -75,5 +76,27 @@ export const WrapperExpirationDate = styled.div`
     margin-left: 5px;
     padding: 0 5px;
     border-radius: 3px;
+  }
+`;
+
+export const Marker = styled.div<{ background: string }>`
+  background: ${(props) => props.background};
+  width: 50px;
+  height: 27px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  border-radius: 3px 0 0 3px;
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    left: 50px;
+    border-top: 13.5px solid transparent;
+    border-left: 15px solid ${(props) => props.background};
+    border-bottom: 13.5px solid transparent;
   }
 `;

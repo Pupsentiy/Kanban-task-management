@@ -6,7 +6,7 @@ import { Flex, PDiscriptionEl } from "../../styles/index.styled";
 export const DropDownEl = styled.section`
   position: absolute;
   will-change: top, left;
-  top: 30px;
+  top: 35px;
   left: 0px;
   border-radius: 3px;
   background-color: #fff;

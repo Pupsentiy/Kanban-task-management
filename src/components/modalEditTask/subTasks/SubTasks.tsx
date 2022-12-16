@@ -10,7 +10,6 @@ import {
   Flex,
   H6,
   PDiscriptionEl,
-  WrapperEl,
 } from "../../../styles/index.styled";
 import Button from "../../button/Button";
 import CheckBox from "../../checkBox/CheckBox";
@@ -47,7 +46,9 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
   const [progressTracking, setProgressTracking] = useState(0);
   const [chaneName, setChangeName] = useState("");
   const [idSubTask, setIdSubTask] = useState("");
-  const checkProgress = () => {
+  const [activeInput, setActiveInput] = useState(false);
+
+  const checkProgressBar = () => {
     let sum =
       task.subTasks.filter((subTask) => subTask.check === true).length === 0
         ? 0
@@ -80,20 +81,22 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
   const selectSubTask = (id: string, description: string) => {
     setIdSubTask(id);
     setChangeName(description);
+    setActiveInput(true);
   };
 
-  const saveChangeSubTask = () =>{
+  const saveChangeSubTask = () => {
     setTask({
       ...task,
-      subTasks:task.subTasks.map(subTask => {
-        if(subTask.id === idSubTask){
-          subTask.description = chaneName
+      subTasks: task.subTasks.map((subTask) => {
+        if (subTask.id === idSubTask) {
+          subTask.description = chaneName;
         }
-        return subTask
-      }) 
-    })
-    setIdSubTask('')
-  }
+        return subTask;
+      }),
+    });
+    setIdSubTask("");
+    setActiveInput(false);
+  };
 
   const deleteSubTask = (id: string) => {
     setTask({
@@ -101,9 +104,15 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
       subTasks: task.subTasks.filter((subTask) => subTask.id !== id),
     });
   };
+
+  const cancelСhange = () => {
+    setActiveInput(false);
+  };
+
   useEffect(() => {
-    checkProgress();
-  }, [task?.subTasks?.length, checked]);
+    checkProgressBar();
+  }, [task?.subTasks.length, checked]);
+
   return (
     <Flex alignItems="top" margin="5px 0">
       <ContainerIcon>
@@ -129,25 +138,13 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
           </Flex>
           {task?.subTasks &&
             task?.subTasks.map((subTask, i) => (
-              <WrapperSubTask
-                key={i}
-                onClick={() => selectSubTask(subTask.id, subTask.description)}
-              >
+              <WrapperSubTask key={i}>
                 <Flex margin="5px 5px 5px 0" alignItems="center" width="100%">
                   <CheckBox
                     active={subTask?.check}
                     onClick={() => completedSubTask(subTask?.id)}
                   />
-                  {idSubTask !== "" && idSubTask !== subTask.id ? (
-                    <PDiscriptionEl
-                      margin="0 0 0 10px"
-                      color="#5e6c84"
-                      lineHeight="normal"
-                      textDecoration={subTask?.check ? "line-through" : "none"}
-                    >
-                      {subTask?.description}
-                    </PDiscriptionEl>
-                  ) : (
+                  {activeInput && idSubTask === subTask.id ? (
                     <Input
                       type="text"
                       onChange={(event) => chanegeNameTask(event)}
@@ -158,21 +155,18 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
                       borderFocus="#5f9ea094 2px solid"
                       borderRadius="3px"
                     />
+                  ) : (
+                    <PDiscriptionEl
+                      margin="0 0 0 10px"
+                      color="#5e6c84"
+                      lineHeight="normal"
+                      textDecoration={subTask?.check ? "line-through" : "none"}
+                    >
+                      {subTask?.description}
+                    </PDiscriptionEl>
                   )}
                 </Flex>
-                {idSubTask !== "" && idSubTask !== subTask.id ? (
-                  <Flex>
-                    <Button hoverBackColor="#808080ad">
-                      <FaRegEdit fontSize="18px" />
-                    </Button>
-                    <Button
-                      hoverBackColor="#808080ad"
-                      onClick={() => deleteSubTask(subTask?.id)}
-                    >
-                      <IoTrashBin fontSize="18px" />
-                    </Button>
-                  </Flex>
-                ) : (
+                {activeInput && idSubTask === subTask.id ? (
                   <Flex>
                     <Button
                       onClick={() => saveChangeSubTask()}
@@ -184,11 +178,29 @@ const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
                       Сохранить
                     </Button>
                     <Button
+                      onClick={() => cancelСhange()}
                       padding="6px 12px"
                       background="transparent"
                       hoverBackColor="#dfdfdf"
                     >
                       Отмена
+                    </Button>
+                  </Flex>
+                ) : (
+                  <Flex>
+                    <Button
+                      hoverBackColor="#808080ad"
+                      onClick={() =>
+                        selectSubTask(subTask.id, subTask.description)
+                      }
+                    >
+                      <FaRegEdit fontSize="18px" />
+                    </Button>
+                    <Button
+                      hoverBackColor="#808080ad"
+                      onClick={() => deleteSubTask(subTask?.id)}
+                    >
+                      <IoTrashBin fontSize="18px" />
                     </Button>
                   </Flex>
                 )}

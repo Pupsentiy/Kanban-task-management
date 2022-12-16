@@ -17,6 +17,7 @@ export const ButtonEl = styled.button<{
   cursor?: string;
 }>`
   align-items:center;
+  justify-content:center;
   display: ${(props) => props.display || "flex"};
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};

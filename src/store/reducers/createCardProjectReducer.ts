@@ -21,30 +21,38 @@ export interface ICard {
   done: ITask[];
   [key: string]: any;
 }
-export type TFinishTDate ={
-  date:any;
-  checkDate:boolean;
-}
+export type TFinishTDate = {
+  date: any;
+  checkDate: boolean;
+};
 
 export interface ITask {
   id: string;
   numberTask: string;
   titleTask: string;
   description: string;
-  createTaskDate: Date ; //Date
+  createTaskDate: Date; //Date
   proccesTime: string; //Date
   finishDate: Date | null; //date
-  priorityTask: string;
+  priorityMarker: IPriorityMarker | null;
   files: string; // File
   currentStatus: string;
   subTasks: ISubTask[];
   comments: TComment[];
 }
 
-export interface ISubTask{
-  id:string,
-  description:string,
-  check:boolean
+export interface IPriorityMarker {
+  id: number;
+  name: string;
+  color: string;
+  colorCircle: string;
+  check: boolean;
+}
+
+export interface ISubTask {
+  id: string;
+  description: string;
+  check: boolean;
 }
 
 export type TComment = {
@@ -110,10 +118,10 @@ export const createCardProject = (
               createTaskDate: currentTime,
               proccesTime: "",
               finishDate: null,
-              priorityTask: "",
+              priorityMarker: null,
               files: "",
               currentStatus: "",
-              subTasks:[],
+              subTasks: [],
               comments: [],
             };
             return {
@@ -149,10 +157,10 @@ export const createCardProject = (
                     createTaskDate: action.payload.task.createTaskDate,
                     proccesTime: action.payload.task.proccesTime,
                     finishDate: action.payload.task.finishDate,
-                    priorityTask: action.payload.task.priorityTask,
+                    priorityMarker: action.payload.task.priorityMarker,
                     files: action.payload.task.files,
                     currentStatus: action.payload.task.currentStatus,
-                    subTasks:action.payload.task.subTasks,
+                    subTasks: action.payload.task.subTasks,
                     comments: action.payload.task.comments,
                   };
                   // console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');

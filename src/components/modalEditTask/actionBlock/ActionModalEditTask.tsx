@@ -53,6 +53,7 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
             fontSize="15px"
             height="36px"
             //
+            ref={TextAreaRef}
             placeholder="Напишите коментарий"
             name="comments"
             value={commentTextValue}

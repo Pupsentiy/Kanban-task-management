@@ -21,6 +21,7 @@ import {
   ModalWrapperHeader,
   TaskDetailsBlock,
   WrapperExpirationDate,
+  Marker,
 } from "./ModalEditTask.styled";
 import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
 import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
@@ -29,10 +30,9 @@ import CheckBox from "../checkBox/CheckBox";
 import Moment from "react-moment";
 import "moment/locale/ru";
 import NavigationTask from "./navigation/NavigationTask";
-import Input from "../input/Input";
-import Button from "../button/Button";
 import CreateSubTask from "./createSubTask/CreateSubTask";
 import SubTasks from "./subTasks/SubTasks";
+import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
 const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -55,6 +55,9 @@ const ModalEditTask: FC = () => {
   const [activeDropDownDate, setActiveDropDownDate] = useState<boolean>(false);
   const [activeDropDownSubTask, setActiveDropDownSubTask] =
     useState<boolean>(false);
+  const [activeDropDownMarker, setActiveDropDownMarker] =
+    useState<boolean>(false);
+
   const [isOverdue, setIsOverdue] = useState(false);
 
   useEffect(() => {
@@ -142,8 +145,16 @@ const ModalEditTask: FC = () => {
           <Flex width="100%">
             <ModalOtherBlock>
               <TaskDetailsBlock>
-                {task?.finishDate !== null ? (
-                  <WrapperEl margin="5px 5px 5px 0px">
+                {task?.priorityMarker ? (
+                  <WrapperEl margin="5px 15px 5px 0px">
+                    <PDiscriptionEl>Приоритет</PDiscriptionEl>
+                    <Marker background={task?.priorityMarker.colorCircle}>
+                      {task?.priorityMarker.name.replace("Приоритет", "№")}
+                    </Marker>
+                  </WrapperEl>
+                ) : null}
+                {task?.finishDate ? (
+                  <WrapperEl margin="5px 10px 5px 0px">
                     <PDiscriptionEl>Срок</PDiscriptionEl>
                     <Flex alignItems="center">
                       <WrapperEl margin=" 0 5px 0 0">
@@ -206,12 +217,17 @@ const ModalEditTask: FC = () => {
               />
             </ModalOtherBlock>
             <WrapperNavigation>
-              <PDiscriptionEl margin="0 0 5px 0">
+              <PDiscriptionEl
+                margin="0 0 10px 0"
+                lineHeight="normal"
+                fontSize="13px"
+              >
                 Добавить на карточку
               </PDiscriptionEl>
               <NavigationTask
                 setActiveDropDownDate={setActiveDropDownDate}
                 setActiveDropDownSubTask={setActiveDropDownSubTask}
+                setActiveDropDownMarker={setActiveDropDownMarker}
               />
               {activeDropDownDate && (
                 <DropDown name="Даты" setClose={setActiveDropDownDate}>
@@ -232,6 +248,16 @@ const ModalEditTask: FC = () => {
                 >
                   <CreateSubTask
                     setActiveDropDownSubTask={setActiveDropDownSubTask}
+                    task={task}
+                    setTask={setTask}
+                  />
+                </DropDown>
+              )}
+
+              {activeDropDownMarker && (
+                <DropDown name="Приоритет" setClose={setActiveDropDownMarker}>
+                  <CreatingMarkerPriority
+                    setActiveDropDownMarker={setActiveDropDownMarker}
                     task={task}
                     setTask={setTask}
                   />
