@@ -44,7 +44,6 @@ const Dates: FC<IDates> = ({
   const openInputDate =()=>{
     setActiveInputDate(!activeInputDate)
   }
-  console.log(activeInputDate)
   return (
     <>
       <PDiscriptionEl>

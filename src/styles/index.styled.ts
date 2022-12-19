@@ -125,7 +125,7 @@ export const PDiscriptionEl = styled.p<{
 export const ContainerEl = styled.div`
   min-height: 100%;
   padding: 20px;
-  max-width: 1600px;
+  max-width: 1440px;
   margin: 0 auto;
 `;
 

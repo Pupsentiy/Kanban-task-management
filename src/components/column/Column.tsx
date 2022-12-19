@@ -8,23 +8,21 @@ import {
   setOpenEditTaskModal,
   setSelectTask,
 } from "../../store/actions/actionTypes";
-import {
-  ITask,
-  TComment,
-} from "../../store/reducers/createCardProjectReducer";
+import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
 
 import Button from "../button/Button";
 
-import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
+import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { FaRegCommentDots } from "react-icons/fa";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
 
 export const ContainerColumn = styled.div<{ borderColor: string }>`
   background: #ebecf0;
   width: 33.33%;
   height: 100%;
-  margin: 0 4px;
+  margin: 0 30px;
   box-shadow: 0px 0px 3px 0px #aba6a6;
   border-radius: 5px;
   padding: 6px 10px;
@@ -89,7 +87,10 @@ export const Marker = styled.div<{ background: string }>`
   left: 0;
 `;
 
-export const ContainerOtherDetaiels = styled.div``;
+export const ContainerOtherDetaiels = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 export interface IColumnProps {
   project: ITask[];
@@ -137,7 +138,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
     dispatch(setSelectTask(editTaskTime, column));
   };
 
-  const filterArr = (task: ITask) => {
+  const commentСounter = (task: ITask) => {
     let sum = 0;
     if (task.comments.length === 0) {
       sum = 0;
@@ -174,7 +175,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                   alignItems="start"
                   justifyContent="space-between"
                   width="100%"
-                  padding="20px 0 0 0"
+                  padding="15px 0 0 0"
                   position="relative"
                 >
                   {task.priorityMarker && (
@@ -193,21 +194,24 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                     right="1px"
                     top="0"
                   >
-                    <PDiscriptionEl lineHeight="normal">
+                    <PDiscriptionEl lineHeight="normal" fontSize="12px">
                       {"№" + task.numberTask}
                     </PDiscriptionEl>
                   </Flex>
                 </Flex>
               </ContentTask>
               <ContainerOtherDetaiels>
-                {task.comments.length ? (
-                  <Flex alignItems="center" margin="3px">
-                    <FaRegCommentDots fontSize="14px" color="#5e6c84" />{" "}
-                    <PDiscriptionEl lineHeight="normal" margin="0 0 0 5px">
-                      {filterArr(task)}
-                    </PDiscriptionEl>
-                  </Flex>
-                ) : null}
+                  {task.comments.length ? (
+                    <Flex alignItems="center" margin="0 4px 4px 0">
+                      <FaRegCommentDots fontSize="12px" color="#5e6c84" />{" "}
+                      <PDiscriptionEl lineHeight="normal" margin="0 0 0 2px" fontSize="12px">
+                        {commentСounter(task)}
+                      </PDiscriptionEl>
+                    </Flex>
+                  ) : null}
+                <Flex margin="0 4px 4px 0">
+                  {task.description !== "" ? <HiOutlineMenuAlt2 fontSize='12px'/> : null}
+                </Flex>
               </ContainerOtherDetaiels>
             </ContainerTaks>
           ))}

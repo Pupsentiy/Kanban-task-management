@@ -33,6 +33,8 @@ import NavigationTask from "./navigation/NavigationTask";
 import CreateSubTask from "./createSubTask/CreateSubTask";
 import SubTasks from "./subTasks/SubTasks";
 import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
+
+
 const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -121,6 +123,7 @@ const ModalEditTask: FC = () => {
 
   const timeIsOverdueDate =
     Date.parse(String(task?.finishDate)) - new Date().getTime() + 60000;
+
   const changeLabelDeadline = () => {
     setIsOverdue(!isOverdue);
   };
