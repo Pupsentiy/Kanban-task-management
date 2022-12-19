@@ -115,6 +115,8 @@ const ModalEditTask: FC = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
     setActiveInputDate(false);
     setActiveDropDownDate(false);
+    setActiveDropDownMarker(false)
+    setActiveDropDownSubTask(false)
   };
 
   const timeIsOverdueDate =

@@ -22,7 +22,7 @@ export const ModalContent = styled.div<{ active: boolean }>`
   padding: 10px 5px;
   border-radius: 5px;
   background-color: #ecf1fb;
-  min-height: 500px;
+  min-height: 600px;
   width: 860px;
   transition: 0.5s all;
   transform: ${({ active }) => (active ? `scale(1)` : `scale(0.2)`)};

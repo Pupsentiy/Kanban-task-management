@@ -138,6 +138,10 @@ export const Flex = styled.div<{
   padding?: string;
   position?:string;
   maxWidth?:string;
+  top?:string;
+  bottom?:string;
+  left?:string;
+  right?:string;
 }>`
   position: ${props => props.position || 'initial' };
   width: ${(props) => props.width || "auto"};
@@ -148,6 +152,10 @@ export const Flex = styled.div<{
   margin: ${(props) => props.margin || "0"};
   flex-direction: ${(props) => props.flexDirection || "row"};
   padding: ${(props) => props.padding || "0"};
+  top:${props => props.top};
+  bottom:${props => props.bottom};
+  left:${props => props.left};
+  right:${props => props.right};
 `;
 
 export const WrapperEl = styled.div<{ margin?: string; padding?: string }>`

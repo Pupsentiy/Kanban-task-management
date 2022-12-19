@@ -87,6 +87,8 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriority> = ({
         },
       });
     }
+
+      setActiveDropDownMarker(false)
   };
 
   const removeMarker = () => {
@@ -94,6 +96,7 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriority> = ({
       ...task,
       priorityMarker: null,
     });
+      setActiveDropDownMarker(false)
   };
 
   return (
