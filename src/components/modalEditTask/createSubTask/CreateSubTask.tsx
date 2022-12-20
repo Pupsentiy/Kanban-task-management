@@ -38,8 +38,7 @@ const CreateSubTask: FC<ICreateSubTask> = ({
     setActiveDropDownSubTask(false);
     setNameSubTask("");
   };
-
-  console.log(task);
+  
   return (
     <>
       <Input

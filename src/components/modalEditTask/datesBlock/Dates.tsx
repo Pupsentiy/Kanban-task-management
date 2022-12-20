@@ -11,7 +11,6 @@ export interface IDates {
   setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;
   setTask: React.Dispatch<React.SetStateAction<ITask>>;
-  setIsOverdue:React.Dispatch<React.SetStateAction<boolean>>
   task: ITask;
 }
 
@@ -23,7 +22,6 @@ const Dates: FC<IDates> = ({
   setTask,
   setActiveInputDate,
   setActiveDropDownDate,
-  setIsOverdue
 }) => {
   const [time, setTime] = useState(dataTime);
   const [date, setDate] = useState(dataDate);
@@ -33,16 +31,25 @@ const Dates: FC<IDates> = ({
   };
 
   const saveChangeTimeDate = () => {
-    setTask({
-      ...task,
-      finishDate: new Date(date+"T"+ time)
-    });
-    setIsOverdue(false)
+    if(activeInputDate){
+      setTask({
+        ...task,
+        finishDate:{date: new Date(date+"T"+ time),
+        checkDate:false}
+      });
+    }
     setActiveInputDate(false)
   };
 
   const openInputDate =()=>{
     setActiveInputDate(!activeInputDate)
+  }
+
+  const deleteDedline = () => {
+    setTask({
+      ...task,
+      finishDate:null
+    })
   }
   return (
     <>
@@ -103,7 +110,7 @@ const Dates: FC<IDates> = ({
           Сохранить
         </Button>
         <Button
-          onClick={() => closeDropDown()}
+          onClick={() => deleteDedline()}
           width="50%"
           padding="6px 12px"
           background="transparent"

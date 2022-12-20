@@ -17,6 +17,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import Moment from "react-moment";
+import { IoMdTime } from "react-icons/io";
+import { IoCheckboxOutline } from "react-icons/io5";
 
 export const ContainerColumn = styled.div<{ borderColor: string }>`
   background: #ebecf0;
@@ -92,6 +95,17 @@ export const ContainerOtherDetaiels = styled.div`
   align-items: center;
 `;
 
+export const ContainerTimeDedline = styled.div<{ background: string }>`
+  margin: 0 4px 4px 0;
+  align-items: center;
+  display: flex;
+  border-radius: 3px;
+  min-height: 20px;
+  max-width: 100%;
+  background: ${(props) => props.background};
+  padding: 0 3px;
+`;
+
 export interface IColumnProps {
   project: ITask[];
   column: string;
@@ -146,21 +160,30 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
       sum += task.comments.length;
     }
 
-    const recurse = (comment: TComment) => {
+    const recursion = (comment: TComment) => {
       comment.subComments.forEach((sub) => {
         sum += sub.subComments.length;
-        recurse(sub);
+        recursion(sub);
       });
     };
 
     task?.comments?.forEach((comment) => {
       sum += comment.subComments.length;
-      recurse(comment);
+      recursion(comment);
     });
 
     return sum;
   };
 
+  const subTaskCounter = (task: ITask) => {
+    let sum = 0;
+    task.subTasks.map((subTask) => {
+      if (subTask.check) {
+        sum++;
+      }
+    });
+    return sum;
+  };
   return (
     <ContainerColumn borderColor={borderColor}>
       <HeaderColumn>
@@ -185,7 +208,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                       }
                     />
                   )}
-                  <H6 fontWeight="400" width="100%">
+                  <H6 fontWeight="400" width="100%" fontSize="14px">
                     {task.titleTask}
                   </H6>
                   <Flex
@@ -201,16 +224,101 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
                 </Flex>
               </ContentTask>
               <ContainerOtherDetaiels>
-                  {task.comments.length ? (
-                    <Flex alignItems="center" margin="0 4px 4px 0">
-                      <FaRegCommentDots fontSize="12px" color="#5e6c84" />{" "}
-                      <PDiscriptionEl lineHeight="normal" margin="0 0 0 2px" fontSize="12px">
-                        {commentСounter(task)}
-                      </PDiscriptionEl>
-                    </Flex>
+                {task.comments.length ? (
+                  <Flex
+                    alignItems="center"
+                    margin="0 4px 4px 0"
+                    justifyContent="center"
+                  >
+                    <FaRegCommentDots fontSize="12px" color="#5e6c84" />{" "}
+                    <PDiscriptionEl
+                      lineHeight="normal"
+                      margin="0 0 0 2px"
+                      fontSize="12px"
+                    >
+                      {commentСounter(task)}
+                    </PDiscriptionEl>
+                  </Flex>
+                ) : null}
+                <Flex margin="0 4px 4px 0" justifyContent="center">
+                  {task.description !== "" ? (
+                    <HiOutlineMenuAlt2 fontSize="12px" />
                   ) : null}
-                <Flex margin="0 4px 4px 0">
-                  {task.description !== "" ? <HiOutlineMenuAlt2 fontSize='12px'/> : null}
+                </Flex>
+                <Flex>
+                  {task.finishDate ? (
+                    <ContainerTimeDedline
+                      background={
+                        Date.parse(String(task?.finishDate?.date)) -
+                          new Date().getTime() +
+                          60000 >
+                          0 && !task.finishDate?.checkDate
+                          ? "transparent"
+                          : task.finishDate?.checkDate
+                          ? "#61bd4f"
+                          : "#ec9488"
+                      }
+                    >
+                      <IoMdTime
+                        fontSize="12px"
+                        color={
+                          Date.parse(String(task?.finishDate?.date)) -
+                            new Date().getTime() +
+                            60000 >
+                            0 && !task.finishDate?.checkDate
+                            ? "#000"
+                            : "#fff"
+                        }
+                      />
+                      <PDiscriptionEl
+                        fontSize="12px"
+                        lineHeight="normal"
+                        margin="0 0 0 3px"
+                        color={
+                          Date.parse(String(task?.finishDate?.date)) -
+                            new Date().getTime() +
+                            60000 >
+                            0 && !task.finishDate?.checkDate
+                            ? "#000"
+                            : "#fff"
+                        }
+                      >
+                        <Moment format={" DD MMM"} locale="ru">
+                          {task.finishDate?.date}
+                        </Moment>
+                      </PDiscriptionEl>
+                    </ContainerTimeDedline>
+                  ) : null}
+                  {task.subTasks.length ? (
+                    <ContainerTimeDedline
+                      background={
+                        subTaskCounter(task) === task.subTasks.length
+                          ? "#61bd4f"
+                          : "transparent"
+                      }
+                    >
+                      <IoCheckboxOutline
+                        fontSize="12px"
+                        color={
+                          subTaskCounter(task) === task.subTasks.length
+                            ? "#fff"
+                            : "#5e6c84"
+                        }
+                      />
+                      <PDiscriptionEl
+                        fontSize="12px"
+                        lineHeight="normal"
+                        margin="0 0 0 3px"
+                        color={
+                          subTaskCounter(task) === task.subTasks.length
+                            ? "#fff"
+                            : "#5e6c84"
+                        }
+                      >
+                        {subTaskCounter(task)}/{task.subTasks.length}
+                      </PDiscriptionEl>
+                    </ContainerTimeDedline>
+                  ) : null}
                 </Flex>
               </ContainerOtherDetaiels>
             </ContainerTaks>

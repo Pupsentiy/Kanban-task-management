@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { Flex, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
+import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 import {
   setCloseEditTaskModal,
   setEditTask,
@@ -33,7 +33,7 @@ import NavigationTask from "./navigation/NavigationTask";
 import CreateSubTask from "./createSubTask/CreateSubTask";
 import SubTasks from "./subTasks/SubTasks";
 import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
-
+import Investment from "./investment/Investment";
 
 const ModalEditTask: FC = () => {
   const { id } = useParams();
@@ -59,8 +59,7 @@ const ModalEditTask: FC = () => {
     useState<boolean>(false);
   const [activeDropDownMarker, setActiveDropDownMarker] =
     useState<boolean>(false);
-
-  const [isOverdue, setIsOverdue] = useState(false);
+    const [activeBlockInvestment,setActiveBlockInvestment] = useState<boolean>(false)
 
   useEffect(() => {
     setTask(selectTask.task);
@@ -73,7 +72,6 @@ const ModalEditTask: FC = () => {
       [name]: value,
     });
   };
-
   const onChangeComment = (event: { target: { value: string } }) => {
     setCommentTextValue(event.target.value);
   };
@@ -117,16 +115,23 @@ const ModalEditTask: FC = () => {
     dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
     setActiveInputDate(false);
     setActiveDropDownDate(false);
-    setActiveDropDownMarker(false)
-    setActiveDropDownSubTask(false)
+    setActiveDropDownMarker(false);
+    setActiveDropDownSubTask(false);
   };
 
   const timeIsOverdueDate =
-    Date.parse(String(task?.finishDate)) - new Date().getTime() + 60000;
+    Date.parse(String(task?.finishDate?.date)) - new Date().getTime() + 60000;
 
   const changeLabelDeadline = () => {
-    setIsOverdue(!isOverdue);
+    setTask({
+      ...task,
+      finishDate: {
+        checkDate: !task?.finishDate?.checkDate,
+        date: task?.finishDate?.date,
+      },
+    });
   };
+
   return (
     <Modal
       onClick={() => {
@@ -135,7 +140,10 @@ const ModalEditTask: FC = () => {
       }}
       active={activeModal}
     >
-      <ModalContent onClick={(e) => e.stopPropagation()} active={activeModal}>
+      <ModalContent
+        onClick={(event) => event.stopPropagation()}
+        active={activeModal}
+      >
         <ModalWrapperHeader>
           <HeaderModalEditTask
             setChangeHeaderTask={setChangeHeaderTask}
@@ -149,6 +157,16 @@ const ModalEditTask: FC = () => {
         <ModalBodyWrapper>
           <Flex width="100%">
             <ModalOtherBlock>
+              <Flex margin="10px 0 10px 40px" alignItems="center">
+                <PDiscriptionEl
+                  margin="0 5px 0 0"
+                  fontSize="12px"
+                  lineHeight="normal"
+                >
+                  Текущий статус:
+                </PDiscriptionEl>
+                <H6 fontSize="14px">{selectTask.column}</H6>
+              </Flex>
               <TaskDetailsBlock>
                 {task?.priorityMarker ? (
                   <WrapperEl margin="5px 15px 5px 0px">
@@ -165,14 +183,15 @@ const ModalEditTask: FC = () => {
                       <WrapperEl margin=" 0 5px 0 0">
                         <CheckBox
                           onClick={() => changeLabelDeadline()}
-                          active={isOverdue}
+                          active={task?.finishDate?.checkDate}
                         />
                       </WrapperEl>
                       <WrapperExpirationDate>
                         <Moment format={" DD MMM - HH:mm"} locale="ru">
-                          {task?.finishDate}
+                          {task?.finishDate?.date}
                         </Moment>
-                        {timeIsOverdueDate < 0 && !isOverdue ? (
+                        {timeIsOverdueDate < 0 &&
+                        !task?.finishDate?.checkDate ? (
                           <span className="overdue">
                             <PDiscriptionEl
                               lineHeight="17px"
@@ -182,7 +201,7 @@ const ModalEditTask: FC = () => {
                               просрочено
                             </PDiscriptionEl>
                           </span>
-                        ) : isOverdue ? (
+                        ) : task?.finishDate?.checkDate ? (
                           <span className="performed">
                             <PDiscriptionEl
                               lineHeight="17px"
@@ -206,10 +225,11 @@ const ModalEditTask: FC = () => {
                 onChangeTask={onChangeTask}
                 saveTask={saveTask}
               />
-
               {task?.subTasks.length > 0 && (
                 <SubTasks task={task} setTask={setTask} />
               )}
+              {activeBlockInvestment ? <Investment task={task} setTask={setTask}/> :null}
+              
               <ActionModalEditTask
                 setIdSelectComment={setIdSelectComment}
                 setSelectComments={setSelectComments}
@@ -233,6 +253,7 @@ const ModalEditTask: FC = () => {
                 setActiveDropDownDate={setActiveDropDownDate}
                 setActiveDropDownSubTask={setActiveDropDownSubTask}
                 setActiveDropDownMarker={setActiveDropDownMarker}
+                setActiveBlockInvestment={setActiveBlockInvestment}
               />
               {activeDropDownDate && (
                 <DropDown name="Даты" setClose={setActiveDropDownDate}>
@@ -242,7 +263,6 @@ const ModalEditTask: FC = () => {
                     setTask={setTask}
                     setActiveInputDate={setActiveInputDate}
                     setActiveDropDownDate={setActiveDropDownDate}
-                    setIsOverdue={setIsOverdue}
                   />
                 </DropDown>
               )}

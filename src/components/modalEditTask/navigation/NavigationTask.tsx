@@ -6,12 +6,14 @@ export interface INavigationTask {
   setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveDropDownSubTask: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveDropDownMarker: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveBlockInvestment: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NavigationTask: FC<INavigationTask> = ({
   setActiveDropDownDate,
   setActiveDropDownSubTask,
-  setActiveDropDownMarker
+  setActiveDropDownMarker,
+  setActiveBlockInvestment
 }) => {
   return (
     <>
@@ -43,6 +45,16 @@ const NavigationTask: FC<INavigationTask> = ({
           onClick={() => setActiveDropDownMarker(true)}
         >
           Приоритет
+        </Button>
+      </WrapperEl>
+      <WrapperEl margin="0 0 6px 0">
+        <Button
+          background="#5f9ea094"
+          width="100%"
+          hoverBackColor="#5f9ea0"
+          onClick={() => setActiveBlockInvestment(true)}
+        >
+          Прикрепить Файл
         </Button>
       </WrapperEl>
     </>

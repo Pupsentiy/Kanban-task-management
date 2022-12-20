@@ -85,9 +85,10 @@ export const H6 = styled.h6<{
   color?: string;
   fontWeight?: string;
   width?: string;
+  fontSize?:string;
 }>`
   font-weight: ${(props) => props.fontWeight || "600"};
-  font-size: 16px;
+  font-size: ${props => props.fontSize || '16px'};
   line-height: 100%;
   word-wrap: break-word;
   color: ${(props) => props.color || "#000"};
