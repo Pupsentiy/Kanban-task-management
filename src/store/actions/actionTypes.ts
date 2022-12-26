@@ -1,4 +1,3 @@
-import { Params } from "react-router-dom";
 import { ITask } from "../reducers/createCardProjectReducer";
 import {
   CLOSE_EDIT_TASK_MODAL,
@@ -6,6 +5,8 @@ import {
   CREATE_TASK,
   CRETEPROMODAL__CLOSE,
   CRETEPROMODAL__OPEN,
+  DRAGGABLE_DEVELOPMENT,
+  DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
   SELECTE_TASK,
@@ -41,18 +42,26 @@ export const setCloseEditTaskModal = () => ({
   payload: false,
 });
 
-export const setSelectTask = (task: ITask,column:string) => ({
+export const setSelectTask = (task: ITask, column: string) => ({
   type: SELECTE_TASK,
-  payload: {task,column},
+  payload: { task, column },
 });
 
 export const setEditTask = (
   task: ITask,
   id: string | undefined,
-  column:string,
-
+  column: string
 ) => ({
   type: EDIT_TASK,
-  payload: { task,id, column,  },
+  payload: { task, id, column },
 });
 
+export const setDraggableQueueTask = (queue: ITask[]) => ({
+  type: DRAGGABLE_QUEUE,
+  payload: queue,
+});
+
+export const setDraggableDevelopmentTask = (development: ITask[]) => ({
+  type: DRAGGABLE_DEVELOPMENT,
+  payload: development,
+});

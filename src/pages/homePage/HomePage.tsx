@@ -50,7 +50,7 @@ const HomePage = () => {
   const toggleModalCreProject = useSelector(
     (state: RootState) => state.toggleCreateProModal.toggleModal
   );
-  const cardProject = useSelector(
+  const projects = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
   const openCreateProModal = () => {
@@ -69,12 +69,12 @@ const HomePage = () => {
               <AiOutlinePlus fontSize="20px" />
             </WrapperCard>
           </LiCard>
-          {cardProject &&
-            cardProject.map((card: ICard, i: number) => (
-              <NavLinkEL key={i} to={`${card.id}`} width="25%">
+          {projects &&
+            projects.map((project: ICard, i: number) => (
+              <NavLinkEL key={i} to={`${project.id}`} width="25%">
                 <LiCard width="100%">
                   <WrapperCard background="#782175">
-                    <H6>{card.name}</H6>
+                    <H6>{project.name}</H6>
                   </WrapperCard>
                 </LiCard>
               </NavLinkEL>

@@ -3,6 +3,8 @@ import {
   CLOSE_EDIT_TASK_MODAL,
   CREATE_CARD_PROJECT,
   CREATE_TASK,
+  DRAGGABLE_DEVELOPMENT,
+  DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
   SELECTE_TASK,
@@ -22,7 +24,7 @@ export interface ICard {
   [key: string]: any;
 }
 export type TFinishTDate = {
-  date?: Date  ;
+  date?: Date;
   checkDate: boolean;
 };
 
@@ -175,6 +177,22 @@ export const createCardProject = (
           }
         }),
       };
+
+    case DRAGGABLE_QUEUE:
+      return {
+        ...state,
+        projects: state.projects.map((project) => {
+         return project.queue = action.payload;
+        }),
+      };
+    case DRAGGABLE_DEVELOPMENT:
+      return {
+        ...state,
+        projects: state.projects.map((project) => {
+          return project.development = action.payload;
+         }),
+      };
+
     case OPEN_EDIT_TASK_MODAL:
       return {
         ...state,
