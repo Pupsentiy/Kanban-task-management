@@ -4,6 +4,7 @@ import {
   CREATE_CARD_PROJECT,
   CREATE_TASK,
   DRAGGABLE_DEVELOPMENT,
+  DRAGGABLE_DONE,
   DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
@@ -193,6 +194,13 @@ export const createCardProject = (
          }),
       };
 
+      case DRAGGABLE_DONE:
+      return {
+        ...state,
+        projects: state.projects.map((project) => {
+          return project.done = action.payload;
+         }),
+      };
     case OPEN_EDIT_TASK_MODAL:
       return {
         ...state,

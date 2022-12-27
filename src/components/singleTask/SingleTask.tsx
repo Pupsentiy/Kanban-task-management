@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable } from "@hello-pangea/dnd";
 import { FaRegCommentDots } from "react-icons/fa";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { IoMdTime } from "react-icons/io";
@@ -33,10 +33,9 @@ const SingleTask: FC<ISingleTask> = ({
   subTaskCounter,
 }) => {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task.id} index={index} key={task.id}>
       {(provided) => (
         <ContainerTaks
-          key={task.id}
           onClick={() => openModal(task, column)}
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -74,7 +73,7 @@ const SingleTask: FC<ISingleTask> = ({
                 margin="0 4px 4px 0"
                 justifyContent="center"
               >
-                <FaRegCommentDots fontSize="12px" color="#5e6c84" />{" "}
+                <FaRegCommentDots fontSize="12px" color="#5e6c84" />
                 <PDiscriptionEl
                   lineHeight="normal"
                   margin="0 0 0 2px"

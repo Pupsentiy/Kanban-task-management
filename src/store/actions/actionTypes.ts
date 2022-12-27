@@ -6,6 +6,7 @@ import {
   CRETEPROMODAL__CLOSE,
   CRETEPROMODAL__OPEN,
   DRAGGABLE_DEVELOPMENT,
+  DRAGGABLE_DONE,
   DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
@@ -64,4 +65,9 @@ export const setDraggableQueueTask = (queue: ITask[]) => ({
 export const setDraggableDevelopmentTask = (development: ITask[]) => ({
   type: DRAGGABLE_DEVELOPMENT,
   payload: development,
+});
+
+export const setDraggableDoneTask = (done: ITask[]) => ({
+  type: DRAGGABLE_DONE,
+  payload: done,
 });
