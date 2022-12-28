@@ -5,7 +5,7 @@ export type TRoutesConfig = {
   [key: string]: {
     title: string | null;
     path: string;
-    component: (props: any) => JSX.Element;
+    component: () => JSX.Element;
   };
 };
 

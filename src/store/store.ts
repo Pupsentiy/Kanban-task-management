@@ -1,10 +1,10 @@
 import { compose, legacy_createStore } from "redux";
 import { combineReducers } from "redux";
-import {
-  createCardProject,
-  ICard,
-} from "./reducers/createCardProjectReducer";
+
+import { createCardProject } from "./reducers/createCardProjectReducer";
 import { toggleCreateProModal } from "./reducers/creteProModalToggleReducer";
+
+import { ICard } from "./types/store.types";
 
 const saveToLocalStorage = (state: ICard[]) => {
   try {
@@ -14,21 +14,10 @@ const saveToLocalStorage = (state: ICard[]) => {
   }
 };
 
-// const loadFromLocalStorage = () => {
-//   try {
-//     const stateStr = localStorage.getItem("card");
-//     return stateStr ? JSON.parse(stateStr) : undefined;
-//   } catch (e) {
-//     console.error(e);
-//     return undefined;
-//   }
-// };
-
 export const rootReducer = combineReducers({
   createCardProject,
   toggleCreateProModal,
 });
-
 
 declare global {
   interface Window {

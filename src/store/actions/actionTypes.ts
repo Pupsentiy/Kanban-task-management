@@ -1,4 +1,4 @@
-import { ITask } from "../reducers/createCardProjectReducer";
+import { ITask } from "../types/store.types";
 import {
   CLOSE_EDIT_TASK_MODAL,
   CREATE_CARD_PROJECT,
@@ -10,6 +10,7 @@ import {
   DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
+  SEARCH_TASK,
   SELECTE_TASK,
 } from "./actionCreators";
 
@@ -57,17 +58,22 @@ export const setEditTask = (
   payload: { task, id, column },
 });
 
-export const setDraggableQueueTask = (queue: ITask[]) => ({
+export const setDraggableQueueTask = (queue: ITask[],id:string| undefined,) => ({
   type: DRAGGABLE_QUEUE,
-  payload: queue,
+  payload: {queue,id},
 });
 
-export const setDraggableDevelopmentTask = (development: ITask[]) => ({
+export const setDraggableDevelopmentTask = (development: ITask[],id:string| undefined,) => ({
   type: DRAGGABLE_DEVELOPMENT,
-  payload: development,
+  payload: {development,id},
 });
 
-export const setDraggableDoneTask = (done: ITask[]) => ({
+export const setDraggableDoneTask = (done: ITask[],id:string| undefined,) => ({
   type: DRAGGABLE_DONE,
-  payload: done,
+  payload: {done,id},
 });
+
+export const setSearchTask = (text:string) => ({
+  type:SEARCH_TASK,
+  payload:text
+})

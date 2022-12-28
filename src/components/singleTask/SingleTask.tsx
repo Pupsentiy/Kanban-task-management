@@ -1,30 +1,23 @@
 import { FC } from "react";
 import { Draggable } from "@hello-pangea/dnd";
+import Moment from "react-moment";
+
+import { ISingleTaskProps } from "./SingleTask.types";
+
+import { IoCheckboxOutline } from "react-icons/io5";
 import { FaRegCommentDots } from "react-icons/fa";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { IoMdTime } from "react-icons/io";
-import { IoCheckboxOutline } from "react-icons/io5";
-import Moment from "react-moment";
-import { ITask } from "../../store/reducers/createCardProjectReducer";
 import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import {
-  ContainerOtherDetaiels,
   ContainerTaks,
-  ContainerTimeDedline,
   ContentTask,
   Marker,
-} from "../column/Column";
+  ContainerOtherDetaiels,
+  ContainerTimeDedline,
+} from "../column/Column.styled";
 
-export interface ISingleTask {
-  task: ITask;
-  column: string;
-  index: number;
-  openModal: (task: ITask, column: string) => void;
-  commentСounter: (task: ITask) => number;
-  subTaskCounter: (task: ITask) => number;
-}
-
-const SingleTask: FC<ISingleTask> = ({
+const SingleTask: FC<ISingleTaskProps> = ({
   task,
   column,
   index,
@@ -34,12 +27,13 @@ const SingleTask: FC<ISingleTask> = ({
 }) => {
   return (
     <Draggable draggableId={task.id} index={index} key={task.id}>
-      {(provided) => (
+      {(provided,snapshot) => (
         <ContainerTaks
           onClick={() => openModal(task, column)}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          background={snapshot.isDragging ? '#f7eeee' : ''}
         >
           <ContentTask>
             <Flex

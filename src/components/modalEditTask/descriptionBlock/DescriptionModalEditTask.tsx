@@ -1,6 +1,8 @@
 import React, { FC } from "react";
+
+import Button from "../../button/Button";
+
 import { BsTextLeft } from "react-icons/bs";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
 import {
   ContainerIcon,
   Flex,
@@ -9,18 +11,10 @@ import {
   PDiscriptionEl,
   WrapperEl,
 } from "../../../styles/index.styled";
-import Button from "../../button/Button";
+import { IDescriptionModalEditTaskProps } from "./DescriptionModalEditTask.types";
 
-export interface IDescriptionModalEditTask {
-  setChangeDescriptionTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setChangeHeaderTask: React.Dispatch<React.SetStateAction<boolean>>;
-  changeDescriptionTask: boolean;
-  task: ITask;
-  onChangeTask: (event: { target: { name: string; value: string } }) => void;
-  saveTask: () => void;
-}
 
-const DescriptionModalEditTask: FC<IDescriptionModalEditTask> = ({
+const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
   setChangeDescriptionTask,
   setChangeHeaderTask,
   changeDescriptionTask,

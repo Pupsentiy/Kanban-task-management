@@ -1,30 +1,31 @@
 import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+
 import Column from "../../components/column/Column";
 import ModalEditTask from "../../components/modalEditTask/ModalEditTask";
+
 import {
   setDraggableDevelopmentTask,
   setDraggableDoneTask,
   setDraggableQueueTask,
 } from "../../store/actions/actionTypes";
 import { RootState } from "../../store/store";
-import { ContainerEl, Flex } from "../../styles/index.styled";
+import { ICard } from "../../store/types/store.types";
 
-export const WrapperColumn = styled.div`
-  width: 33.33%;
-`;
+import { ContainerEl, Flex, WrapperColumn } from "../../styles/index.styled";
 
 const DetailsPage = () => {
   const { id } = useParams();
   const cardProject = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
+  const dispatch = useDispatch();
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject = Object.values(cardProject).find(
+  const selectProject: ICard = Object.values(cardProject).find(
     (card) => card.id === id
   );
 
@@ -59,11 +60,11 @@ const DetailsPage = () => {
     } else {
       done.splice(destination.index, 0, add);
     }
-
-    setDraggableQueueTask(queue);
-    setDraggableDevelopmentTask(development);
-    setDraggableDoneTask(done);
+    dispatch(setDraggableQueueTask(queue,id));
+    dispatch(setDraggableDevelopmentTask(development,id));
+    dispatch(setDraggableDoneTask(done,id));
   };
+
   return (
     <>
       {selectProject && (
@@ -71,7 +72,7 @@ const DetailsPage = () => {
           <Flex justifyContent="space-beetwen">
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="Queue">
-                {(provided) => (
+                {(provided, snapshot) => (
                   <WrapperColumn
                     ref={provided.innerRef}
                     {...provided.droppableProps}
@@ -79,6 +80,7 @@ const DetailsPage = () => {
                     <Column
                       project={selectProject?.queue}
                       column={title.queue}
+                      background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ff0000"
                     />
                     {provided.placeholder}
@@ -86,7 +88,7 @@ const DetailsPage = () => {
                 )}
               </Droppable>
               <Droppable droppableId="Development">
-                {(provided) => (
+                {(provided, snapshot) => (
                   <WrapperColumn
                     ref={provided.innerRef}
                     {...provided.droppableProps}
@@ -94,6 +96,7 @@ const DetailsPage = () => {
                     <Column
                       project={selectProject?.development}
                       column={title.development}
+                      background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ffa500"
                     />
                     {provided.placeholder}
@@ -101,7 +104,7 @@ const DetailsPage = () => {
                 )}
               </Droppable>
               <Droppable droppableId="Done">
-                {(provided) => (
+                {(provided, snapshot) => (
                   <WrapperColumn
                     ref={provided.innerRef}
                     {...provided.droppableProps}
@@ -109,6 +112,7 @@ const DetailsPage = () => {
                     <Column
                       project={selectProject?.done}
                       column={title.done}
+                      background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#04ff00"
                     />
                     {provided.placeholder}

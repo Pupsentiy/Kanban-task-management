@@ -234,3 +234,7 @@ export const ModalTextArea = styled.textarea<{
     box-shadow: inset 0 0 0 2px #5f9ea0;
   }
 `;
+
+export const WrapperColumn = styled.div`
+  width: 33.33%;
+`;

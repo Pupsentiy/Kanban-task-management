@@ -1,9 +1,9 @@
-import { CRETEPROMODAL__CLOSE, CRETEPROMODAL__OPEN } from "../actions/actionCreators";
+import {
+  CRETEPROMODAL__CLOSE,
+  CRETEPROMODAL__OPEN,
+} from "../actions/actionCreators";
 
-
-export interface IToggleCreProModal {
-  toggleModal: boolean;
-}
+import { IToggleCreProModal } from "../types/store.types";
 
 const initialState: IToggleCreProModal = {
   toggleModal: false,

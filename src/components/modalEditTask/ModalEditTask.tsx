@@ -1,17 +1,29 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Moment from "react-moment";
+import "moment/locale/ru";
 
-import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
+import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
+import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
+import ActionModalEditTask from "./actionBlock/ActionModalEditTask";
+import CheckBox from "../checkBox/CheckBox";
+import NavigationTask from "./navigation/NavigationTask";
+import CreateSubTask from "./createSubTask/CreateSubTask";
+import SubTasks from "./subTasks/SubTasks";
+import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
+import Investment from "./investment/Investment";
+import Dates from "./datesBlock/Dates";
+import DropDown from "../dropDown/DropDown";
+
 import {
   setCloseEditTaskModal,
   setEditTask,
 } from "../../store/actions/actionTypes";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
-import { useParams } from "react-router-dom";
-import DropDown from "../dropDown/DropDown";
-import Dates from "./datesBlock/Dates";
+import { ITask, TComment } from "../../store/types/store.types";
+
 import {
   Modal,
   ModalBodyWrapper,
@@ -23,22 +35,13 @@ import {
   WrapperExpirationDate,
   Marker,
 } from "./ModalEditTask.styled";
-import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
-import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
-import ActionModalEditTask from "./actionBlock/ActionModalEditTask";
-import CheckBox from "../checkBox/CheckBox";
-import Moment from "react-moment";
-import "moment/locale/ru";
-import NavigationTask from "./navigation/NavigationTask";
-import CreateSubTask from "./createSubTask/CreateSubTask";
-import SubTasks from "./subTasks/SubTasks";
-import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
-import Investment from "./investment/Investment";
+import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
 
 const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const TextAreaRef = useRef<HTMLTextAreaElement>(null);
+  
   const selectTask = useSelector(
     (state: RootState) => state.createCardProject.selectTask
   );

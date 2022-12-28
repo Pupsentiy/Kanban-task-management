@@ -1,17 +1,14 @@
 import { FC, useState } from "react";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
-import { Flex } from "../../../styles/index.styled";
-import Button from "../../button/Button";
-import Input from "../../input/Input";
 import { v4 as uuidv4 } from "uuid";
 
-export interface ICreateSubTask {
-  setActiveDropDownSubTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setTask: React.Dispatch<React.SetStateAction<ITask>>;
-  task: ITask;
-}
+import Button from "../../button/Button";
+import Input from "../../input/Input";
 
-const CreateSubTask: FC<ICreateSubTask> = ({
+import { Flex } from "../../../styles/index.styled";
+
+import { ICreateSubTaskProps } from "./CreateSubTask.types";
+
+const CreateSubTask: FC<ICreateSubTaskProps> = ({
   setActiveDropDownSubTask,
   setTask,
   task,
@@ -38,7 +35,7 @@ const CreateSubTask: FC<ICreateSubTask> = ({
     setActiveDropDownSubTask(false);
     setNameSubTask("");
   };
-  
+
   return (
     <>
       <Input

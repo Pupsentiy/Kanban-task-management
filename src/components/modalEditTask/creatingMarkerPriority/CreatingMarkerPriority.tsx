@@ -1,52 +1,15 @@
 import { FC, useState } from "react";
-import styled from "styled-components";
-import {
-  IPriorityMarker,
-  ITask,
-} from "../../../store/reducers/createCardProjectReducer";
-import { PDiscriptionEl } from "../../../styles/index.styled";
+
 import Button from "../../button/Button";
 import CheckBox from "../../checkBox/CheckBox";
 
-export const WrapperMarker = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin: 6px 0px;
-  padding: 0 0 3px 3px;
-`;
+import { ICreatingMarkerPriorityProps } from "./CreatingMarkerPriority.types";
+import { IPriorityMarker } from "../../../store/types/store.types";
 
-export const ContentMarker = styled.div<{
-  background: string;
-  beforeBackground: string;
-}>`
-  background: ${(props) => props.background};
-  height: 30px;
-  width: 100%;
-  margin: 0 0 0 10px;
-  border-radius: 3px;
-  position: relative;
-  padding-left: 35px;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 8px;
-    bottom: 8px;
-    left: 8px;
-    border-radius: 8px;
-    width: 16px;
-    height: 16px;
-    background: ${(props) => props.beforeBackground};
-  }
-`;
+import { PDiscriptionEl } from "../../../styles/index.styled";
+import { ContentMarker, WrapperMarker } from "./CreatingMarkerPriority.styled";
 
-export interface ICreatingMarkerPriority {
-  setActiveDropDownMarker: React.Dispatch<React.SetStateAction<boolean>>;
-  setTask: React.Dispatch<React.SetStateAction<ITask>>;
-  task: ITask;
-}
-
-const CreatingMarkerPriority: FC<ICreatingMarkerPriority> = ({
+const CreatingMarkerPriority: FC<ICreatingMarkerPriorityProps> = ({
   setActiveDropDownMarker,
   setTask,
   task,
@@ -88,7 +51,7 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriority> = ({
       });
     }
 
-      setActiveDropDownMarker(false)
+    setActiveDropDownMarker(false);
   };
 
   const removeMarker = () => {
@@ -96,7 +59,7 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriority> = ({
       ...task,
       priorityMarker: null,
     });
-      setActiveDropDownMarker(false)
+    setActiveDropDownMarker(false);
   };
 
   return (

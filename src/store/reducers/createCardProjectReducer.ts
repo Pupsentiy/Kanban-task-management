@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+
 import {
   CLOSE_EDIT_TASK_MODAL,
   CREATE_CARD_PROJECT,
@@ -8,68 +9,11 @@ import {
   DRAGGABLE_QUEUE,
   EDIT_TASK,
   OPEN_EDIT_TASK_MODAL,
+  SEARCH_TASK,
   SELECTE_TASK,
 } from "../actions/actionCreators";
 
-// const card =
-//   localStorage.getItem("card") !== null
-//     ? JSON.parse(localStorage.getItem("card") as string)
-//     : [];
-
-export interface ICard {
-  id: string;
-  name: string;
-  queue: ITask[];
-  development: ITask[];
-  done: ITask[];
-  [key: string]: any;
-}
-export type TFinishTDate = {
-  date?: Date;
-  checkDate: boolean;
-};
-
-export interface ITask {
-  id: string;
-  numberTask: string;
-  titleTask: string;
-  description: string;
-  createTaskDate: Date; //Date
-  proccesTime: string; //Date
-  finishDate: TFinishTDate | null; //date
-  priorityMarker: IPriorityMarker | null;
-  files: string; // File
-  currentStatus: string;
-  subTasks: ISubTask[];
-  comments: TComment[];
-}
-
-export interface IPriorityMarker {
-  id: number;
-  name: string;
-  color: string;
-  colorCircle: string;
-  check: boolean;
-}
-
-export interface ISubTask {
-  id: string;
-  description: string;
-  check: boolean;
-}
-
-export type TComment = {
-  id: string;
-  text: string;
-  subComments: TComment[];
-  [key: string]: any;
-};
-
-export interface ICreateCardProject {
-  projects: ICard[];
-  selectTask: ITask;
-  toggleModalEditTask: boolean;
-}
+import { ICard, ICreateCardProject, ITask } from "../types/store.types";
 
 const getFromLocalStorage = (key: string) => {
   if (!key || typeof window === "undefined") {
@@ -89,8 +33,6 @@ export const createCardProject = (
   state = initialState,
   action: { type: string; payload: any }
 ) => {
-  console.log(state);
-
   switch (action.type) {
     case CREATE_CARD_PROJECT:
       return {
@@ -166,7 +108,6 @@ export const createCardProject = (
                     subTasks: action.payload.task.subTasks,
                     comments: action.payload.task.comments,
                   };
-                  // console.log(editTask,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                   return editTask;
                 }
 
@@ -183,23 +124,44 @@ export const createCardProject = (
       return {
         ...state,
         projects: state.projects.map((project) => {
-         return project.queue = action.payload;
+          if (project.id === action.payload.id) {
+            project.queue = action.payload.queue;
+          }
+          return project;
         }),
       };
     case DRAGGABLE_DEVELOPMENT:
       return {
         ...state,
         projects: state.projects.map((project) => {
-          return project.development = action.payload;
-         }),
+          if (project.id === action.payload.id) {
+            project.development = action.payload.development;
+          }
+          return project;
+        }),
       };
 
-      case DRAGGABLE_DONE:
+    case DRAGGABLE_DONE:
       return {
         ...state,
         projects: state.projects.map((project) => {
-          return project.done = action.payload;
-         }),
+          if (project.id === action.payload.id) {
+            project.done = action.payload.done;
+          }
+          return project;
+        }),
+      };
+
+    case SEARCH_TASK:
+      return {
+        ...state,
+        projects: state.projects.map((project) => {
+          // project.development.filter(taks => taks.numberTask == action.payload)
+          project.queue.map(taks => taks.numberTask.toLowerCase() == action.payload)
+          // project.done.filter(taks => taks.numberTask !== action.payload)
+          console.log(project);
+          return project;
+        }),
       };
     case OPEN_EDIT_TASK_MODAL:
       return {

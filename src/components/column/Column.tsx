@@ -1,118 +1,30 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 
+import SingleTask from "../singleTask/SingleTask";
+import Button from "../button/Button";
+
+import { ITask, TComment } from "../../store/types/store.types";
 import {
   setCreateTask,
   setOpenEditTaskModal,
   setSelectTask,
 } from "../../store/actions/actionTypes";
-import { ITask, TComment } from "../../store/reducers/createCardProjectReducer";
 
-import Button from "../button/Button";
+import { IColumnProps } from "./Column.types";
 
-import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
+import {
+  ContainerColumn,
+  HeaderColumn,
+  InputTitleTaskEl,
+  OtherColumn,
+} from "./Column.styled";
+import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
-import { FaRegCommentDots } from "react-icons/fa";
-import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import Moment from "react-moment";
-import { IoMdTime } from "react-icons/io";
-import { IoCheckboxOutline } from "react-icons/io5";
-import SingleTask from "../singleTask/SingleTask";
 
-export const ContainerColumn = styled.div<{ borderColor: string }>`
-  background: #ebecf0;
-  margin: 0 30px;
-  box-shadow: 0px 0px 3px 0px #aba6a6;
-  border-radius: 5px;
-  padding: 6px 10px;
-  border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
-`;
-export const HeaderColumn = styled.div`
-  padding: 6px 10px;
-`;
-
-export const OtherColumn = styled.div`
-  padding: 12px 10px 6px 10px;
-  border-top: 1px solid #000;
-  min-height: 55px;
-`;
-
-export const InputTitleTaskEl = styled.textarea`
-  width: 100%;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  resize: none;
-  height: 40px;
-  padding: 2px 5px 0 5px;
-  border: none;
-  border-radius: 2px;
-  font-size: 15px;
-  box-shadow: 0px 0px 4px 1px #aba6a6;
-  &:focus {
-    box-shadow: inset 0 0 0 2px #5f9ea0;
-  }
-`;
-
-export const ContainerTaks = styled.div`
-  background: #fff;
-  min-height: 20px;
-  border-radius: 2px;
-  margin-bottom: 10px;
-  padding: 10px 8px 2px;
-  box-shadow: 0px 0px 2px 1px #aba6a6;
-  cursor: pointer;
-  &:hover {
-    background: #dfdbdb;
-    .icon {
-      display: block;
-    }
-  }
-`;
-
-export const ContentTask = styled.div`
-  margin: 0 0 4px 0;
-`;
-
-export const Marker = styled.div<{ background: string }>`
-  background: ${(props) => props?.background || "transparent"};
-  margin-bottom: 10px;
-  padding-right: 0;
-  padding-left: 0;
-  height: 8px;
-  width: 40px;
-  border-radius: 4px;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-export const ContainerOtherDetaiels = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const ContainerTimeDedline = styled.div<{ background: string }>`
-  margin: 0 4px 4px 0;
-  align-items: center;
-  display: flex;
-  border-radius: 3px;
-  min-height: 20px;
-  max-width: 100%;
-  background: ${(props) => props.background};
-  padding: 0 3px;
-`;
-
-export interface IColumnProps {
-  project: ITask[];
-  column: string;
-  //styles
-  borderColor: string;
-}
-
-const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
+const Column: FC<IColumnProps> = ({ borderColor, project, column,background }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -170,7 +82,6 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
       sum += comment.subComments.length;
       recursion(comment);
     });
-
     return sum;
   };
 
@@ -180,12 +91,13 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column }) => {
       if (subTask.check) {
         sum++;
       }
+      return subTask;
     });
     return sum;
   };
 
   return (
-    <ContainerColumn borderColor={borderColor}>
+    <ContainerColumn borderColor={borderColor} background={background}>
       <HeaderColumn>
         <H6>{column}</H6>
       </HeaderColumn>

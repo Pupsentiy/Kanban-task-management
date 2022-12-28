@@ -1,48 +1,23 @@
-import React, { FC, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { TfiClose } from "react-icons/tfi";
 import { AiOutlinePlus } from "react-icons/ai";
-
 import { Flex, H2, WrapperEl, WrapperForm } from "../../styles/index.styled";
+import { HeaderModal, SectionEl } from "./ModalCreateProject.styled";
+
 import Button from "../button/Button";
 import Input from "../input/Input";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
   setCloseCreateProjModal,
   setCreateCardProject,
 } from "../../store/actions/actionTypes";
-import { RootState } from "../../store/store";
-
-export const SectionEl = styled.section`
-  position: absolute;
-  width: 350px;
-  will-change: top, left;
-  top: 100px;
-  left: 550px;
-  background-color: #fff;
-  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
-    0 0 0 1px rgba(9, 30, 66, 0.08);
-  outline: 0;
-  overflow: hidden;
-  z-index: 5;
-`;
-
-export const HeaderModal = styled.div`
-  display: flex;
-  justify-conten: space-between;
-`;
-
-export type PopupClick = MouseEvent & {
-  path: Node[];
-};
 
 const ModalCreateProject: FC = () => {
-  const [fields, setFields] = useState<any>("");
+  const [fields, setFields] = useState<string>("");
   const dispatch = useDispatch();
-  const cardProject = useSelector(
-    (state: RootState) => state.createCardProject.projects
-  );
+
   const closeCreateProModal = () => {
     dispatch(setCloseCreateProjModal());
   };

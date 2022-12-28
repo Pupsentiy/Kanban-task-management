@@ -1,55 +1,16 @@
 import { FC, useState } from "react";
-import { BsPinAngle } from "react-icons/bs";
-import styled from "styled-components";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
-import { ContainerIcon, Flex, H6 } from "../../../styles/index.styled";
-import Button from "../../button/Button";
+
 import Input from "../../input/Input";
 
-export interface IInvestment {
-  task: ITask;
-  setTask: React.Dispatch<React.SetStateAction<ITask>>;
-}
+import { IInvestmentProps } from "./Investment.types";
 
-export const ButtonLoadFile = styled.label`
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: auto;
-  margin: 0;
-  border-radius: 3px;
-  border: none;
-  padding: 6px 12px;
-  color: #000;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-  cursor: pointer;
-  background: #091e420a;
-  -webkit-transition: all 0.1s ease;
-  transition: all 0.1s ease;
-  box-sizing: border-box;
-  &:active {
-    border: none;
-    font-size: 14px;
-    color: #000;
-    line-height: 20px;
-  }
+import { BsPinAngle } from "react-icons/bs";
+import { ContainerIcon, Flex, H6 } from "../../../styles/index.styled";
+import { ButtonLoadFile, WrapperInput } from "./Investment.styled";
 
-  &:hover {
-    background: #5f9ea094;
-  }
-`;
-
-export const WrapperInput = styled.div`
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-`;
-
-const Investment: FC<IInvestment> = ({ task, setTask }) => {
-  const [loadFiles,setLocadFiles] = useState()
-  console.log(loadFiles)
+const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
+  const [loadFiles, setLocadFiles] = useState();
+  console.log(loadFiles);
   return (
     <Flex alignItems="top" margin="5px 0">
       <ContainerIcon>
@@ -73,7 +34,7 @@ const Investment: FC<IInvestment> = ({ task, setTask }) => {
                 height="36px"
                 type="file" //
                 id="investment"
-                onChange={(e:any) => setLocadFiles(e.target.files[0])}
+                onChange={(e: any) => setLocadFiles(e.target.files[0])}
               />
             </WrapperInput>
           </ButtonLoadFile>

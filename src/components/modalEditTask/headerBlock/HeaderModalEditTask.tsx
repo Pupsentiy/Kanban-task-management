@@ -1,25 +1,19 @@
 import { FC } from "react";
+
+import Button from "../../button/Button";
+
+import { IHeaderModalEditTaskProps } from "./HeaderModalEditTask.types";
+
 import { BsLaptop } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
 import {
   ContainerIcon,
   Flex,
   H2,
   ModalTextArea,
 } from "../../../styles/index.styled";
-import Button from "../../button/Button";
 
-export interface IHeaderModalEditTask {
-  setChangeHeaderTask: React.Dispatch<React.SetStateAction<boolean>>;
-  changeHeaderTask: boolean;
-  onChangeTask: (event: { target: { name: string; value: string } }) => void;
-  saveTask: () => void;
-  closeModal: () => void;
-  task: ITask;
-}
-
-const HeaderModalEditTask: FC<IHeaderModalEditTask> = ({
+const HeaderModalEditTask: FC<IHeaderModalEditTaskProps> = ({
   setChangeHeaderTask,
   changeHeaderTask,
   onChangeTask,
@@ -64,14 +58,21 @@ const HeaderModalEditTask: FC<IHeaderModalEditTask> = ({
               </Button>
             </Flex>
           ) : (
-            <H2 fontSize="20px" margin="6px 6px 6px 0px" onClick={() => setChangeHeaderTask(true)}>
+            <H2
+              fontSize="20px"
+              margin="6px 6px 6px 0px"
+              onClick={() => setChangeHeaderTask(true)}
+            >
               {task?.titleTask}
             </H2>
           )}
         </Flex>
         <ContainerIcon right="0" top="3px">
           <TfiClose
-            onClick={() => (saveTask(), closeModal())}
+            onClick={() => {
+              saveTask();
+              closeModal();
+            }}
             cursor="pointer"
           />
         </ContainerIcon>

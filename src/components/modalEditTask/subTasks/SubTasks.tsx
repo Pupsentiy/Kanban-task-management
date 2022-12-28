@@ -1,52 +1,28 @@
 import { FC, useEffect, useState } from "react";
+
+import Button from "../../button/Button";
+import CheckBox from "../../checkBox/CheckBox";
+import Input from "../../input/Input";
+
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { IoTrashBin } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
-
-import styled from "styled-components";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
 import {
   ContainerIcon,
   Flex,
   H6,
   PDiscriptionEl,
 } from "../../../styles/index.styled";
-import Button from "../../button/Button";
-import CheckBox from "../../checkBox/CheckBox";
-import Input from "../../input/Input";
+import { ProgressBar, WrapperSubTask } from "./SubTasks.styled";
 
-export interface ISubTasks {
-  task: ITask;
-  setTask: React.Dispatch<React.SetStateAction<ITask>>;
-}
+import { ISubTasksProps } from "./SubTasks.types";
 
-export const WrapperSubTask = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 3px;
-  border-radius: 3px;
-  &:hover {
-    background: #091e421c;
-  }
-`;
-
-export const ProgressBar = styled.div<{ progressTracking: number }>`
-  width: ${(props) => props.progressTracking}%;
-  height: 6px;
-  background: #5f9ea094;
-  border-radius: 3px;
-  transition-duration: 0.14s;
-  transition-property: width, background;
-  transition-timing-function: ease-in;
-`;
-
-const SubTasks: FC<ISubTasks> = ({ task, setTask }) => {
-  const [checked, setChecked] = useState(false);
-  const [progressTracking, setProgressTracking] = useState(0);
-  const [chaneName, setChangeName] = useState("");
-  const [idSubTask, setIdSubTask] = useState("");
-  const [activeInput, setActiveInput] = useState(false);
+const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
+  const [checked, setChecked] = useState<boolean>(false);
+  const [progressTracking, setProgressTracking] = useState<number>(0);
+  const [chaneName, setChangeName] = useState<string>("");
+  const [idSubTask, setIdSubTask] = useState<string>("");
+  const [activeInput, setActiveInput] = useState<boolean>(false);
 
   const checkProgressBar = () => {
     let sum =

@@ -1,19 +1,16 @@
 import { FC } from "react";
-import { WrapperEl } from "../../../styles/index.styled";
+
 import Button from "../../button/Button";
 
-export interface INavigationTask {
-  setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveDropDownSubTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveDropDownMarker: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveBlockInvestment: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { INavigationTaskProps } from "./NavigationTask.types";
 
-const NavigationTask: FC<INavigationTask> = ({
+import { WrapperEl } from "../../../styles/index.styled";
+
+const NavigationTask: FC<INavigationTaskProps> = ({
   setActiveDropDownDate,
   setActiveDropDownSubTask,
   setActiveDropDownMarker,
-  setActiveBlockInvestment
+  setActiveBlockInvestment,
 }) => {
   return (
     <>

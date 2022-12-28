@@ -1,28 +1,17 @@
 import { FC } from "react";
-import { BsTextIndentLeft } from "react-icons/bs";
-import {
-  ITask,
-  TComment,
-} from "../../../store/reducers/createCardProjectReducer";
+
+import Button from "../../button/Button";
+import Comments from "../comments/Comments";
+
+import { IActionModalEditTask } from "./ActionModalEditTask.types";
+
 import {
   ContainerIcon,
   Flex,
   H6,
   ModalTextArea,
 } from "../../../styles/index.styled";
-import Button from "../../button/Button";
-import Comments from "../comments/Comments";
-
-export interface IActionModalEditTask {
-  setIdSelectComment: React.Dispatch<React.SetStateAction<string>>;
-  setSelectComments: React.Dispatch<React.SetStateAction<TComment | null>>;
-  addSubCommetns: () => void;
-  saveComments: () => void;
-  onChangeComment: (event: { target: { name: string; value: string } }) => void;
-  commentTextValue: string;
-  task: ITask;
-  TextAreaRef: React.RefObject<HTMLTextAreaElement>;
-}
+import { BsTextIndentLeft } from "react-icons/bs";
 
 const ActionModalEditTask: FC<IActionModalEditTask> = ({
   setIdSelectComment,

@@ -1,21 +1,16 @@
 import { FC, useState } from "react";
 import Moment from "react-moment";
-import { ITask } from "../../../store/reducers/createCardProjectReducer";
-import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
+
 import Button from "../../button/Button";
 import CheckBox from "../../checkBox/CheckBox";
 import Input from "../../input/Input";
 
-export interface IDates {
-  activeInputDate: boolean;
-  setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;
-  setTask: React.Dispatch<React.SetStateAction<ITask>>;
-  task: ITask;
-}
+import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
 
-const dataTime = new Date().toLocaleString().slice(12,17)
-const dataDate = new Date().toISOString().slice(0,10)
+import { IDates } from "./Dates.types";
+
+const dataTime = new Date().toLocaleString().slice(12, 17);
+const dataDate = new Date().toISOString().slice(0, 10);
 const Dates: FC<IDates> = ({
   activeInputDate,
   task,
@@ -23,34 +18,33 @@ const Dates: FC<IDates> = ({
   setActiveInputDate,
   setActiveDropDownDate,
 }) => {
-  const [time, setTime] = useState(dataTime);
-  const [date, setDate] = useState(dataDate);
+  const [time, setTime] = useState<string>(dataTime);
+  const [date, setDate] = useState<string>(dataDate);
 
   const closeDropDown = () => {
     setActiveDropDownDate(false);
   };
 
   const saveChangeTimeDate = () => {
-    if(activeInputDate){
+    if (activeInputDate) {
       setTask({
         ...task,
-        finishDate:{date: new Date(date+"T"+ time),
-        checkDate:false}
+        finishDate: { date: new Date(date + "T" + time), checkDate: false },
       });
     }
-    setActiveInputDate(false)
+    setActiveInputDate(false);
   };
 
-  const openInputDate =()=>{
-    setActiveInputDate(!activeInputDate)
-  }
+  const openInputDate = () => {
+    setActiveInputDate(!activeInputDate);
+  };
 
   const deleteDedline = () => {
     setTask({
       ...task,
-      finishDate:null
-    })
-  }
+      finishDate: null,
+    });
+  };
   return (
     <>
       <PDiscriptionEl>
@@ -74,7 +68,9 @@ const Dates: FC<IDates> = ({
             height="25px"
             type="date"
             disabled={!activeInputDate}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setDate(e.target.value)
+            }
             defaultValue={dataDate}
           />
         </WrapperEl>
@@ -90,7 +86,9 @@ const Dates: FC<IDates> = ({
             //
             type="time"
             disabled={!activeInputDate}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTime(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTime(e.target.value)
+            }
             defaultValue={dataTime}
           />
         </WrapperEl>
