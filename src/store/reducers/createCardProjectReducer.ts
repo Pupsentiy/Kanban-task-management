@@ -153,15 +153,21 @@ export const createCardProject = (
       };
 
     case SEARCH_TASK:
+     
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          // project.development.filter(taks => taks.numberTask == action.payload)
-          project.queue.map(taks => taks.numberTask.toLowerCase() == action.payload)
-          // project.done.filter(taks => taks.numberTask !== action.payload)
-          console.log(project);
-          return project;
-        }),
+      //  projects:state.projects.map(project => {
+      //   project.queue.filter(queue => {
+      //     project.development.filter(devel => {
+      //       project.done.filter(done => {
+      //         if(queue.numberTask.includes(action.payload)){
+
+      //         }
+      //       })
+      //     })
+      //   })
+      //  })
+       
       };
     case OPEN_EDIT_TASK_MODAL:
       return {

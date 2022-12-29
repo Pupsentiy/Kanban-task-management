@@ -9,8 +9,14 @@ import { ContainerIcon, Flex, H6 } from "../../../styles/index.styled";
 import { ButtonLoadFile, WrapperInput } from "./Investment.styled";
 
 const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
-  const [loadFiles, setLocadFiles] = useState();
-  console.log(loadFiles);
+  const [loadFiles, setLocadFiles] = useState<FileList | null>(null);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(!event.target.files){
+      setLocadFiles(event.target.files?.[0] || null)
+    }
+  }
+  console.log();
   return (
     <Flex alignItems="top" margin="5px 0">
       <ContainerIcon>
@@ -34,7 +40,7 @@ const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
                 height="36px"
                 type="file" //
                 id="investment"
-                onChange={(e: any) => setLocadFiles(e.target.files[0])}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
               />
             </WrapperInput>
           </ButtonLoadFile>

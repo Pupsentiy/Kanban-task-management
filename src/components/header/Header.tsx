@@ -15,6 +15,7 @@ const Header: FC = () => {
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => { 
     dispatch(setSearchTask(event.target.value))
   }
+  
   return (
     <HeaderEl>
       <Flex alignItems="end">
