@@ -9,13 +9,16 @@ import { routesConfig } from "../../routes/routesConfig";
 
 import { Flex, H5, HeaderEl } from "../../styles/index.styled";
 import { NavLinkEl, WrapperSearch } from "./Header.styled";
+import { useLocation, useParams } from "react-router-dom";
 
 const Header: FC = () => {
   const dispatch = useDispatch()
+  const location = useLocation();
+
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => { 
     dispatch(setSearchTask(event.target.value))
+    location.pathname.replace('/','')
   }
-  
   return (
     <HeaderEl>
       <Flex alignItems="end">

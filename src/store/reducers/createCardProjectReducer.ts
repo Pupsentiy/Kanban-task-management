@@ -27,6 +27,7 @@ const initialState: ICreateCardProject = {
     ? JSON.parse(getFromLocalStorage("card") || "{}")
     : ([] as ICard[]),
   selectTask: {} as ITask,
+  searchTask:[],
   toggleModalEditTask: false,
 };
 export const createCardProject = (
@@ -153,21 +154,18 @@ export const createCardProject = (
       };
 
     case SEARCH_TASK:
-     
+      const allTask = state.projects.map(project => { 
+        console.log(project)
+        //  return [...project.queue,...project.development,...project.done].filter(task => {
+        //   if(task.id.includes(action.payload) || task.titleTask.includes(action.payload)){
+        //     return task
+        //   }
+        //  })
+      })
+      // console.log(allTask);
       return {
         ...state,
-      //  projects:state.projects.map(project => {
-      //   project.queue.filter(queue => {
-      //     project.development.filter(devel => {
-      //       project.done.filter(done => {
-      //         if(queue.numberTask.includes(action.payload)){
-
-      //         }
-      //       })
-      //     })
-      //   })
-      //  })
-       
+        searchTask:[...state.searchTask,...allTask]
       };
     case OPEN_EDIT_TASK_MODAL:
       return {

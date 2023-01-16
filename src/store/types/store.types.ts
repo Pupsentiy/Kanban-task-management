@@ -50,6 +50,7 @@ export type TComment = {
 export interface ICreateCardProject {
   projects: ICard[];
   selectTask: ITask;
+  searchTask:any[]
   toggleModalEditTask: boolean;
 }
 export interface IToggleCreProModal {

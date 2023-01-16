@@ -33,7 +33,7 @@ const store = legacy_createStore(
 store.subscribe(() => {
   saveToLocalStorage(store.getState().createCardProject.projects);
 });
-
+ 
 export default store;
 
 export type RootState = ReturnType<typeof rootReducer>;
