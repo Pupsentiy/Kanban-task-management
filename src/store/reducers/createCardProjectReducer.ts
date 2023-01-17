@@ -65,7 +65,7 @@ export const createCardProject = (
               proccesTime: "",
               finishDate: null,
               priorityMarker: null,
-              files: "",
+              files: [],
               currentStatus: "",
               subTasks: [],
               comments: [],
@@ -155,9 +155,10 @@ export const createCardProject = (
 
     case SEARCH_TASK:
       const allTask = state.projects.map(project => { 
-        console.log(project)
+        
+
         //  return [...project.queue,...project.development,...project.done].filter(task => {
-        //   if(task.id.includes(action.payload) || task.titleTask.includes(action.payload)){
+        //   if(task.numberTask.includes(action.payload) || task.titleTask.includes(action.payload)){
         //     return task
         //   }
         //  })

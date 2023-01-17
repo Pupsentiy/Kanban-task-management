@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../button/Button";
 
 export const ButtonLoadFile = styled.label`
   align-items: center;
@@ -35,3 +36,25 @@ export const WrapperInput = styled.div`
   position: absolute;
   z-index: -1;
 `;
+
+export const Preview = styled.div`
+  background-color:#091e420a;
+  background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+  width: 112px;
+  height: 80px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  color: #5e6c84;
+  font-size: 18px;
+  font-weight: 700;
+  margin-right:10px;
+`;
+
+export const WrapperNameFile = styled.div`
+margin-bottom:6px;
+`

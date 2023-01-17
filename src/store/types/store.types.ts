@@ -20,7 +20,7 @@ export interface ITask {
   proccesTime: string;
   finishDate: TFinishTDate | null;
   priorityMarker: IPriorityMarker | null;
-  files: string;
+  files: File[];
   currentStatus: string;
   subTasks: ISubTask[];
   comments: TComment[];
