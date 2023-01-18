@@ -27,7 +27,7 @@ const initialState: ICreateCardProject = {
     ? JSON.parse(getFromLocalStorage("card") || "{}")
     : ([] as ICard[]),
   selectTask: {} as ITask,
-  searchTask:[],
+  searchTask: [],
   toggleModalEditTask: false,
 };
 export const createCardProject = (
@@ -154,19 +154,41 @@ export const createCardProject = (
       };
 
     case SEARCH_TASK:
-      const allTask = state.projects.map(project => { 
-        
-
-        //  return [...project.queue,...project.development,...project.done].filter(task => {
-        //   if(task.numberTask.includes(action.payload) || task.titleTask.includes(action.payload)){
-        //     return task
-        //   }
-        //  })
+      let res: any[] = []
+      state.projects.map((project) => {
+        Object.values(project).map(value => {
+          if(Array.isArray(value)){
+            value.filter(task => {
+              if (
+                    task.numberTask.includes(action.payload.searchText) ||
+                    task.titleTask.includes(action.payload.searchText)
+                  ) {
+                    return res = [task]
+                  }
+            })
+          }
+          if(res.length > 0){
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            res.push(project.id)
+          }
+        })
+          // return [
+          //   ...project.queue,
+          //   ...project.development,
+          //   ...project.done,
+          // ].filter((task) => {
+          //   if (
+          //     task.numberTask.includes(action.payload.searchText) ||
+          //     task.titleTask.includes(action.payload.searchText)
+          //   ) {
+              
+          //   }
+            
+          // });
       })
-      // console.log(allTask);
       return {
         ...state,
-        searchTask:[...state.searchTask,...allTask]
+        searchTask: res,
       };
     case OPEN_EDIT_TASK_MODAL:
       return {

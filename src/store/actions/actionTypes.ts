@@ -58,22 +58,31 @@ export const setEditTask = (
   payload: { task, id, column },
 });
 
-export const setDraggableQueueTask = (queue: ITask[],id:string| undefined,) => ({
+export const setDraggableQueueTask = (
+  queue: ITask[],
+  id: string | undefined
+) => ({
   type: DRAGGABLE_QUEUE,
-  payload: {queue,id},
+  payload: { queue, id },
 });
 
-export const setDraggableDevelopmentTask = (development: ITask[],id:string| undefined,) => ({
+export const setDraggableDevelopmentTask = (
+  development: ITask[],
+  id: string | undefined
+) => ({
   type: DRAGGABLE_DEVELOPMENT,
-  payload: {development,id},
+  payload: { development, id },
 });
 
-export const setDraggableDoneTask = (done: ITask[],id:string| undefined,) => ({
+export const setDraggableDoneTask = (
+  done: ITask[],
+  id: string | undefined
+) => ({
   type: DRAGGABLE_DONE,
-  payload: {done,id},
+  payload: { done, id },
 });
 
-export const setSearchTask = (text:string) => ({
-  type:SEARCH_TASK,
-  payload:text
-})
+export const setSearchTask = (searchText: string, idProject: string) => ({
+  type: SEARCH_TASK,
+  payload: { searchText, idProject },
+});

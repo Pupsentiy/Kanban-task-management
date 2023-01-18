@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setSearchTask } from "../../store/actions/actionTypes";
 
@@ -10,15 +10,19 @@ import { routesConfig } from "../../routes/routesConfig";
 import { Flex, H5, HeaderEl } from "../../styles/index.styled";
 import { NavLinkEl, WrapperSearch } from "./Header.styled";
 import { useLocation, useParams } from "react-router-dom";
+import { RootState } from "../../store/store";
 
 const Header: FC = () => {
   const dispatch = useDispatch()
   const location = useLocation();
-
+  const foundTask = useSelector(
+    (state: RootState) => state.createCardProject.searchTask
+  );
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => { 
-    dispatch(setSearchTask(event.target.value))
-    location.pathname.replace('/','')
+    const idProject = location.pathname.replace('/','')
+    dispatch(setSearchTask(event.target.value,idProject ))
   }
+console.log(foundTask)
   return (
     <HeaderEl>
       <Flex alignItems="end">
