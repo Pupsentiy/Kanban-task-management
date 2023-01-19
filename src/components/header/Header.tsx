@@ -11,6 +11,7 @@ import { Flex, H5, HeaderEl } from "../../styles/index.styled";
 import { NavLinkEl, WrapperSearch } from "./Header.styled";
 import { useLocation } from "react-router-dom";
 import { RootState } from "../../store/store";
+import { ITask } from "../../store/types/store.types";
 
 const Header: FC = () => {
   const dispatch = useDispatch()
@@ -22,9 +23,15 @@ const Header: FC = () => {
     // const idProject = location.pathname.replace('/','')
     dispatch(setSearchTask(event.target.value ))
   }
-
- const ad =foundTask.map(item => {if(Array.isArray(item)){ return item.filter(v => v !== undefined)}}).filter((d:any) => d.length > 0)
- console.log(ad)
+  const arr:ITask[] = []
+ foundTask.forEach(element => {
+  element.forEach((elem:ITask[]) => {
+    if(elem !== undefined){
+      arr.push(...elem)
+    }
+  });
+ });
+ console.log(arr);
   return (
     <HeaderEl>
       <Flex alignItems="end">
@@ -43,7 +50,12 @@ const Header: FC = () => {
             borderFocus="#5f9ea094 2px solid"
             borderRadius="3px"
           />
+          
         </WrapperSearch>
+       <> {
+          // eslint-disable-next-line array-callback-return
+          arr && arr.map(item => {<div>{item.titleTask}</div>})
+        }</>
       </Flex>
     </HeaderEl>
   );
