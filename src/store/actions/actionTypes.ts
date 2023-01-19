@@ -82,7 +82,7 @@ export const setDraggableDoneTask = (
   payload: { done, id },
 });
 
-export const setSearchTask = (searchText: string, idProject: string) => ({
+export const setSearchTask = (searchText: string) => ({
   type: SEARCH_TASK,
-  payload: { searchText, idProject },
+  payload: searchText,
 });

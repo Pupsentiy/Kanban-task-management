@@ -9,7 +9,7 @@ import { routesConfig } from "../../routes/routesConfig";
 
 import { Flex, H5, HeaderEl } from "../../styles/index.styled";
 import { NavLinkEl, WrapperSearch } from "./Header.styled";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { RootState } from "../../store/store";
 
 const Header: FC = () => {
@@ -19,10 +19,12 @@ const Header: FC = () => {
     (state: RootState) => state.createCardProject.searchTask
   );
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => { 
-    const idProject = location.pathname.replace('/','')
-    dispatch(setSearchTask(event.target.value,idProject ))
+    // const idProject = location.pathname.replace('/','')
+    dispatch(setSearchTask(event.target.value ))
   }
-console.log(foundTask)
+
+ const ad =foundTask.map(item => {if(Array.isArray(item)){ return item.filter(v => v !== undefined)}}).filter((d:any) => d.length > 0)
+ console.log(ad)
   return (
     <HeaderEl>
       <Flex alignItems="end">

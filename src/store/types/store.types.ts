@@ -12,6 +12,7 @@ export type TFinishTDate = {
 };
 
 export interface ITask {
+  projectId:string
   id: string;
   numberTask: string;
   titleTask: string;
