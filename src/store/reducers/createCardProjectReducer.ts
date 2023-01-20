@@ -157,18 +157,26 @@ export const createCardProject = (
       };
 
     case SEARCH_TASK:
-      return {
-        ...state,
-        searchTask: state.projects.map((project) =>
-          Object.values(project).map((column) =>  {
+    let arr: ITask[] = [];
+    state.projects.map((project) =>
+          Object.values(project).forEach((column) =>  {
             if (Array.isArray(column)) {
-            let newArr = column.filter(task => task.numberTask.includes(action.payload) || task.titleTask.includes(action.payload))
+            let newArr = column.filter(task =>  task.titleTask.includes(action.payload))
             if(newArr.length > 0){
-              return newArr
+               newArr.forEach((element) => {
+                  if (element !== undefined) {
+                    if(!arr.includes(element)){
+                    arr.push(element);
+                    }
+                  }
+              });
             }
             }
           })
-        ),
+        )
+      return {
+        ...state,
+        searchTask: arr
       };
     case OPEN_EDIT_TASK_MODAL:
       return {
