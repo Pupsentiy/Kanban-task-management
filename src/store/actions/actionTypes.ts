@@ -52,7 +52,7 @@ export const setSelectTask = (task: ITask, column: string) => ({
 export const setEditTask = (
   task: ITask,
   id: string | undefined,
-  column: string
+  column: string 
 ) => ({
   type: EDIT_TASK,
   payload: { task, id, column },

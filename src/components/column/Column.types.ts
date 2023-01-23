@@ -6,4 +6,5 @@ export interface IColumnProps {
   //styles
   borderColor: string;
   background:string;
+  minHeight:string;
 }

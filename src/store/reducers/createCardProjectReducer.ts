@@ -58,6 +58,7 @@ export const createCardProject = (
           if (project.id === action.payload.id) {
             const newTask = {
               projectId: project.id,
+              column:'queue',
               id: uuidv4(),
               titleTask: action.payload.titleTask,
               numberTask: id,

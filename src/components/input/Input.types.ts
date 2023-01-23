@@ -1,15 +1,19 @@
+import { MutableRefObject } from "react";
+
 export interface IInputProps {
   label?: string;
   type: string;
-  id?:string;
+  id?: string;
   error?: string | undefined;
   placeholder?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  defaultChecked?:boolean;
-  checked?:boolean;  
+  onBlur?:() => void;
+  ref?: MutableRefObject<HTMLInputElement | null>;
+  defaultChecked?: boolean;
+  checked?: boolean;
   value?: string;
-  disabled?:boolean;
-  defaultValue?:string
+  disabled?: boolean;
+  defaultValue?: string;
   //styles
   margin?: string;
   border?: string;
@@ -18,10 +22,10 @@ export interface IInputProps {
   background?: string;
   padding?: string;
   width?: string;
-  height?:string;
+  height?: string;
   color?: string;
   boxShadow?: string;
-  borderFocus?:string;
+  borderFocus?: string;
 
-  marginLabel?:string;
+  marginLabel?: string;
 }

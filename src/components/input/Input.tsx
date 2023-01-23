@@ -15,6 +15,8 @@ const Input: FC<IInputProps> = (props) => {
         type={props.type}
         placeholder={props.placeholder}
         onChange={props.onChange}
+        onBlur={props.onBlur}
+        ref={props.ref}
         value={props.value}
         id={props.id}
         disabled={props.disabled}

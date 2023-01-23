@@ -24,7 +24,7 @@ import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 
-const Column: FC<IColumnProps> = ({ borderColor, project, column,background }) => {
+const Column: FC<IColumnProps> = ({ borderColor, project, column,background,minHeight }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -97,7 +97,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,background }) =
   };
 
   return (
-    <ContainerColumn borderColor={borderColor} background={background}>
+    <ContainerColumn borderColor={borderColor} background={background} minHeight={minHeight}>
       <HeaderColumn>
         <H6>{column}</H6>
       </HeaderColumn>

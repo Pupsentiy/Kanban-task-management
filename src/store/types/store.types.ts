@@ -13,6 +13,7 @@ export type TFinishTDate = {
 
 export interface ITask {
   projectId:string
+  column:string;
   id: string;
   numberTask: string;
   titleTask: string;
@@ -51,7 +52,7 @@ export type TComment = {
 export interface ICreateCardProject {
   projects: ICard[];
   selectTask: ITask;
-  searchTask:any[]
+  searchTask:ITask[]
   toggleModalEditTask: boolean;
 }
 export interface IToggleCreProModal {
