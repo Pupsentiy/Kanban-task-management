@@ -14,6 +14,7 @@ export const ButtonEl = styled.button<{
   hoverBackColor?: string;
   display?: string;
   cursor?: string;
+  opacity?:string;
 }>`
   align-items:center;
   justify-content:center;
@@ -41,6 +42,7 @@ export const ButtonEl = styled.button<{
   }
 
   &:hover {
-    background: ${(props) => props.hoverBackColor || "transparent"};
+    background: ${(props) => props.hoverBackColor || ""};
+    opacity:${props => props.opacity || '1'}
   }
 `;

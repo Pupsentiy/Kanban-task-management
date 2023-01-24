@@ -101,7 +101,7 @@ const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
         width="100%"
       >
         <Flex alignItems="center" padding="12px 0">
-          <H6>Задачи</H6>
+          <H6>Tasks</H6>
         </Flex>
         <Flex margin="0 0 10px 0" flexDirection="column">
           <Flex alignItems="center" width="100%" padding="3px">
@@ -151,7 +151,7 @@ const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
                       hoverBackColor="#5f9ea0"
                       margin="0 5px 0 0"
                     >
-                      Сохранить
+                      Save
                     </Button>
                     <Button
                       onClick={() => cancelСhange()}
@@ -159,7 +159,7 @@ const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
                       background="transparent"
                       hoverBackColor="#dfdfdf"
                     >
-                      Отмена
+                      Cancel
                     </Button>
                   </Flex>
                 ) : (

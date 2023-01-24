@@ -120,6 +120,7 @@ const ModalEditTask: FC = () => {
     setActiveDropDownDate(false);
     setActiveDropDownMarker(false);
     setActiveDropDownSubTask(false);
+    setCommentTextValue("");
   };
 
   const timeIsOverdueDate =
@@ -166,22 +167,22 @@ const ModalEditTask: FC = () => {
                   fontSize="12px"
                   lineHeight="normal"
                 >
-                  Текущий статус:
+                  Current status:
                 </PDiscriptionEl>
                 <H6 fontSize="14px">{selectTask.column}</H6>
               </Flex>
               <TaskDetailsBlock>
                 {task?.priorityMarker ? (
                   <WrapperEl margin="5px 15px 5px 0px">
-                    <PDiscriptionEl>Приоритет</PDiscriptionEl>
+                    <PDiscriptionEl>Priority</PDiscriptionEl>
                     <Marker background={task?.priorityMarker.colorCircle}>
                       {task?.priorityMarker.name.replace("Приоритет", "№")}
                     </Marker>
                   </WrapperEl>
                 ) : null}
                 {task?.finishDate ? (
-                  <WrapperEl margin="5px 10px 5px 0px">
-                    <PDiscriptionEl>Срок</PDiscriptionEl>
+                  <WrapperEl margin="5px 10px 5px 10px">
+                    <PDiscriptionEl>Term</PDiscriptionEl>
                     <Flex alignItems="center">
                       <WrapperEl margin=" 0 5px 0 0">
                         <CheckBox
@@ -190,7 +191,7 @@ const ModalEditTask: FC = () => {
                         />
                       </WrapperEl>
                       <WrapperExpirationDate>
-                        <Moment format={" DD MMM - HH:mm"} locale="ru">
+                        <Moment format={" DD MMM - HH:mm"} locale="en">
                           {task?.finishDate?.date}
                         </Moment>
                         {timeIsOverdueDate < 0 &&
@@ -201,7 +202,7 @@ const ModalEditTask: FC = () => {
                               color="#fff"
                               fontSize="12px"
                             >
-                              просрочено
+                              overdue
                             </PDiscriptionEl>
                           </span>
                         ) : task?.finishDate?.checkDate ? (
@@ -211,7 +212,7 @@ const ModalEditTask: FC = () => {
                               color="#fff"
                               fontSize="12px"
                             >
-                              выполнено
+                              done
                             </PDiscriptionEl>
                           </span>
                         ) : null}
@@ -250,7 +251,7 @@ const ModalEditTask: FC = () => {
                 lineHeight="normal"
                 fontSize="13px"
               >
-                Добавить на карточку
+                Add to card
               </PDiscriptionEl>
               <NavigationTask
                 setActiveDropDownDate={setActiveDropDownDate}
@@ -259,7 +260,7 @@ const ModalEditTask: FC = () => {
                 setActiveBlockInvestment={setActiveBlockInvestment}
               />
               {activeDropDownDate && (
-                <DropDown name="Даты" setClose={setActiveDropDownDate}>
+                <DropDown name="Term" setClose={setActiveDropDownDate}>
                   <Dates
                     activeInputDate={activeInputDate}
                     task={task}
@@ -271,7 +272,7 @@ const ModalEditTask: FC = () => {
               )}
               {activeDropDownSubTask && (
                 <DropDown
-                  name="Добавление списка задач"
+                  name="Adding a task list"
                   setClose={setActiveDropDownSubTask}
                 >
                   <CreateSubTask
@@ -283,7 +284,7 @@ const ModalEditTask: FC = () => {
               )}
 
               {activeDropDownMarker && (
-                <DropDown name="Приоритет" setClose={setActiveDropDownMarker}>
+                <DropDown name="Priority" setClose={setActiveDropDownMarker}>
                   <CreatingMarkerPriority
                     setActiveDropDownMarker={setActiveDropDownMarker}
                     task={task}

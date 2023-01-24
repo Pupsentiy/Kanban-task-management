@@ -29,7 +29,7 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
       </ContainerIcon>
       <Flex flexDirection="column" width="100%">
         <Flex alignItems="center" padding="5px 5px 5px 0" margin="0 0 0 40px">
-          <H6>Описание</H6>
+          <H6>Description</H6>
           <Button
             onClick={() => setChangeDescriptionTask(true)}
             margin="0 0 0 8px"
@@ -37,7 +37,7 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
             background="#5f9ea094"
             hoverBackColor="#5f9ea0"
           >
-            Изменить
+            Сhange
           </Button>
         </Flex>
         {changeDescriptionTask ? (
@@ -66,7 +66,7 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
                 hoverBackColor="#5f9ea0"
                 margin="0 5px 0 0"
               >
-                Сохранить
+                Save
               </Button>
               <Button
                 onClick={() => setChangeDescriptionTask(false)}
@@ -74,7 +74,7 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
                 background="transparent"
                 hoverBackColor="#dfdfdf"
               >
-                Отмена
+                Cancel
               </Button>
             </Flex>
           </Flex>

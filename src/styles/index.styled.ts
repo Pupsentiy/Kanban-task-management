@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background-color: #fafbfc;
+  background-color: #eef2f9;
   min-height: 100%;
   margin: 0;
   padding: 0;
@@ -58,6 +58,7 @@ a {
 export const HeaderEl = styled.header`
   padding: 20px 10px;
   box-shadow: 0px 0px 8px 1px #b7b6b6;
+  background: linear-gradient(90deg,rgba(149,145,222,1) 0%,rgb(40 40 201 / 74%) 35%,rgba(31,128,167,1) 80%,rgb(17 173 205) 100%);
 `;
 
 export const H2 = styled.h2<{
@@ -73,11 +74,16 @@ export const H2 = styled.h2<{
   padding: ${(props) => props.padding || "0"};
 `;
 
-export const H5 = styled.h5<{ margin?: string; fontWeight?: string }>`
+export const H5 = styled.h5<{
+  margin?: string;
+  fontWeight?: string;
+  color?: string;
+}>`
   font-weight: ${(props) => props.fontWeight || "700"};
   font-size: 34px;
   line-height: 32px;
   margin: ${(props) => props.margin || "0"};
+  color: ${(props) => props.color || "#000"};
 `;
 
 export const H6 = styled.h6<{
@@ -85,10 +91,10 @@ export const H6 = styled.h6<{
   color?: string;
   fontWeight?: string;
   width?: string;
-  fontSize?:string;
+  fontSize?: string;
 }>`
   font-weight: ${(props) => props.fontWeight || "600"};
-  font-size: ${props => props.fontSize || '16px'};
+  font-size: ${(props) => props.fontSize || "16px"};
   line-height: 100%;
   word-wrap: break-word;
   color: ${(props) => props.color || "#000"};
@@ -105,7 +111,7 @@ export const PDiscriptionEl = styled.p<{
   fontSize?: string;
   fontWeight?: string;
   cursor?: string;
-  textDecoration?:string;
+  textDecoration?: string;
 }>`
   color: ${(props) => props.color || "#5e6c84"};
   font-size: ${(props) => props.fontSize || "14px"};
@@ -117,7 +123,7 @@ export const PDiscriptionEl = styled.p<{
   margin: ${(props) => props.margin || "0"};
   cursor: ${(props) => props.cursor || "default"};
   word-break: break-all;
-  text-decoration:${(props) => props.textDecoration || 'none'};
+  text-decoration: ${(props) => props.textDecoration || "none"};
   &span {
     text-decoration: underline;
   }
@@ -137,26 +143,26 @@ export const Flex = styled.div<{
   flexDirection?: string;
   width?: string;
   padding?: string;
-  position?:string;
-  maxWidth?:string;
-  top?:string;
-  bottom?:string;
-  left?:string;
-  right?:string;
+  position?: string;
+  maxWidth?: string;
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
 }>`
-  position: ${props => props.position || 'initial' };
+  position: ${(props) => props.position || "initial"};
   width: ${(props) => props.width || "auto"};
-  max-width:${props => props.maxWidth || 'auto'};
+  max-width: ${(props) => props.maxWidth || "auto"};
   display: flex;
   justify-content: ${(props) => props.justifyContent || "start"};
   align-items: ${(props) => props.alignItems || "left"};
   margin: ${(props) => props.margin || "0"};
   flex-direction: ${(props) => props.flexDirection || "row"};
   padding: ${(props) => props.padding || "0"};
-  top:${props => props.top};
-  bottom:${props => props.bottom};
-  left:${props => props.left};
-  right:${props => props.right};
+  top: ${(props) => props.top};
+  bottom: ${(props) => props.bottom};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
 `;
 
 export const WrapperEl = styled.div<{ margin?: string; padding?: string }>`
@@ -190,6 +196,8 @@ export const NavLinkEL = styled(NavLink)<{
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   min-height: ${(props) => props.minHeight || "auto"};
+
+ 
 `;
 
 export const ContainerIcon = styled.div<{

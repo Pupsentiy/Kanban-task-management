@@ -19,21 +19,21 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriorityProps> = ({
   const marking: IPriorityMarker[] = [
     {
       id: 0,
-      name: "Приоритет - 1",
+      name: "Priority - 1",
       color: "#F5D3CE",
       colorCircle: "#EF7564",
       check: false,
     },
     {
       id: 1,
-      name: "Приоритет - 2",
+      name: "Priority - 2",
       color: "#D6ECD2",
       colorCircle: "#7BC86C",
       check: false,
     },
     {
       id: 2,
-      name: "Приоритет - 3",
+      name: "Priority - 3",
       color: "#FAF3C0",
       colorCircle: "#F5DD29",
       check: false,
@@ -92,7 +92,7 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriorityProps> = ({
         hoverBackColor="#5f9ea0"
         width="100%"
       >
-        Удалить Метку
+        Remove label
       </Button>
     </>
   );

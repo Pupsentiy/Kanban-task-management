@@ -48,11 +48,11 @@ const Dates: FC<IDates> = ({
   return (
     <>
       <PDiscriptionEl>
-        Дата создания:
+        Date create:
         <Moment format=" DD.MM.YY - HHч. : mmм.">{task?.createTaskDate}</Moment>
       </PDiscriptionEl>
-      <PDiscriptionEl>Время в работе: {task?.proccesTime}</PDiscriptionEl>
-      <PDiscriptionEl>Срок:</PDiscriptionEl>
+      <PDiscriptionEl>Time at work: {task?.proccesTime}</PDiscriptionEl>
+      <PDiscriptionEl>Term:</PDiscriptionEl>
       <Flex justifyContent="space-between" alignItems="center">
         <WrapperEl margin="0 10px 0 0">
           <CheckBox onClick={() => openInputDate()} active={activeInputDate} />
@@ -105,7 +105,7 @@ const Dates: FC<IDates> = ({
           hoverBackColor="#5f9ea0"
           margin="0 5px 0 0"
         >
-          Сохранить
+          Save
         </Button>
         <Button
           onClick={() => deleteDedline()}
@@ -114,7 +114,7 @@ const Dates: FC<IDates> = ({
           background="transparent"
           hoverBackColor="#dfdfdf"
         >
-          Удалить
+          Remove
         </Button>
       </Flex>
     </>

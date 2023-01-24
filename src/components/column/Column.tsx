@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { AiOutlinePlus } from "react-icons/ai";
+import { TfiClose } from "react-icons/tfi";
 
 import SingleTask from "../singleTask/SingleTask";
 import Button from "../button/Button";
@@ -21,8 +23,7 @@ import {
   OtherColumn,
 } from "./Column.styled";
 import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
-import { AiOutlinePlus } from "react-icons/ai";
-import { TfiClose } from "react-icons/tfi";
+
 
 const Column: FC<IColumnProps> = ({
   borderColor,
@@ -130,6 +131,7 @@ const Column: FC<IColumnProps> = ({
           addInput ? (
             <Flex flexDirection="column" margin="0 0 10px 0">
               <InputTitleTaskEl
+              placeholder="Maintain a title for this task"
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                   changeTitleTask(event)
                 }
@@ -146,7 +148,7 @@ const Column: FC<IColumnProps> = ({
                   onClick={() => addTask()}
                   hoverBackColor="#1874ad"
                 >
-                  Создать Задачу
+                  Create task
                 </Button>
                 <Button type="button" onClick={() => setAddInput(false)}>
                   <TfiClose fontWeight={"700"} fontSize="16px" />
@@ -166,7 +168,7 @@ const Column: FC<IColumnProps> = ({
                 color="#172b4d"
                 cursor="pointer"
               >
-                Добавить карточку
+                Add task
               </PDiscriptionEl>
             </Flex>
           )

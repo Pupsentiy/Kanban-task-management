@@ -26,6 +26,6 @@ export interface IInputProps {
   color?: string;
   boxShadow?: string;
   borderFocus?: string;
-
+  labelColor?:string;
   marginLabel?: string;
 }

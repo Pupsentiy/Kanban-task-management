@@ -8,7 +8,7 @@ import { IInputProps } from "./Input.types";
 const Input: FC<IInputProps> = (props) => {
   return (
     <LabelEl htmlFor={props.id} marginLabel={props.marginLabel}>
-      <PDiscriptionEl lineHeight="17px" fontSize="12px" fontWeight="600x">
+      <PDiscriptionEl lineHeight="17px" fontSize="12px" fontWeight="600" color={props.labelColor}>
         {props.label}
       </PDiscriptionEl>
       <InputEl

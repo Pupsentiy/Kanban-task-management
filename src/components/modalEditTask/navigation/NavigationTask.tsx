@@ -21,7 +21,7 @@ const NavigationTask: FC<INavigationTaskProps> = ({
           hoverBackColor="#5f9ea0"
           onClick={() => setActiveDropDownDate(true)}
         >
-          Даты
+          Date
         </Button>
       </WrapperEl>
       <WrapperEl margin="0 0 6px 0">
@@ -31,7 +31,7 @@ const NavigationTask: FC<INavigationTaskProps> = ({
           hoverBackColor="#5f9ea0"
           onClick={() => setActiveDropDownSubTask(true)}
         >
-          Задачи
+          Tasks
         </Button>
       </WrapperEl>
       <WrapperEl margin="0 0 6px 0">
@@ -41,7 +41,7 @@ const NavigationTask: FC<INavigationTaskProps> = ({
           hoverBackColor="#5f9ea0"
           onClick={() => setActiveDropDownMarker(true)}
         >
-          Приоритет
+          Priority
         </Button>
       </WrapperEl>
       <WrapperEl margin="0 0 6px 0">
@@ -51,7 +51,7 @@ const NavigationTask: FC<INavigationTaskProps> = ({
           hoverBackColor="#5f9ea0"
           onClick={() => setActiveBlockInvestment(true)}
         >
-          Прикрепить Файл
+          Attach file
         </Button>
       </WrapperEl>
     </>

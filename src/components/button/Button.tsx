@@ -23,6 +23,7 @@ const Button: FC<IButtonProps> = (props) => {
       height={props.height}
       hoverBackColor={props.hoverBackColor}
       cursor={props.cursor}
+      opacity={props.opacity}
     >
       {props.children}
     </ButtonEl>

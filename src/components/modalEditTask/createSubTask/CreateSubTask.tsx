@@ -40,7 +40,7 @@ const CreateSubTask: FC<ICreateSubTaskProps> = ({
     <>
       <Input
         type="text"
-        label="Название"
+        label="Name"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           changeNameSubTask(event)
         }
@@ -60,7 +60,7 @@ const CreateSubTask: FC<ICreateSubTaskProps> = ({
           hoverBackColor="#5f9ea0"
           margin="0 5px 0 0"
         >
-          Добавить
+          Add
         </Button>
       </Flex>
     </>

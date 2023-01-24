@@ -5,6 +5,9 @@ import { NavLinkEL } from "../../styles/index.styled";
 export const NavLinkEl = styled(NavLink)`
   margin-left: 60px;
   color: #000;
+  &:hover{
+    color:#fff;
+  }
 `;
 
 export const NavLinkSelectTask = styled(NavLinkEL)`
@@ -20,6 +23,7 @@ export const NavLinkSelectTask = styled(NavLinkEL)`
 export const WrapperSearch = styled.div`
   margin-left: auto;
   position: relative;
+  
 `;
 
 export const WrapperResultSearch = styled.div`

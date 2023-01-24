@@ -49,7 +49,7 @@ const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
           width="100%"
         >
           <Flex alignItems="center" padding="12px 0">
-            <H6>Вложения</H6>
+            <H6>Investment</H6>
           </Flex>
           <>
             {task?.files &&
@@ -86,7 +86,7 @@ const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
                       background="transparent"
                       hoverBackColor="#dfdfdf"
                     >
-                      удалить
+                      Remove
                     </Button>
                   </Flex>
                 </Flex>
@@ -94,7 +94,7 @@ const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
           </>
           <Flex margin="0 0 10px 0" position="relative">
             <ButtonLoadFile htmlFor="investment">
-              Прикрепить файл
+            Attach file
               <WrapperInput>
                 <Input
                   fontSize="15px"

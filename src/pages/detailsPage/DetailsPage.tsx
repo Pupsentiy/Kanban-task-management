@@ -14,7 +14,12 @@ import {
 import { RootState } from "../../store/store";
 import { ICard } from "../../store/types/store.types";
 
-import { ContainerEl, Flex, WrapperColumn } from "../../styles/index.styled";
+import {
+  ContainerEl,
+  Flex,
+  H5,
+  WrapperColumn,
+} from "../../styles/index.styled";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -60,15 +65,20 @@ const DetailsPage = () => {
     } else {
       done.splice(destination.index, 0, add);
     }
-    dispatch(setDraggableQueueTask(queue,id));
-    dispatch(setDraggableDevelopmentTask(development,id));
-    dispatch(setDraggableDoneTask(done,id));
+    dispatch(setDraggableQueueTask(queue, id));
+    dispatch(setDraggableDevelopmentTask(development, id));
+    dispatch(setDraggableDoneTask(done, id));
   };
 
   return (
     <>
       {selectProject && (
         <ContainerEl>
+          <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
+            <H5 fontWeight="400" color="#5e6c84">
+              Board:{selectProject.name}
+            </H5>
+          </Flex>
           <Flex justifyContent="space-beetwen">
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="Queue">
@@ -83,7 +93,6 @@ const DetailsPage = () => {
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ff0000"
                       provided={provided}
-                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>
@@ -101,7 +110,6 @@ const DetailsPage = () => {
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ffa500"
                       provided={provided}
-                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>
@@ -119,7 +127,6 @@ const DetailsPage = () => {
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#04ff00"
                       provided={provided}
-                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>

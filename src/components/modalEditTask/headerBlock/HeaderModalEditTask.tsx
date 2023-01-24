@@ -49,12 +49,13 @@ const HeaderModalEditTask: FC<IHeaderModalEditTaskProps> = ({
                   setChangeHeaderTask(false);
                   saveTask();
                 }}
+                width="10%"
                 margin="0 0 0 8px"
-                padding="6px 12px"
+                padding="4px 12px"
                 background="#5f9ea094"
                 hoverBackColor="#5f9ea0"
               >
-                Сохранить
+                Save
               </Button>
             </Flex>
           ) : (

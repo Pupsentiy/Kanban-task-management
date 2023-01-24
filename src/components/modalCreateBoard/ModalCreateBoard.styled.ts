@@ -18,3 +18,12 @@ export const HeaderModal = styled.div`
   display: flex;
   justify-conten: space-between;
 `;
+
+export const ItemColor = styled.div`
+width:40px;
+height:32px;
+margin-right:3px;
+&:last-child{
+  margin:0;
+}
+`

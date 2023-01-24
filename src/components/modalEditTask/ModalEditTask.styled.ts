@@ -81,7 +81,6 @@ export const WrapperExpirationDate = styled.div`
 
 export const Marker = styled.div<{ background: string }>`
   background: ${(props) => props.background};
-  width: 50px;
   height: 27px;
   font-size: 12px;
   display: flex;
@@ -94,7 +93,7 @@ export const Marker = styled.div<{ background: string }>`
     content: "";
     width: 0;
     height: 0;
-    left: 50px;
+    left: 59px;
     border-top: 13.5px solid transparent;
     border-left: 15px solid ${(props) => props.background};
     border-bottom: 13.5px solid transparent;

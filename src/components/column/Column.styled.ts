@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerColumn = styled.div<{
   borderColor: string;
   background?: string;
-  minHeight?:string;
+  minHeight?: string;
 }>`
   background: ${(props) => props.background || "#ebecf0"};
   margin: 0 30px;
@@ -12,7 +12,7 @@ export const ContainerColumn = styled.div<{
   padding: 6px 10px;
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
-  min-height:${props => props.minHeight || ''}
+  min-height: ${(props) => props.minHeight || ""};
 `;
 export const HeaderColumn = styled.div`
   padding: 6px 10px;
@@ -29,13 +29,14 @@ export const InputTitleTaskEl = styled.textarea`
   overflow-wrap: break-word;
   resize: none;
   height: 40px;
-  padding: 2px 5px 0 5px;
+  padding: 4px 5px 0 5px;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   font-size: 15px;
   box-shadow: 0px 0px 4px 1px #aba6a6;
   &:focus {
     box-shadow: inset 0 0 0 2px #5f9ea0;
+    border-radius: 3px;
   }
 `;
 

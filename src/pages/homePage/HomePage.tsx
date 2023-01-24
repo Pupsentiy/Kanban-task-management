@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import ModalCreateProject from "../../components/modalCreateProject/ModalCreateProject";
+import ModalCreateBoard from "../../components/modalCreateBoard/ModalCreateBoard";
 
 import { setOpenCreateProjModal } from "../../store/actions/actionTypes";
 import { RootState } from "../../store/store";
@@ -31,13 +31,13 @@ const HomePage = () => {
   return (
     <ContainerEl>
       <WrapperEl margin="15px 0 0 0" padding="0 8px">
-        <H5 fontWeight="400">Project</H5>
+        <H5 fontWeight="400">My Boards</H5>
       </WrapperEl>
       <WrapperEl margin="20px 0 0 0">
         <ListCards>
           <LiCard onClick={openCreateProModal}>
             <WrapperCard>
-              <H6 margin="0 5px 0 0">Создать доску</H6>
+              <H6 margin="0 5px 0 0">Ceate board</H6>
               <AiOutlinePlus fontSize="20px" />
             </WrapperCard>
           </LiCard>
@@ -53,7 +53,7 @@ const HomePage = () => {
             ))}
         </ListCards>
       </WrapperEl>
-      {toggleModalCreProject ? <ModalCreateProject /> : null}
+      {toggleModalCreProject ? <ModalCreateBoard /> : null}
     </ContainerEl>
   );
 };

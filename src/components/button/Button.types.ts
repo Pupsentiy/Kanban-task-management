@@ -1,6 +1,6 @@
 export interface IButtonProps {
   onClick?: ((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
-  children: string | JSX.Element;
+  children?: string | JSX.Element;
   type?: "button" | "submit" | "reset" | undefined;
 
   display?: string;
@@ -16,4 +16,5 @@ export interface IButtonProps {
   height?: string;
   hoverBackColor?: string;
   cursor?: string;
+  opacity?:string;
 }

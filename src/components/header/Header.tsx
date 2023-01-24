@@ -18,7 +18,6 @@ import {
   Flex,
   H5,
   HeaderEl,
-  NavLinkEL,
   PDiscriptionEl,
 } from "../../styles/index.styled";
 import {
@@ -64,23 +63,24 @@ const Header: FC = () => {
   return (
     <HeaderEl>
       <Flex alignItems="end">
-        <H5>UpTrader</H5>
+        <H5>Kanban</H5>
         <NavLinkEl to={routesConfig.home.path}>
           {routesConfig.home.title}
         </NavLinkEl>
-        <WrapperSearch onClick={(e:any) => e.stopPropagation()}>
+        <WrapperSearch onClick={(e) => e.stopPropagation()}>
           <Input
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               searchTask(event)
             }
             
             value={search}
-            label="Поиск по задачам:"
+            label="Search by task:"
             type="text"
             width="250px"
+            labelColor='#fff'
             marginLabel="0"
-            border=" #dfe1e6 2px solid "
-            borderFocus="#5f9ea094 2px solid"
+            border="#fff 2px solid "
+            borderFocus="#000 2px solid"
             borderRadius="3px"
           />
           {search.length > 1 && foundTask.length ? (

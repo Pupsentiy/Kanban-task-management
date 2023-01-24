@@ -35,7 +35,7 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
         width="100%"
       >
         <Flex alignItems="center" padding="12px 0">
-          <H6>Действия</H6>
+          <H6>Action</H6>
         </Flex>
         <Flex margin="0 0 10px 0">
           <ModalTextArea
@@ -43,7 +43,7 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
             height="36px"
             //
             ref={TextAreaRef}
-            placeholder="Напишите коментарий"
+            placeholder="Write a comment"
             name="comments"
             value={commentTextValue}
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -58,7 +58,7 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
             cursor={commentTextValue === "" ? "not-allowed" : "pointer"}
             onClick={() => saveComments()}
           >
-            Сохранить
+            Save
           </Button>
         </Flex>
         <Comments

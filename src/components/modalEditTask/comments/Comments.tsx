@@ -43,7 +43,7 @@ const Comments: FC<ICommentsProps> = ({
                 background="transparent"
                 hoverBackColor="#dfdfdf"
               >
-                Ответить
+                Answer
               </Button>
             </Flex>
             <ContainerEL>
