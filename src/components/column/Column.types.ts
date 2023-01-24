@@ -1,3 +1,4 @@
+import { DroppableProvided } from "@hello-pangea/dnd";
 import { ITask } from "../../store/types/store.types";
 
 export interface IColumnProps {
@@ -6,5 +7,6 @@ export interface IColumnProps {
   //styles
   borderColor: string;
   background:string;
-  minHeight:string;
+  minHeight?:string;
+  provided:DroppableProvided
 }

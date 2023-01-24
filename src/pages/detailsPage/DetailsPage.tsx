@@ -82,7 +82,8 @@ const DetailsPage = () => {
                       column={title.queue}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ff0000"
-                      minHeight={snapshot.isDraggingOver ? "60px" : ""}
+                      provided={provided}
+                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>
@@ -99,7 +100,8 @@ const DetailsPage = () => {
                       column={title.development}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ffa500"
-                      minHeight={snapshot.isDraggingOver ? "60px" : ""}
+                      provided={provided}
+                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>
@@ -116,7 +118,8 @@ const DetailsPage = () => {
                       column={title.done}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#04ff00"
-                      minHeight={snapshot.isDraggingOver ? "60px" : ""}
+                      provided={provided}
+                      // minHeight={snapshot.isDraggingOver ? "60px" : ""}
                     />
                     {provided.placeholder}
                   </WrapperColumn>

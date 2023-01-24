@@ -24,7 +24,14 @@ import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 
-const Column: FC<IColumnProps> = ({ borderColor, project, column,background,minHeight }) => {
+const Column: FC<IColumnProps> = ({
+  borderColor,
+  project,
+  column,
+  background,
+  minHeight,
+  provided,
+}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
@@ -97,7 +104,11 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,background,minH
   };
 
   return (
-    <ContainerColumn borderColor={borderColor} background={background} minHeight={minHeight}>
+    <ContainerColumn
+      borderColor={borderColor}
+      background={background}
+      minHeight={minHeight}
+    >
       <HeaderColumn>
         <H6>{column}</H6>
       </HeaderColumn>
@@ -114,6 +125,7 @@ const Column: FC<IColumnProps> = ({ borderColor, project, column,background,minH
               subTaskCounter={subTaskCounter}
             />
           ))}
+        {provided.placeholder}
         {column === "Queue" ? (
           addInput ? (
             <Flex flexDirection="column" margin="0 0 10px 0">
