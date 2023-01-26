@@ -24,9 +24,9 @@ export const setCloseCreateProjModal = () => ({
   payload: false,
 });
 
-export const setCreateCardProject = (name: string) => ({
+export const setCreateCardProject = (name: string,color:string | undefined) => ({
   type: CREATE_CARD_PROJECT,
-  payload: name,
+  payload: {name,color},
 });
 
 export const setCreateTask = (titleTask: string, id: string | undefined) => ({

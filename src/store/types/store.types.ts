@@ -4,6 +4,7 @@ export interface ICard {
   queue: ITask[];
   development: ITask[];
   done: ITask[];
+  background:string
   [key: string]: any;
 }
 export type TFinishTDate = {

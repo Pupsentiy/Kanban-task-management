@@ -2,8 +2,9 @@ import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { TfiClose } from "react-icons/tfi";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 import {
+  ContainerIcon,
   Flex,
   H2,
   PDiscriptionEl,
@@ -22,23 +23,8 @@ import { HeaderModal, ItemColor, SectionEl } from "./ModalCreateBoard.styled";
 
 const ModalCreateBoard: FC = () => {
   const [fields, setFields] = useState<string>("");
+  const [idColor, setIdColor] = useState<number>(0);
   const dispatch = useDispatch();
-
-  const closeCreateProModal = () => {
-    dispatch(setCloseCreateProjModal());
-  };
-
-  const creatingСardName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFields(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    if (fields.length > 0) {
-      dispatch(setCreateCardProject(fields));
-      setFields("");
-      dispatch(setCloseCreateProjModal());
-    }
-  };
 
   const colors = [
     { id: 0, color: "#0079bf" },
@@ -49,6 +35,33 @@ const ModalCreateBoard: FC = () => {
     { id: 5, color: "#cd5a91" },
   ];
 
+  const closeCreateProModal = () => {
+    dispatch(setCloseCreateProjModal());
+  };
+
+  const creatingСardName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFields(event.target.value);
+  };
+
+
+
+  const getColorId = (id: number) => {
+    setIdColor(id);
+  };
+
+  const getColor = () => { 
+   return colors.find(item => item.id === idColor ?? item )
+  }
+
+
+const handleSubmit = (event: React.FormEvent) => {
+  if (fields.length > 0) {
+    dispatch(setCreateCardProject(fields,getColor()?.color));
+    setFields("");
+    dispatch(setCloseCreateProjModal());
+  }
+};
+ 
   return (
     <SectionEl>
       <WrapperEl padding="0 10px">
@@ -91,6 +104,9 @@ const ModalCreateBoard: FC = () => {
                     colors.map((item, index) => (
                       <ItemColor key={index}>
                         <Button
+                          onClick={() => {
+                            getColorId(item.id);
+                          }}
                           type="button"
                           opacity="0.7"
                           background={item.color}
@@ -98,6 +114,11 @@ const ModalCreateBoard: FC = () => {
                           width="100%"
                           height="100%"
                         />
+                        {item.id === idColor ? (
+                          <ContainerIcon left="4px" top="0">
+                            <AiOutlineCheck />
+                          </ContainerIcon>
+                        ) : null}
                       </ItemColor>
                     ))}
                 </Flex>

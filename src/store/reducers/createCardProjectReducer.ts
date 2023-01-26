@@ -42,10 +42,11 @@ export const createCardProject = (
           ...state.projects,
           {
             id: uuidv4(),
-            name: action.payload,
+            name: action.payload.name,
             queue: [],
             development: [],
             done: [],
+            background:action.payload.color
           },
         ],
       };
