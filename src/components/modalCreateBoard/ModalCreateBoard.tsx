@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { TfiClose } from "react-icons/tfi";
@@ -23,7 +23,7 @@ import { HeaderModal, ItemColor, SectionEl } from "./ModalCreateBoard.styled";
 
 const ModalCreateBoard: FC = () => {
   const [fields, setFields] = useState<string>("");
-  const [idColor, setIdColor] = useState<number>(0);
+  const [selectedColor, setSelectedColor] = useState<string>("#0079bf");
   const dispatch = useDispatch();
 
   const colors = [
@@ -43,25 +43,19 @@ const ModalCreateBoard: FC = () => {
     setFields(event.target.value);
   };
 
-
-
-  const getColorId = (id: number) => {
-    setIdColor(id);
+  const getColorId = (color: string) => {
+    setSelectedColor(color);
   };
 
-  const getColor = () => { 
-   return colors.find(item => item.id === idColor ?? item )
-  }
+  const handleSubmit = (event: React.FormEvent) => {
+    if (fields.length > 0) {
+      dispatch(setCreateCardProject(fields, selectedColor));
+      setFields("");
+      dispatch(setCloseCreateProjModal());
+      setSelectedColor("#0079bf");
+    }
+  };
 
-
-const handleSubmit = (event: React.FormEvent) => {
-  if (fields.length > 0) {
-    dispatch(setCreateCardProject(fields,getColor()?.color));
-    setFields("");
-    dispatch(setCloseCreateProjModal());
-  }
-};
- 
   return (
     <SectionEl>
       <WrapperEl padding="0 10px">
@@ -105,7 +99,7 @@ const handleSubmit = (event: React.FormEvent) => {
                       <ItemColor key={index}>
                         <Button
                           onClick={() => {
-                            getColorId(item.id);
+                            getColorId(item.color);
                           }}
                           type="button"
                           opacity="0.7"
@@ -114,7 +108,7 @@ const handleSubmit = (event: React.FormEvent) => {
                           width="100%"
                           height="100%"
                         />
-                        {item.id === idColor ? (
+                        {item.color === selectedColor ? (
                           <ContainerIcon left="4px" top="0">
                             <AiOutlineCheck />
                           </ContainerIcon>

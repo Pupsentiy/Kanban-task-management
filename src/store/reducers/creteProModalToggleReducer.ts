@@ -17,12 +17,12 @@ export const toggleCreateProModal = (
     case CRETEPROMODAL__OPEN:
       return {
         ...state,
-        toggleModal: true,
+        toggleModal: action.payload,
       };
     case CRETEPROMODAL__CLOSE:
       return {
         ...state,
-        toggleModal: false,
+        toggleModal: action.payload,
       };
 
     default:

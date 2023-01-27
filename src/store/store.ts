@@ -4,11 +4,11 @@ import { combineReducers } from "redux";
 import { createCardProject } from "./reducers/createCardProjectReducer";
 import { toggleCreateProModal } from "./reducers/creteProModalToggleReducer";
 
-import { ICard } from "./types/store.types";
+import { IProject } from "./types/store.types";
 
-const saveToLocalStorage = (state: ICard[]) => {
+const saveToLocalStorage = (state: IProject[]) => {
   try {
-    localStorage.setItem("card", JSON.stringify(state));
+    localStorage.setItem("projects", JSON.stringify(state));
   } catch (e) {
     console.error(e);
   }

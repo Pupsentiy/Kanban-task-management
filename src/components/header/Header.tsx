@@ -7,7 +7,7 @@ import {
   setSearchTask,
   setSelectTask,
 } from "../../store/actions/actionTypes";
-import { ITask } from "../../store/types/store.types";
+import {  ITask } from "../../store/types/store.types";
 import { PopupClick } from "./Header.types";
 
 import Input from "../input/Input";
@@ -37,6 +37,7 @@ const Header: FC = () => {
   const foundTask = useSelector(
     (state: RootState) => state.createCardProject.searchTask
   );
+ 
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
     dispatch(setSearchTask(search));
@@ -60,11 +61,13 @@ const Header: FC = () => {
     return () => document.body.removeEventListener("click", handleClickOutside);
   }, []);
 
+
+
   return (
     <HeaderEl>
       <Flex alignItems="end">
         <H5>Kanban</H5>
-        <NavLinkEl to={routesConfig.home.path}>
+        <NavLinkEl to={routesConfig.home.path} >
           {routesConfig.home.title}
         </NavLinkEl>
         <WrapperSearch onClick={(e) => e.stopPropagation()}>

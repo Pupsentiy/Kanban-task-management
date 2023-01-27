@@ -53,7 +53,7 @@ const ModalEditTask: FC = () => {
   const [changeDescriptionTask, setChangeDescriptionTask] =
     useState<boolean>(false);
   const [idSelectComment, setIdSelectComment] = useState("");
-  const [task, setTask] = useState<ITask>(selectTask.task);
+  const [task, setTask] = useState<ITask>(selectTask);
   const [commentTextValue, setCommentTextValue] = useState<string>("");
   const [selectComment, setSelectComments] = useState<TComment | null>(null);
   const [activeInputDate, setActiveInputDate] = useState<boolean>(false);
@@ -65,8 +65,8 @@ const ModalEditTask: FC = () => {
     const [activeBlockInvestment,setActiveBlockInvestment] = useState<boolean>(false)
 
   useEffect(() => {
-    setTask(selectTask.task);
-  }, [selectTask.task]);
+    setTask(selectTask);
+  }, [selectTask]);
 
   const onChangeTask = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
@@ -135,6 +135,7 @@ const ModalEditTask: FC = () => {
       },
     });
   };
+
 
   return (
     <Modal
@@ -229,7 +230,7 @@ const ModalEditTask: FC = () => {
                 onChangeTask={onChangeTask}
                 saveTask={saveTask}
               />
-              {task?.subTasks.length > 0 && (
+              {task?.subTasks?.length > 0 && (
                 <SubTasks task={task} setTask={setTask} />
               )}
               {activeBlockInvestment ? <Investment task={task} setTask={setTask}/> :null}

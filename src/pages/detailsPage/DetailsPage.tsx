@@ -12,7 +12,7 @@ import {
   setDraggableQueueTask,
 } from "../../store/actions/actionTypes";
 import { RootState } from "../../store/store";
-import { ICard } from "../../store/types/store.types";
+import { IProject } from "../../store/types/store.types";
 
 import {
   ContainerEl,
@@ -30,7 +30,7 @@ const DetailsPage = () => {
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject: ICard = Object.values(cardProject).find(
+  const selectProject: IProject = Object.values(cardProject).find(
     (card) => card.id === id
   );
 
@@ -75,7 +75,7 @@ const DetailsPage = () => {
       {selectProject && (
         <ContainerEl>
           <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
-            <H5 fontWeight="400" color="#5e6c84">
+            <H5 fontWeight="400" color="#181717">
               Board:{selectProject.name}
             </H5>
           </Flex>

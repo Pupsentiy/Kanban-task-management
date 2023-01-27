@@ -1,11 +1,15 @@
-export interface ICard {
+export interface ReadonlyObj {
+  readonly [index: string]: string;
+}
+
+export interface IProject {
+  [key: string]:any
   id: string;
   name: string;
   queue: ITask[];
   development: ITask[];
   done: ITask[];
   background:string
-  [key: string]: any;
 }
 export type TFinishTDate = {
   date?: Date;
@@ -50,8 +54,8 @@ export type TComment = {
   [key: string]: any;
 };
 
-export interface ICreateCardProject {
-  projects: ICard[];
+export interface IIinitialState {
+  projects: IProject[];
   selectTask: ITask;
   searchTask:ITask[]
   toggleModalEditTask: boolean;

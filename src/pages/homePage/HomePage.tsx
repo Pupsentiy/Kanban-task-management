@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import ModalCreateBoard from "../../components/modalCreateBoard/ModalCreateBoard";
 
@@ -15,7 +16,7 @@ import {
 } from "../../styles/index.styled";
 import { ListCards, LiCard, WrapperCard } from "./HomePage.styled";
 
-import { ICard } from "../../store/types/store.types";
+import { IProject } from "../../store/types/store.types";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,17 @@ const HomePage = () => {
   const openCreateProModal = () => {
     dispatch(setOpenCreateProjModal());
   };
+
+  const onChangeBackgroundColorBody = (backgroundColor: string) => {
+    document.body.style.backgroundColor = backgroundColor;
+  };
+
+  useEffect(() => {
+    if (window.location.href === "http://localhost:3000/") {
+      document.body.style.backgroundColor = "#eef2f9";
+    }
+  }, []);
+
   return (
     <ContainerEl>
       <WrapperEl margin="15px 0 0 0" padding="0 8px">
@@ -42,10 +54,15 @@ const HomePage = () => {
             </WrapperCard>
           </LiCard>
           {projects &&
-            projects.map((project: ICard, i: number) => (
-              <NavLinkEL key={i} to={`${project.id}`} width="25%">
+            projects.map((project: IProject, i: number) => (
+              <NavLinkEL
+                key={i}
+                to={`${project.id}`}
+                width="25%"
+                onClick={() => onChangeBackgroundColorBody(project.background)}
+              >
                 <LiCard width="100%">
-                  <WrapperCard background="#782175">
+                  <WrapperCard background={project.background}>
                     <H6>{project.name}</H6>
                   </WrapperCard>
                 </LiCard>

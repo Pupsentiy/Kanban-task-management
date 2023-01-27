@@ -22,8 +22,9 @@ export const WrapperCard = styled.div<{ background?: string }>`
   align-items: center;
   height: 80px;
   -webkit-transition: all 0.1ms ease;
-  transition: all 0.1ms ease;
+  transition: all 0.3ms ease;
   &:hover {
-    background-color: #c4c6cb33;
+    background-color: ${(props) => props.background || "#091e421c"};
+    opacity: 0.7;
   }
 `;
