@@ -40,7 +40,9 @@ const Header: FC = () => {
  
   const searchTask = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+   if(search !== ''){
     dispatch(setSearchTask(search));
+   }
   };
 
   const selectTask = (task: ITask, column: string) => {

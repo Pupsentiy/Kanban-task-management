@@ -124,9 +124,9 @@ export type TDraggableDoneTask = {
 
 export type TSearchTask = {
   type: ActionTypes.SEARCH_TASK;
-  payload: { serachText: string };
+  payload:  string 
 };
-
+ 
 export type TActionTypes =
   | TCreateCardProjects
   | TCreateTask

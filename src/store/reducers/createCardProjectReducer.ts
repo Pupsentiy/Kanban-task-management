@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-// import { CLOSE_EDIT_TASK_MODAL, CREATE_CARD_PROJECT, CREATE_TASK, DRAGGABLE_DEVELOPMENT, DRAGGABLE_DONE, DRAGGABLE_QUEUE, EDIT_TASK, OPEN_EDIT_TASK_MODAL, SEARCH_TASK, SELECTE_TASK } from "../actions/actionCreators";
 
 import {
   IProject,
@@ -163,7 +162,7 @@ export const createCardProject = (
         Object.values(project).forEach((project: IProject) => {
           if (Array.isArray(project)) {
             let newArr: ITask[] = project.filter((task: ITask) =>
-              task.titleTask.includes(action.payload.serachText)
+              task.titleTask.includes(action.payload)
             );
             if (newArr.length > 0) {
               newArr.forEach((element) => {

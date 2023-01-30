@@ -30,11 +30,12 @@ const DetailsPage = () => {
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject:any = Object.values(project).find(
-    (card) =>  card.id === id
+  const selectProject: IProject | undefined = Object.values(project).find(
+    (card) => card.id === id
   );
-console.log(selectProject);
+
   const onDragEnd = (result: DropResult) => {
+   if(selectProject){
     if (!result.destination) return;
     if (
       result.destination.droppableId === result.source.droppableId &&
@@ -68,6 +69,7 @@ console.log(selectProject);
     dispatch(setDraggableQueueTask(queue, id));
     dispatch(setDraggableDevelopmentTask(development, id));
     dispatch(setDraggableDoneTask(done, id));
+   }
   };
 
   return (
