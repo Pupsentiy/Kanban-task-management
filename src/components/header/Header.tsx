@@ -7,7 +7,7 @@ import {
   setSearchTask,
   setSelectTask,
 } from "../../store/actions/actionTypes";
-import {  ITask } from "../../store/types/store.types";
+import {   ITask } from "../../store/types/store.types";
 import { PopupClick } from "./Header.types";
 
 import Input from "../input/Input";
@@ -32,7 +32,7 @@ import { RootState } from "../../store/store";
 
 const Header: FC = () => {
   const [search, setSearch] = useState<string>("");
-  const wrapResRef = useRef(null);
+  const wrapResRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const foundTask = useSelector(
     (state: RootState) => state.createCardProject.searchTask
@@ -52,15 +52,13 @@ const Header: FC = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const _event = event as PopupClick;
-
-      if (wrapResRef.current && !_event.path.includes(wrapResRef.current))  {
+      if (wrapResRef.current && !_event.path?.includes(wrapResRef.current))  {
           setSearch("");
       }
     };
     document.body.addEventListener("click", handleClickOutside);
     return () => document.body.removeEventListener("click", handleClickOutside);
   }, []);
-
 
 
   return (
@@ -89,7 +87,7 @@ const Header: FC = () => {
           {search.length > 1 && foundTask.length ? (
             <WrapperResultSearch ref={wrapResRef}>
               {foundTask &&
-                foundTask.map((task, i) => (
+                foundTask.map((task:ITask, i:number) => (
                   <ContainerTask
                     key={i}
                     onClick={() => selectTask(task, task.column)}

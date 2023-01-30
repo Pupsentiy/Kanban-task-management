@@ -23,17 +23,17 @@ import {
 
 const DetailsPage = () => {
   const { id } = useParams();
-  const cardProject = useSelector(
+  const project = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
   const dispatch = useDispatch();
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject: IProject = Object.values(cardProject).find(
-    (card) => card.id === id
+  const selectProject:any = Object.values(project).find(
+    (card) =>  card.id === id
   );
-
+console.log(selectProject);
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     if (

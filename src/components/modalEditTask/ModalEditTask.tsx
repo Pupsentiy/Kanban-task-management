@@ -136,7 +136,6 @@ const ModalEditTask: FC = () => {
     });
   };
 
-
   return (
     <Modal
       onClick={() => {

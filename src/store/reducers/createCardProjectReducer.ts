@@ -1,11 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
+// import { CLOSE_EDIT_TASK_MODAL, CREATE_CARD_PROJECT, CREATE_TASK, DRAGGABLE_DEVELOPMENT, DRAGGABLE_DONE, DRAGGABLE_QUEUE, EDIT_TASK, OPEN_EDIT_TASK_MODAL, SEARCH_TASK, SELECTE_TASK } from "../actions/actionCreators";
 
 import {
   IProject,
-  IIinitialState,
+  TIinitialState,
   ITask,
   TComment,
   ISubTask,
+  ActionTypes,
+  TActionTypes,
 } from "../types/store.types";
 
 const getFromLocalStorage = (key: string) => {
@@ -15,7 +18,7 @@ const getFromLocalStorage = (key: string) => {
   return localStorage.getItem(key);
 };
 
-const initialState: IIinitialState = {
+const initialState: TIinitialState = {
   projects: getFromLocalStorage("projects")
     ? JSON.parse(getFromLocalStorage("projects") || "{}")
     : ([] as IProject[]),
@@ -24,85 +27,10 @@ const initialState: IIinitialState = {
   toggleModalEditTask: false,
 };
 
-enum ActionTypes {
-  CREATE_CARD_PROJECT = "CREATE_CARD_PROJECT",
-  CREATE_TASK = "CREATE_TASK",
-  OPEN_EDIT_TASK_MODAL = "OPEN_EDIT_TASK_MODAL",
-  CLOSE_EDIT_TASK_MODAL = "CLOSE_EDIT_TASK_MODAL",
-  SELECTE_TASK = "SELECTE_TASK",
-  EDIT_TASK = "EDIT_TASK",
-  DRAGGABLE_QUEUE = "DRAGGABLE_QUEUE",
-  DRAGGABLE_DEVELOPMENT = "DRAGGABLE_DEVELOPMENT",
-  DRAGGABLE_DONE = "DRAGGABLE_DONE",
-  SEARCH_TASK = "SEARCH_TASK",
-}
-
-type TCreateCardProjects = {
-  type: ActionTypes.CREATE_CARD_PROJECT;
-  payload: { name: string; color: string | undefined };
-};
-
-type TCreateTask = {
-  type: ActionTypes.CREATE_TASK;
-  payload: { titleTask: string; id: string | undefined };
-};
-
-type TOpenModalEditTask = {
-  type: ActionTypes.OPEN_EDIT_TASK_MODAL;
-  payload: { open: boolean };
-};
-
-type TCloseModalEditTask = {
-  type: ActionTypes.CLOSE_EDIT_TASK_MODAL;
-  payload: { close: boolean };
-};
-
-type TSelectedTask = {
-  type: ActionTypes.SELECTE_TASK;
-  payload: { task: ITask; column: string };
-};
-
-type TEditTask = {
-  type: ActionTypes.EDIT_TASK;
-  payload: { task: ITask; id: string | undefined; column: string };
-};
-
-type TDraggableQueueTask = {
-  type: ActionTypes.DRAGGABLE_QUEUE;
-  payload: { queue: ITask[]; id: string | undefined };
-};
-
-type TDraggableDevelopmentTask = {
-  type: ActionTypes.DRAGGABLE_DEVELOPMENT;
-  payload: { development: ITask[]; id: string | undefined };
-};
-
-type TDraggableDoneTask = {
-  type: ActionTypes.DRAGGABLE_DONE;
-  payload: { done: ITask[]; id: string | undefined };
-};
-
-type TSearchTask = {
-  type: ActionTypes.SEARCH_TASK;
-  payload: { serachText: string };
-};
-
-type TActionTypes =
-  | TCreateCardProjects
-  | TCreateTask
-  | TOpenModalEditTask
-  | TCloseModalEditTask
-  | TSelectedTask
-  | TEditTask
-  | TDraggableQueueTask
-  | TDraggableDevelopmentTask
-  | TDraggableDoneTask
-  | TSearchTask
-  | any
 export const createCardProject = (
   state = initialState,
   action: TActionTypes
-) => {
+): TIinitialState => {
   switch (action.type) {
     case ActionTypes.CREATE_CARD_PROJECT:
       const newProjectId: string = uuidv4();
@@ -201,7 +129,7 @@ export const createCardProject = (
       return {
         ...state,
         projects: state.projects.map((project) => {
-          if (project.id === action.payload?.id) {
+          if (project.id === action.payload.id) {
             project.queue = action.payload.queue;
           }
           return project;
@@ -211,7 +139,7 @@ export const createCardProject = (
       return {
         ...state,
         projects: state.projects.map((project) => {
-          if (project.id === action.payload?.id) {
+          if (project.id === action.payload.id) {
             project.development = action.payload.development;
           }
           return project;
@@ -232,10 +160,10 @@ export const createCardProject = (
     case ActionTypes.SEARCH_TASK:
       let arr: ITask[] = [];
       state.projects.map((project) =>
-        Object.values(project).forEach((column:IProject) => {
-          if (Array.isArray(column)) {
-            let newArr = column.filter((task) =>
-            console.log(task)
+        Object.values(project).forEach((project: IProject) => {
+          if (Array.isArray(project)) {
+            let newArr: ITask[] = project.filter((task: ITask) =>
+              task.titleTask.includes(action.payload.serachText)
             );
             if (newArr.length > 0) {
               newArr.forEach((element) => {
@@ -256,12 +184,12 @@ export const createCardProject = (
     case ActionTypes.OPEN_EDIT_TASK_MODAL:
       return {
         ...state,
-        toggleModalEditTask: action.payload,
+        toggleModalEditTask: action.payload.open,
       };
     case ActionTypes.CLOSE_EDIT_TASK_MODAL:
       return {
         ...state,
-        toggleModalEditTask: action.payload,
+        toggleModalEditTask: action.payload.close,
       };
     default:
       return state;

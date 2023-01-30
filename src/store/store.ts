@@ -1,4 +1,4 @@
-import { compose, legacy_createStore } from "redux";
+import { compose, legacy_createStore as createStore } from "redux";
 import { combineReducers } from "redux";
 
 import { createCardProject } from "./reducers/createCardProjectReducer";
@@ -25,7 +25,7 @@ declare global {
   }
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = legacy_createStore(
+const store = createStore(
   rootReducer,
   composeEnhancers()
 );
