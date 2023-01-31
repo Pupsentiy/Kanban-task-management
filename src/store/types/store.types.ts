@@ -1,24 +1,39 @@
-export interface ReadonlyObj {
-  readonly [index: string]: string;
+export enum ActionTypes {
+  CREATE_CARD_PROJECT = "CREATE_CARD_PROJECT",
+  CREATE_TASK = "CREATE_TASK",
+  OPEN_EDIT_TASK_MODAL = "OPEN_EDIT_TASK_MODAL",
+  CLOSE_EDIT_TASK_MODAL = "CLOSE_EDIT_TASK_MODAL",
+  SELECTE_TASK = "SELECTE_TASK",
+  EDIT_TASK = "EDIT_TASK",
+  DRAGGABLE_QUEUE = "DRAGGABLE_QUEUE",
+  DRAGGABLE_DEVELOPMENT = "DRAGGABLE_DEVELOPMENT",
+  DRAGGABLE_DONE = "DRAGGABLE_DONE",
+  SEARCH_TASK = "SEARCH_TASK",
+}
+
+export type IColumn = {
+    queue: ITask[];
+    development: ITask[];
+    done: ITask[];
 }
 
 export interface IProject {
-  [key: string]:any
   id: string;
   name: string;
+  background: string;
   queue: ITask[];
   development: ITask[];
   done: ITask[];
-  background:string
 }
+
 export type TFinishTDate = {
   date?: Date;
   checkDate: boolean;
 };
 
 export interface ITask {
-  projectId:string
-  column:string;
+  projectId: string;
+  column: string;
   id: string;
   numberTask: string;
   titleTask: string;
@@ -51,30 +66,16 @@ export type TComment = {
   id: string;
   text: string;
   subComments: TComment[];
-  [key: string]: any;
 };
 
 export type TIinitialState = {
-  projects:IProject[];
+  projects: IProject[];
   selectTask: ITask;
-  searchTask:ITask[]
+  searchTask: ITask[];
   toggleModalEditTask: boolean;
-}
+};
 export interface IToggleCreProModal {
   toggleModal: boolean;
-}
-
-export enum ActionTypes {
-  CREATE_CARD_PROJECT = "CREATE_CARD_PROJECT",
-  CREATE_TASK = "CREATE_TASK",
-  OPEN_EDIT_TASK_MODAL = "OPEN_EDIT_TASK_MODAL",
-  CLOSE_EDIT_TASK_MODAL = "CLOSE_EDIT_TASK_MODAL",
-  SELECTE_TASK = "SELECTE_TASK",
-  EDIT_TASK = "EDIT_TASK",
-  DRAGGABLE_QUEUE = "DRAGGABLE_QUEUE",
-  DRAGGABLE_DEVELOPMENT = "DRAGGABLE_DEVELOPMENT",
-  DRAGGABLE_DONE = "DRAGGABLE_DONE",
-  SEARCH_TASK = "SEARCH_TASK",
 }
 
 export type TCreateCardProjects = {
@@ -89,12 +90,12 @@ export type TCreateTask = {
 
 export type TOpenModalEditTask = {
   type: ActionTypes.OPEN_EDIT_TASK_MODAL;
-  payload: boolean 
+  payload: boolean;
 };
 
 export type TCloseModalEditTask = {
   type: ActionTypes.CLOSE_EDIT_TASK_MODAL;
-  payload:  boolean 
+  payload: boolean;
 };
 
 export type TSelectedTask = {
@@ -104,7 +105,7 @@ export type TSelectedTask = {
 
 export type TEditTask = {
   type: ActionTypes.EDIT_TASK;
-  payload: { task: ITask; id: string | undefined; column: string };
+  payload: { task: ITask; column: string; id: string | undefined };
 };
 
 export type TDraggableQueueTask = {
@@ -124,9 +125,9 @@ export type TDraggableDoneTask = {
 
 export type TSearchTask = {
   type: ActionTypes.SEARCH_TASK;
-  payload:  string 
+  payload: string;
 };
- 
+
 export type TActionTypes =
   | TCreateCardProjects
   | TCreateTask

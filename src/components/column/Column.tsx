@@ -37,7 +37,6 @@ const Column: FC<IColumnProps> = ({
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addTitle, setAddTitle] = useState<string>("");
-
   const changeTitleTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddTitle(event.target.value);
   };
@@ -68,7 +67,7 @@ const Column: FC<IColumnProps> = ({
     const proccesTime = getProccesTime(task?.createTaskDate);
     const editTaskTime = { ...task, proccesTime: proccesTime };
     dispatch(setOpenEditTaskModal());
-    dispatch(setSelectTask(editTaskTime, column));
+    dispatch(setSelectTask(editTaskTime, column.toLowerCase()));
   };
 
   const commentСounter = (task: ITask) => {
@@ -103,7 +102,6 @@ const Column: FC<IColumnProps> = ({
     });
     return sum;
   };
-
   return (
     <ContainerColumn
       borderColor={borderColor}

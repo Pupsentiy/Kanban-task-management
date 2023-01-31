@@ -71,7 +71,6 @@ const DetailsPage = () => {
       dispatch(setDraggableDoneTask(done, id));
     }
   };
-
   return (
     <>
       {selectProject && (

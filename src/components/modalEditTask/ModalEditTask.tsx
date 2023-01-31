@@ -67,7 +67,6 @@ const ModalEditTask: FC = () => {
   useEffect(() => {
     setTask(selectTask);
   }, [selectTask]);
-
   const onChangeTask = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
     setTask({
@@ -115,7 +114,7 @@ const ModalEditTask: FC = () => {
   };
 
   const saveTask = () => {
-    dispatch(setEditTask(task, id, selectTask.column.toLowerCase()));
+    dispatch(setEditTask(task, id, selectTask.column));
     setActiveInputDate(false);
     setActiveDropDownDate(false);
     setActiveDropDownMarker(false);
@@ -135,7 +134,6 @@ const ModalEditTask: FC = () => {
       },
     });
   };
-
   return (
     <Modal
       onClick={() => {

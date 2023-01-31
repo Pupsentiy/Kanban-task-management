@@ -27,7 +27,7 @@ const SingleTask: FC<ISingleTaskProps> = ({
 }) => {
   return (
     <Draggable draggableId={task.id} index={index} key={task.id}>
-      {(provided,snapshot) => (
+      {(provided,snapshot) => ( 
         <ContainerTaks
           onClick={() => openModal(task, column)}
           ref={provided.innerRef}

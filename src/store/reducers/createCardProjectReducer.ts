@@ -8,6 +8,7 @@ import {
   ISubTask,
   ActionTypes,
   TActionTypes,
+  IColumn,
 } from "../types/store.types";
 
 const getFromLocalStorage = (key: string) => {
@@ -81,9 +82,25 @@ export const createCardProject = (
         }),
       };
     case ActionTypes.SELECTE_TASK:
+      const editTask = {
+        projectId: action.payload.task.projectId,
+        column: action.payload.column,
+        id: action.payload.task.id,
+        titleTask: action.payload.task.titleTask,
+        numberTask: action.payload.task.numberTask,
+        description: action.payload.task.description,
+        createTaskDate: action.payload.task.createTaskDate,
+        proccesTime: action.payload.task.proccesTime,
+        finishDate: action.payload.task.finishDate,
+        priorityMarker: action.payload.task.priorityMarker,
+        files: action.payload.task.files,
+        currentStatus: action.payload.task.currentStatus,
+        subTasks: action.payload.task.subTasks,
+        comments: action.payload.task.comments,
+      };
       return {
         ...state,
-        selectTask: { ...state.selectTask, ...action.payload.task },
+        selectTask: { ...state.selectTask, ...editTask },
       };
 
     case ActionTypes.EDIT_TASK:
@@ -94,11 +111,11 @@ export const createCardProject = (
           if (project.id === action.payload?.id) {
             return {
               ...project,
-              [column]: project[column].map((task: ITask) => {
+              [column]: project[column as keyof IColumn].map((task: ITask) => {
                 if (task.id === action.payload.task.id) {
                   const editTask = {
-                    column: column,
                     projectId: project.id,
+                    column: column,
                     id: action.payload.task.id,
                     titleTask: action.payload.task.titleTask,
                     numberTask: action.payload.task.numberTask,
