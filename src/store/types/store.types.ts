@@ -89,12 +89,12 @@ export type TCreateTask = {
 
 export type TOpenModalEditTask = {
   type: ActionTypes.OPEN_EDIT_TASK_MODAL;
-  payload: { open: boolean };
+  payload: boolean 
 };
 
 export type TCloseModalEditTask = {
   type: ActionTypes.CLOSE_EDIT_TASK_MODAL;
-  payload: { close: boolean };
+  payload:  boolean 
 };
 
 export type TSelectedTask = {

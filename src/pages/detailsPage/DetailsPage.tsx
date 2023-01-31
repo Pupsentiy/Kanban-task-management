@@ -23,53 +23,53 @@ import {
 
 const DetailsPage = () => {
   const { id } = useParams();
-  const project = useSelector(
+  const projects = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
   const dispatch = useDispatch();
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject: IProject | undefined = Object.values(project).find(
-    (card) => card.id === id
+  const selectProject: IProject | undefined = Object.values(projects).find(
+    (project) => project.id === id
   );
 
   const onDragEnd = (result: DropResult) => {
-   if(selectProject){
-    if (!result.destination) return;
-    if (
-      result.destination.droppableId === result.source.droppableId &&
-      result.destination.index === result.source.index
-    )
-      return;
-    const { source, destination } = result;
-    let add,
-      queue = selectProject.queue,
-      development = selectProject.development,
-      done = selectProject.done;
+    if (selectProject) {
+      if (!result.destination) return;
+      if (
+        result.destination.droppableId === result.source.droppableId &&
+        result.destination.index === result.source.index
+      )
+        return;
+      const { source, destination } = result;
+      let add,
+        queue = selectProject.queue,
+        development = selectProject.development,
+        done = selectProject.done;
 
-    if (source.droppableId === "Queue") {
-      add = queue[source.index];
-      queue.splice(source.index, 1);
-    } else if (source.droppableId === "Development") {
-      add = development[source.index];
-      development.splice(source.index, 1);
-    } else {
-      add = done[source.index];
-      done.splice(source.index, 1);
-    }
+      if (source.droppableId === "Queue") {
+        add = queue[source.index];
+        queue.splice(source.index, 1);
+      } else if (source.droppableId === "Development") {
+        add = development[source.index];
+        development.splice(source.index, 1);
+      } else {
+        add = done[source.index];
+        done.splice(source.index, 1);
+      }
 
-    if (destination.droppableId === "Queue") {
-      queue.splice(destination.index, 0, add);
-    } else if (destination.droppableId === "Development") {
-      development.splice(destination.index, 0, add);
-    } else {
-      done.splice(destination.index, 0, add);
+      if (destination.droppableId === "Queue") {
+        queue.splice(destination.index, 0, add);
+      } else if (destination.droppableId === "Development") {
+        development.splice(destination.index, 0, add);
+      } else {
+        done.splice(destination.index, 0, add);
+      }
+      dispatch(setDraggableQueueTask(queue, id));
+      dispatch(setDraggableDevelopmentTask(development, id));
+      dispatch(setDraggableDoneTask(done, id));
     }
-    dispatch(setDraggableQueueTask(queue, id));
-    dispatch(setDraggableDevelopmentTask(development, id));
-    dispatch(setDraggableDoneTask(done, id));
-   }
   };
 
   return (

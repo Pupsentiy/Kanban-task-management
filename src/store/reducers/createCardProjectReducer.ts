@@ -183,12 +183,12 @@ export const createCardProject = (
     case ActionTypes.OPEN_EDIT_TASK_MODAL:
       return {
         ...state,
-        toggleModalEditTask: action.payload.open,
+        toggleModalEditTask: action.payload,
       };
     case ActionTypes.CLOSE_EDIT_TASK_MODAL:
       return {
         ...state,
-        toggleModalEditTask: action.payload.close,
+        toggleModalEditTask: action.payload,
       };
     default:
       return state;
