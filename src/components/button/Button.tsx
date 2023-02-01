@@ -8,6 +8,7 @@ const Button: FC<IButtonProps> = (props) => {
   return (
     <ButtonEl
       onClick={props.onClick}
+      onMouseDown={props.onMouseDown}
       active={props.active}
       type={props.type}
       //styles

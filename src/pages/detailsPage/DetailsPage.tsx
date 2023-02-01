@@ -23,6 +23,7 @@ import {
 
 const DetailsPage = () => {
   const { id } = useParams();
+
   const projects = useSelector(
     (state: RootState) => state.createCardProject.projects
   );
@@ -74,14 +75,14 @@ const DetailsPage = () => {
   return (
     <>
       {selectProject && (
-        <ContainerEl>
+        <ContainerEl >
           <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
-            <H5 fontWeight="400" color="#181717">
-              Board:{selectProject.name}
+            <H5 fontWeight="400" color="#181717" fontSize="28px">
+              Board: {selectProject.name}
             </H5>
           </Flex>
-          <Flex justifyContent="space-beetwen">
-            <DragDropContext onDragEnd={onDragEnd}>
+          <Flex justifyContent="space-beetwen" >
+            <DragDropContext onDragEnd={onDragEnd} >
               <Droppable droppableId="Queue">
                 {(provided, snapshot) => (
                   <WrapperColumn
@@ -126,7 +127,7 @@ const DetailsPage = () => {
                       project={selectProject?.done}
                       column={title.done}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
-                      borderColor="#04ff00"
+                      borderColor="#41cd3f"
                       provided={provided}
                     />
                     {provided.placeholder}

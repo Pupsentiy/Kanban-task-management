@@ -55,18 +55,18 @@ const HomePage = () => {
           </LiCard>
           {projects &&
             projects.map((project: IProject, i: number) => (
+              <LiCard width="25%" >
               <NavLinkEL
                 key={i}
                 to={`${project.id}`}
-                width="25%"
+                
                 onClick={() => onChangeBackgroundColorBody(project.background)}
               >
-                <LiCard width="100%">
                   <WrapperCard background={project.background}>
                     <H6>{project.name}</H6>
                   </WrapperCard>
-                </LiCard>
               </NavLinkEL>
+              </LiCard>
             ))}
         </ListCards>
       </WrapperEl>

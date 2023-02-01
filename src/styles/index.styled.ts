@@ -57,7 +57,7 @@ a {
 
 export const HeaderEl = styled.header`
   padding: 20px 10px;
-  box-shadow: 0px 0px 8px 1px #b7b6b6;
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .5);
   background: linear-gradient(90deg,rgba(149,145,222,1) 0%,rgb(40 40 201 / 74%) 35%,rgba(31,128,167,1) 80%,rgb(17 173 205) 100%);
 `;
 
@@ -78,12 +78,15 @@ export const H5 = styled.h5<{
   margin?: string;
   fontWeight?: string;
   color?: string;
+  fontSize?:string;
+  textShadow?:string
 }>`
   font-weight: ${(props) => props.fontWeight || "700"};
-  font-size: 34px;
+  font-size: ${(props) => props.fontSize || '34px'};
   line-height: 32px;
   margin: ${(props) => props.margin || "0"};
   color: ${(props) => props.color || "#000"};
+  text-shadow:${(props) => props.textShadow || 'none'}
 `;
 
 export const H6 = styled.h6<{
@@ -131,7 +134,7 @@ export const PDiscriptionEl = styled.p<{
 
 export const ContainerEl = styled.div`
   min-height: 100%;
-  padding: 20px;
+  padding: 10px 15px;
   max-width: 1440px;
   margin: 0 auto;
 `;

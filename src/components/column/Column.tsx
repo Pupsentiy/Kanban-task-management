@@ -1,7 +1,6 @@
-import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 
 import SingleTask from "../singleTask/SingleTask";
@@ -22,21 +21,25 @@ import {
   InputTitleTaskEl,
   OtherColumn,
 } from "./Column.styled";
-import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
-
+import { Flex, H6 } from "../../styles/index.styled";
+import { RootState } from "../../store/store";
 
 const Column: FC<IColumnProps> = ({
   borderColor,
   project,
+  provided,
   column,
   background,
   minHeight,
-  provided,
 }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addTitle, setAddTitle] = useState<string>("");
+  const activeModal = useSelector(
+    (state: RootState) => state.createCardProject.toggleModalEditTask
+  );
+
   const changeTitleTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddTitle(event.target.value);
   };
@@ -46,8 +49,14 @@ const Column: FC<IColumnProps> = ({
       dispatch(setCreateTask(addTitle, id));
       setAddInput(false);
       setAddTitle("");
+    } else {
+      setAddInput(false);
     }
   };
+
+  useEffect(() => {
+    setAddInput(false);
+  }, [!activeModal]);
 
   const getProccesTime = (ms: Date) => {
     const endTime = new Date();
@@ -102,6 +111,7 @@ const Column: FC<IColumnProps> = ({
     });
     return sum;
   };
+
   return (
     <ContainerColumn
       borderColor={borderColor}
@@ -127,9 +137,11 @@ const Column: FC<IColumnProps> = ({
         {provided.placeholder}
         {column === "Queue" ? (
           addInput ? (
-            <Flex flexDirection="column" margin="0 0 10px 0">
+            <Flex flexDirection="column" margin="0 0 5px 0">
               <InputTitleTaskEl
-              placeholder="Maintain a title for this task"
+                placeholder="Maintain a title for this task"
+                autoFocus
+                onBlur={() => addTask()}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                   changeTitleTask(event)
                 }
@@ -148,7 +160,7 @@ const Column: FC<IColumnProps> = ({
                 >
                   Create task
                 </Button>
-                <Button type="button" onClick={() => setAddInput(false)}>
+                <Button type="button" onMouseDown={() => setAddInput(false)}>
                   <TfiClose fontWeight={"700"} fontSize="16px" />
                 </Button>
               </Flex>
@@ -158,16 +170,16 @@ const Column: FC<IColumnProps> = ({
               margin="10px 0 0 0"
               alignItems="center"
               justifyContent="center"
-              onClick={() => setAddInput(true)}
             >
-              <AiOutlinePlus color="#172b4d" />
-              <PDiscriptionEl
-                margin="0 0 0 5px"
-                color="#172b4d"
-                cursor="pointer"
+              <Button
+                padding="6px 12px"
+                background="#5f9ea094"
+                hoverBackColor="#5f9ea0"
+                width="100%"
+                onClick={() => setAddInput(true)}
               >
                 Add task
-              </PDiscriptionEl>
+              </Button>
             </Flex>
           )
         ) : null}

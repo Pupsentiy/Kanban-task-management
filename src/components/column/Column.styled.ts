@@ -7,8 +7,8 @@ export const ContainerColumn = styled.div<{
 }>`
   background: ${(props) => props.background || "#ebecf0"};
   margin: 0 30px;
-  box-shadow: 0px 0px 3px 0px #aba6a6;
-  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  border-radius: 3px;
   padding: 6px 10px;
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
@@ -19,7 +19,7 @@ export const HeaderColumn = styled.div`
 `;
 
 export const OtherColumn = styled.div`
-  padding: 12px 10px 6px 10px;
+  padding: 12px 10px 0 10px;
   border-top: 1px solid #000;
 `;
 

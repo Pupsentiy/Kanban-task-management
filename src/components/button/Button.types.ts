@@ -1,5 +1,6 @@
 export interface IButtonProps {
-  onClick?: ((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
+  onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined ;
+  onMouseDown?:((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
   children?: string | JSX.Element;
   type?: "button" | "submit" | "reset" | undefined;
 
