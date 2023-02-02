@@ -63,7 +63,7 @@ const HomePage = () => {
                 onClick={() => onChangeBackgroundColorBody(project.background)}
               >
                   <WrapperCard background={project.background}>
-                    <H6>{project.name}</H6>
+                    <WrapperEl padding="10px"><H6 textAlign="center">{project.name}</H6></WrapperEl>
                   </WrapperCard>
               </NavLinkEL>
               </LiCard>

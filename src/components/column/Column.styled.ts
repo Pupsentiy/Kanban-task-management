@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/device.styled";
 
 export const ContainerColumn = styled.div<{
   borderColor: string;
@@ -13,6 +14,16 @@ export const ContainerColumn = styled.div<{
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
   min-height: ${(props) => props.minHeight || ""};
+
+  @media ${device.laptopL} {
+    margin: 0 15px;
+  }
+  @media ${device.laptop} {
+    margin: 0 8px;
+  }
+  @media ${device.tablet} {
+    margin: 0 4px;
+  }
 `;
 export const HeaderColumn = styled.div`
   padding: 6px 10px;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Button from "../../button/Button";
 
 export const ButtonLoadFile = styled.label`
   align-items: center;

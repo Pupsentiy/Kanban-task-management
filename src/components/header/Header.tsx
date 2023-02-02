@@ -14,11 +14,14 @@ import Input from "../input/Input";
 
 import { routesConfig } from "../../routes/routesConfig";
 
-import { Flex, H5, HeaderEl, PDiscriptionEl } from "../../styles/index.styled";
+import { Flex, HeaderEl, PDiscriptionEl } from "../../styles/index.styled";
 import {
+  ContainerHeader,
   ContainerTask,
+  LinkLogo,
   NavLinkEl,
   NavLinkSelectTask,
+  WrapperInputHeader,
   WrapperResultSearch,
   WrapperSearch,
 } from "./Header.styled";
@@ -58,34 +61,29 @@ const Header: FC = () => {
 
   return (
     <HeaderEl>
-      <Flex alignItems="end">
-        <H5
-          textShadow=" 0 0 2px #fff, 
-             -1px -1px 0 hsl(80, 70%, 35%),
-             -2px -2px 1px hsl(80, 70%, 35%),
-             -2px -2px 2px hsl(80, 10%, 15%)"
-        >
-          Kanban
-        </H5>
+      <ContainerHeader alignItems="end">
+        <LinkLogo to={routesConfig.home.path}>Kanban</LinkLogo>
         <NavLinkEl to={routesConfig.home.path}>
           {routesConfig.home.title}
         </NavLinkEl>
         <WrapperSearch onClick={(e) => e.stopPropagation()}>
-          <Input
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              searchTask(event)
-            }
-            value={search}
-            label="Search by task:"
-            type="text"
-            width="250px"
-            labelColor="#fff"
-            marginLabel="0"
-            border="#fff 2px solid "
-            borderFocus="#000 2px solid"
-            borderRadius="3px"
-            boxShadow="0 2px 4px rgba(0, 0, 0, .2)"
-          />
+          <WrapperInputHeader>
+            <Input
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                searchTask(event)
+              }
+              width="100%;"
+              value={search}
+              label="Search by task:"
+              type="text"
+              labelColor="#fff"
+              marginLabel="0"
+              border="#fff 2px solid "
+              borderFocus="#000 2px solid"
+              borderRadius="3px"
+              boxShadow="0 2px 4px rgba(0, 0, 0, .2)"
+            />
+          </WrapperInputHeader>
           {search.length > 1 && foundTask.length ? (
             <WrapperResultSearch ref={wrapResRef}>
               {foundTask &&
@@ -96,11 +94,11 @@ const Header: FC = () => {
                   >
                     <NavLinkSelectTask to={task.projectId}>
                       <Flex width="100%" alignItems="center">
-                        <BiTask fontSize="25px" />
+                        <Flex><BiTask fontSize="25px" /></Flex>
                         <PDiscriptionEl
                           cursor="pointer"
                           lineHeight="normal"
-                          fontSize="13px"
+                          fontSize="14px"
                           color="#172b4d"
                           margin="0 0 0 5px"
                         >
@@ -119,7 +117,7 @@ const Header: FC = () => {
             </WrapperResultSearch>
           ) : null}
         </WrapperSearch>
-      </Flex>
+      </ContainerHeader>
     </HeaderEl>
   );
 };

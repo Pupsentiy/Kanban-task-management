@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
+import { device } from "./device.styled";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -87,6 +88,8 @@ export const H5 = styled.h5<{
   margin: ${(props) => props.margin || "0"};
   color: ${(props) => props.color || "#000"};
   text-shadow:${(props) => props.textShadow || 'none'}
+  @media ${device.mobileL} {
+  }
 `;
 
 export const H6 = styled.h6<{
@@ -95,6 +98,7 @@ export const H6 = styled.h6<{
   fontWeight?: string;
   width?: string;
   fontSize?: string;
+  textAlign?:string;
 }>`
   font-weight: ${(props) => props.fontWeight || "600"};
   font-size: ${(props) => props.fontSize || "16px"};
@@ -103,6 +107,7 @@ export const H6 = styled.h6<{
   color: ${(props) => props.color || "#000"};
   margin: ${(props) => props.margin || "0"};
   width: ${(props) => props.width || "auto"};
+  text-align: ${(props) => props.textAlign || "left"};
 `;
 export const PDiscriptionEl = styled.p<{
   display?: string;
@@ -246,6 +251,4 @@ export const ModalTextArea = styled.textarea<{
   }
 `;
 
-export const WrapperColumn = styled.div`
-  width: 33.33%;
-`;
+

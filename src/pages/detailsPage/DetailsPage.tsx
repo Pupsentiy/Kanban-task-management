@@ -18,8 +18,8 @@ import {
   ContainerEl,
   Flex,
   H5,
-  WrapperColumn,
 } from "../../styles/index.styled";
+import { ContainerColumn, WrapperColumn } from "./DeatailsPaga.styled";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -77,11 +77,11 @@ const DetailsPage = () => {
       {selectProject && (
         <ContainerEl >
           <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
-            <H5 fontWeight="400" color="#181717" fontSize="28px">
+            <H5 fontWeight="500" color="#181717" fontSize="28px">
               Board: {selectProject.name}
             </H5>
           </Flex>
-          <Flex justifyContent="space-beetwen" >
+          <ContainerColumn justifyContent="space-beetwen" >
             <DragDropContext onDragEnd={onDragEnd} >
               <Droppable droppableId="Queue">
                 {(provided, snapshot) => (
@@ -136,7 +136,7 @@ const DetailsPage = () => {
               </Droppable>
             </DragDropContext>
             <ModalEditTask />
-          </Flex>
+          </ContainerColumn>
         </ContainerEl>
       )}
     </>
