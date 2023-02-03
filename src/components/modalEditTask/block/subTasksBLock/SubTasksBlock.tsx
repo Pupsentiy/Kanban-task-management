@@ -100,8 +100,8 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
         </Flex>
         <Flex margin="0 0 10px 0" flexDirection="column">
           <Flex alignItems="center" width="100%" padding="3px">
-            <Flex width="6%" margin="0 10px 0 0">
-              <PDiscriptionEl lineHeight="normal" fontSize="12px">
+            <Flex width="6%" margin="0 20px 0 0">
+              <PDiscriptionEl lineHeight="normal" fontSize="12px" whiteSpace="nowrap">
                 {progressTracking}%
               </PDiscriptionEl>
             </Flex>

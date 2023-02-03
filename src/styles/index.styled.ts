@@ -73,6 +73,7 @@ export const H2 = styled.h2<{
   line-height: 100%;
   margin: ${(props) => props.margin || "0"};
   padding: ${(props) => props.padding || "0"};
+  word-break: break-all;
 `;
 
 export const H5 = styled.h5<{
@@ -84,6 +85,7 @@ export const H5 = styled.h5<{
 }>`
   font-weight: ${(props) => props.fontWeight || "700"};
   font-size: ${(props) => props.fontSize || '34px'};
+  word-break: break-all;
   line-height: 32px;
   margin: ${(props) => props.margin || "0"};
   color: ${(props) => props.color || "#000"};
@@ -102,6 +104,7 @@ export const H6 = styled.h6<{
 }>`
   font-weight: ${(props) => props.fontWeight || "600"};
   font-size: ${(props) => props.fontSize || "16px"};
+  word-break: break-all;
   line-height: 100%;
   word-wrap: break-word;
   color: ${(props) => props.color || "#000"};
@@ -120,6 +123,7 @@ export const PDiscriptionEl = styled.p<{
   fontWeight?: string;
   cursor?: string;
   textDecoration?: string;
+  whiteSpace?:string;
 }>`
   color: ${(props) => props.color || "#5e6c84"};
   font-size: ${(props) => props.fontSize || "14px"};
@@ -132,6 +136,7 @@ export const PDiscriptionEl = styled.p<{
   cursor: ${(props) => props.cursor || "default"};
   word-break: break-all;
   text-decoration: ${(props) => props.textDecoration || "none"};
+  white-space:${props => props.whiteSpace || 'normal'};
   &span {
     text-decoration: underline;
   }

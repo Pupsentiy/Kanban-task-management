@@ -94,7 +94,7 @@ export const Marker = styled.div<{ background: string }>`
     content: "";
     width: 0;
     height: 0;
-    left: 59px;
+    left: 100%;
     border-top: 13.5px solid transparent;
     border-left: 15px solid ${(props) => props.background};
     border-bottom: 13.5px solid transparent;

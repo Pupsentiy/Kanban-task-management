@@ -2,17 +2,15 @@ import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Moment from "react-moment";
 import "moment/locale/ru";
 
-import CheckBox from "../checkBox/CheckBox";
 import ActionBlock from "./block/actionBlock/ActionBlock";
 import DescriptionBlock from "./block/descriptionBlock/DescriptionBlock";
 import InvestmentBlock from "./block/investmentBLock/InvestmentBlock";
 import NavigationBlock from "./block/navigationBlock/NavigationBlock";
 import SubTasksBlock from "./block/subTasksBLock/SubTasksBlock";
 import DatesModal from "./modal/datesModal/DatesModal";
-import HeaderBlock from "./modal/headerBlock/HeaderBlock";
+import HeaderBlock from "./block/headerBlock/HeaderBlock";
 import MarkerPriorityModal from "./modal/MarkerPriorityModal/MarkerPriorityModal";
 import SubTaskModal from "./modal/subTaskModal/SubTaskModal";
 
@@ -32,11 +30,9 @@ import {
   WrapperNavigation,
   ModalOtherBlock,
   ModalWrapperHeader,
-  TaskDetailsBlock,
-  WrapperExpirationDate,
-  Marker,
 } from "./ModalEditTask.styled";
-import { Flex, H6, PDiscriptionEl, WrapperEl } from "../../styles/index.styled";
+import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
+import DetailsBlock from "./block/detailsBlock/DetailsBlock";
 
 const ModalEditTask: FC = () => {
   const { id } = useParams();
@@ -121,8 +117,8 @@ const ModalEditTask: FC = () => {
     setActiveDropDownDate(false);
     setActiveDropDownMarker(false);
     setActiveDropDownSubTask(false);
-    if(!task.files.length){
-      setActiveBlockInvestment(false)
+    if (!task.files.length) {
+      setActiveBlockInvestment(false);
     }
     setCommentTextValue("");
   };
@@ -174,56 +170,11 @@ const ModalEditTask: FC = () => {
                 </PDiscriptionEl>
                 <H6 fontSize="14px">{selectTask.column}</H6>
               </Flex>
-              <TaskDetailsBlock>
-                {task?.priorityMarker ? (
-                  <WrapperEl margin="5px 15px 5px 0px">
-                    <PDiscriptionEl>Priority</PDiscriptionEl>
-                    <Marker background={task?.priorityMarker.colorCircle}>
-                      {task?.priorityMarker.name.replace("Приоритет", "№")}
-                    </Marker>
-                  </WrapperEl>
-                ) : null}
-                {task?.finishDate ? (
-                  <WrapperEl margin="5px 10px 5px 10px">
-                    <PDiscriptionEl>Term</PDiscriptionEl>
-                    <Flex alignItems="center">
-                      <WrapperEl margin=" 0 5px 0 0">
-                        <CheckBox
-                          onClick={() => changeLabelDeadline()}
-                          active={task?.finishDate?.checkDate}
-                        />
-                      </WrapperEl>
-                      <WrapperExpirationDate>
-                        <Moment format={" DD MMM - HH:mm"} locale="en">
-                          {task?.finishDate?.date}
-                        </Moment>
-                        {timeIsOverdueDate < 0 &&
-                        !task?.finishDate?.checkDate ? (
-                          <span className="overdue">
-                            <PDiscriptionEl
-                              lineHeight="17px"
-                              color="#fff"
-                              fontSize="12px"
-                            >
-                              overdue
-                            </PDiscriptionEl>
-                          </span>
-                        ) : task?.finishDate?.checkDate ? (
-                          <span className="performed">
-                            <PDiscriptionEl
-                              lineHeight="17px"
-                              color="#fff"
-                              fontSize="12px"
-                            >
-                              done
-                            </PDiscriptionEl>
-                          </span>
-                        ) : null}
-                      </WrapperExpirationDate>
-                    </Flex>
-                  </WrapperEl>
-                ) : null}
-              </TaskDetailsBlock>
+              <DetailsBlock
+                task={task}
+                changeLabelDeadline={changeLabelDeadline}
+                timeIsOverdueDate={timeIsOverdueDate}
+              />
               <DescriptionBlock
                 setChangeDescriptionTask={setChangeDescriptionTask}
                 setChangeHeaderTask={setChangeHeaderTask}
