@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { device } from "../../styles/device.styled";
-import { Flex } from "../../styles/index.styled";
+import { ContainerEl, Flex } from "../../styles/index.styled";
 
 export const ContainerColumn = styled(Flex)`
 
@@ -23,3 +23,7 @@ export const WrapperColumn = styled.div`
     margin-bottom:15px;
    }
 `;
+
+export const ContainerDetailsPage = styled(ContainerEl)`
+overflow:hidden;
+`

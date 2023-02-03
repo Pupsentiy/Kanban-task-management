@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/device.styled";
 
 export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
@@ -16,6 +17,9 @@ export const Modal = styled.div<{ active: boolean }>`
   transition: 0.5s;
   z-index: 10;
   min-height: 100vh;
+  @media ${device.tablet} {
+    min-height: 100%;
+  };
 `;
 
 export const ModalContent = styled.div<{ active: boolean }>`

@@ -15,11 +15,10 @@ import { RootState } from "../../store/store";
 import { IProject } from "../../store/types/store.types";
 
 import {
-  ContainerEl,
   Flex,
   H5,
 } from "../../styles/index.styled";
-import { ContainerColumn, WrapperColumn } from "./DeatailsPaga.styled";
+import { ContainerColumn, ContainerDetailsPage, WrapperColumn } from "./DeatailsPaga.styled";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -75,7 +74,7 @@ const DetailsPage = () => {
   return (
     <>
       {selectProject && (
-        <ContainerEl >
+        <ContainerDetailsPage >
           <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
             <H5 fontWeight="500" color="#181717" fontSize="28px">
               Board: {selectProject.name}
@@ -137,7 +136,7 @@ const DetailsPage = () => {
             </DragDropContext>
             <ModalEditTask />
           </ContainerColumn>
-        </ContainerEl>
+        </ContainerDetailsPage>
       )}
     </>
   );

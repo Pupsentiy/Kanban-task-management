@@ -14,7 +14,7 @@ export const ContainerColumn = styled.div<{
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
   min-height: ${(props) => props.minHeight || ""};
-
+  max-height: calc(100vh - 195px);
   @media ${device.laptopL} {
     margin: 0 15px;
   }
@@ -32,6 +32,8 @@ export const HeaderColumn = styled.div`
 export const OtherColumn = styled.div`
   padding: 12px 10px 0 10px;
   border-top: 1px solid #000;
+  max-height: 655px;
+  overflow: auto;
 `;
 
 export const InputTitleTaskEl = styled.textarea`

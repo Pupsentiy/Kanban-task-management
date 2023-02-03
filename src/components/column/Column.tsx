@@ -21,7 +21,7 @@ import {
   InputTitleTaskEl,
   OtherColumn,
 } from "./Column.styled";
-import { Flex, H6 } from "../../styles/index.styled";
+import { Flex, H6, WrapperEl } from "../../styles/index.styled";
 import { RootState } from "../../store/store";
 
 const Column: FC<IColumnProps> = ({
@@ -135,7 +135,10 @@ const Column: FC<IColumnProps> = ({
             />
           ))}
         {provided.placeholder}
-        {column === "Queue" ? (
+       
+      </OtherColumn>
+      <WrapperEl padding="0 10px 0 10px" >
+      {column === "Queue" ? (
           addInput ? (
             <Flex flexDirection="column" margin="0 0 5px 0">
               <InputTitleTaskEl
@@ -183,7 +186,7 @@ const Column: FC<IColumnProps> = ({
             </Flex>
           )
         ) : null}
-      </OtherColumn>
+      </WrapperEl>
     </ContainerColumn>
   );
 };
