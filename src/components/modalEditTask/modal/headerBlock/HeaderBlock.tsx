@@ -1,17 +1,12 @@
 import { FC } from "react";
-
-import Button from "../../button/Button";
-
-import { IHeaderModalEditTaskProps } from "./HeaderModalEditTask.types";
-
 import { BsLaptop } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
-import {
-  ContainerIcon,
-  Flex,
-  H2,
-  ModalTextArea,
-} from "../../../styles/index.styled";
+
+import Button from "../../../button/Button";
+
+import { IHeaderModalEditTaskProps } from "./HeaderBlock.types";
+
+import { Flex, ContainerIcon, ModalTextArea, H2 } from "../../../../styles/index.styled";
 
 const HeaderModalEditTask: FC<IHeaderModalEditTaskProps> = ({
   setChangeHeaderTask,

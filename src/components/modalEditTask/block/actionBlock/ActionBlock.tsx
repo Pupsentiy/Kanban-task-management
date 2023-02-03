@@ -1,19 +1,14 @@
 import { FC } from "react";
-
-import Button from "../../button/Button";
-import Comments from "../comments/Comments";
-
-import { IActionModalEditTask } from "./ActionModalEditTask.types";
-
-import {
-  ContainerIcon,
-  Flex,
-  H6,
-  ModalTextArea,
-} from "../../../styles/index.styled";
 import { BsTextIndentLeft } from "react-icons/bs";
 
-const ActionModalEditTask: FC<IActionModalEditTask> = ({
+import CommentsBlock from "../commentsBlock/CommentsBlock";
+import Button from "../../../button/Button";
+
+import { IActionBlock } from "./ActionBlock.types";
+
+import { Flex, ContainerIcon, H6, ModalTextArea } from "../../../../styles/index.styled";
+
+const ActionBlock: FC<IActionBlock> = ({
   setIdSelectComment,
   setSelectComments,
   addSubCommetns,
@@ -61,7 +56,7 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
             Save
           </Button>
         </Flex>
-        <Comments
+        <CommentsBlock
           items={task?.comments}
           setIdSelectComment={setIdSelectComment}
           addSubCommetns={addSubCommetns}
@@ -73,4 +68,4 @@ const ActionModalEditTask: FC<IActionModalEditTask> = ({
   );
 };
 
-export default ActionModalEditTask;
+export default ActionBlock;

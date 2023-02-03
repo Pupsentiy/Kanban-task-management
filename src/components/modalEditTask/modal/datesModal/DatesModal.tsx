@@ -1,17 +1,17 @@
 import { FC, useState } from "react";
 import Moment from "react-moment";
 
-import Button from "../../button/Button";
-import CheckBox from "../../checkBox/CheckBox";
-import Input from "../../input/Input";
+import Button from "../../../button/Button";
+import CheckBox from "../../../checkBox/CheckBox";
+import Input from "../../../input/Input";
 
-import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
+import { IDatesModal } from "./DatesModal.types";
 
-import { IDates } from "./Dates.types";
+import { PDiscriptionEl, Flex, WrapperEl } from "../../../../styles/index.styled";
 
 const dataTime = new Date().toLocaleString().slice(12, 17);
 const dataDate = new Date().toISOString().slice(0, 10);
-const Dates: FC<IDates> = ({
+const DatesModal: FC<IDatesModal> = ({
   activeInputDate,
   task,
   setTask,
@@ -121,4 +121,4 @@ const Dates: FC<IDates> = ({
   );
 };
 
-export default Dates;
+export default DatesModal;

@@ -1,6 +1,6 @@
-import { TComment } from "../../../store/types/store.types";
+import { TComment } from "../../../../store/types/store.types";
 
-export interface ICommentsProps {
+export interface ICommentsBlockProps {
   items: TComment[];
   setIdSelectComment: React.Dispatch<React.SetStateAction<string>>;
   setSelectComments: React.Dispatch<React.SetStateAction<TComment | null>>;

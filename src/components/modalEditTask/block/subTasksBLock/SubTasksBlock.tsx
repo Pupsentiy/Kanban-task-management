@@ -1,23 +1,18 @@
 import { FC, useEffect, useState } from "react";
-
-import Button from "../../button/Button";
-import CheckBox from "../../checkBox/CheckBox";
-import Input from "../../input/Input";
-
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { IoTrashBin } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
-import {
-  ContainerIcon,
-  Flex,
-  H6,
-  PDiscriptionEl,
-} from "../../../styles/index.styled";
-import { ProgressBar, WrapperSubTask } from "./SubTasks.styled";
 
-import { ISubTasksProps } from "./SubTasks.types";
+import Button from "../../../button/Button";
+import CheckBox from "../../../checkBox/CheckBox";
+import Input from "../../../input/Input";
 
-const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
+import { ISubTasksBlockProps } from "./SubTasksBlock.types";
+
+import { ProgressBar, WrapperSubTask } from "./SubTasksBlock.styled";
+import { Flex, ContainerIcon, H6, PDiscriptionEl } from "../../../../styles/index.styled";
+
+const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
   const [checked, setChecked] = useState<boolean>(false);
   const [progressTracking, setProgressTracking] = useState<number>(0);
   const [chaneName, setChangeName] = useState<string>("");
@@ -188,4 +183,4 @@ const SubTasks: FC<ISubTasksProps> = ({ task, setTask }) => {
   );
 };
 
-export default SubTasks;
+export default SubTasksBlock;

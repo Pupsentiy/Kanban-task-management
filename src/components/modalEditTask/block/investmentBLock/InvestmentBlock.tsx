@@ -1,26 +1,21 @@
 import { FC } from "react";
 import Moment from "react-moment";
-
-import Input from "../../input/Input";
-
-import { IInvestmentProps } from "./Investment.types";
-
 import { BsPinAngle } from "react-icons/bs";
-import {
-  ContainerIcon,
-  Flex,
-  H6,
-  PDiscriptionEl,
-} from "../../../styles/index.styled";
+
+import Button from "../../../button/Button";
+import Input from "../../../input/Input";
+
+import { IInvestmentBlockProps } from "./InvestmentBlock.types";
+
 import {
   ButtonLoadFile,
   Preview,
   WrapperInput,
   WrapperNameFile,
-} from "./Investment.styled";
-import Button from "../../button/Button";
+} from "./InvestmentBlock.styled";
+import { Flex, ContainerIcon, H6, PDiscriptionEl } from "../../../../styles/index.styled";
 
-const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
+const InvestmentBlock: FC<IInvestmentBlockProps> = ({ task, setTask }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files === null) return;
     setTask({
@@ -114,4 +109,4 @@ const Investment: FC<IInvestmentProps> = ({ task, setTask }) => {
   );
 };
 
-export default Investment;
+export default InvestmentBlock;

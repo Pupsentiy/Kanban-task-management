@@ -1,20 +1,13 @@
 import React, { FC } from "react";
-
-import Button from "../../button/Button";
-
 import { BsTextLeft } from "react-icons/bs";
-import {
-  ContainerIcon,
-  Flex,
-  H6,
-  ModalTextArea,
-  PDiscriptionEl,
-  WrapperEl,
-} from "../../../styles/index.styled";
-import { IDescriptionModalEditTaskProps } from "./DescriptionModalEditTask.types";
 
+import Button from "../../../button/Button";
 
-const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
+import { IDescriptionBlockProps } from "./DescriptionBlock.types";
+
+import { Flex, ContainerIcon, H6, ModalTextArea, WrapperEl, PDiscriptionEl } from "../../../../styles/index.styled";
+
+const DescriptionBlock: FC<IDescriptionBlockProps> = ({
   setChangeDescriptionTask,
   setChangeHeaderTask,
   changeDescriptionTask,
@@ -80,7 +73,7 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
           </Flex>
         ) : (
           <WrapperEl margin="0 0 0 40px">
-            <PDiscriptionEl>{task?.description}</PDiscriptionEl>
+            <PDiscriptionEl lineHeight="20px">{task?.description}</PDiscriptionEl>
           </WrapperEl>
         )}
       </Flex>
@@ -88,4 +81,4 @@ const DescriptionModalEditTask: FC<IDescriptionModalEditTaskProps> = ({
   );
 };
 
-export default DescriptionModalEditTask;
+export default DescriptionBlock;

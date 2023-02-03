@@ -1,6 +1,6 @@
-import { ITask } from "../../../store/types/store.types";
+import { ITask } from "../../../../store/types/store.types";
 
-export interface IDates {
+export interface IDatesModal {
   activeInputDate: boolean;
   setActiveInputDate: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveDropDownDate: React.Dispatch<React.SetStateAction<boolean>>;

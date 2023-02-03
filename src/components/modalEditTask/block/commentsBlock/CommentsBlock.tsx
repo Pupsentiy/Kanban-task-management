@@ -1,14 +1,14 @@
 import { FC } from "react";
 
-import Button from "../../button/Button";
+import Button from "../../../button/Button";
 
-import { ICommentsProps } from "./Comments.types";
-import { TComment } from "../../../store/types/store.types";
+import { ICommentsBlockProps } from "./CommentsBlock.types";
+import { TComment } from "../../../../store/types/store.types";
 
-import { Flex, PDiscriptionEl, WrapperEl } from "../../../styles/index.styled";
-import { CommentsWrapper, ContainerEL } from "./Comments.styled";
+import { CommentsWrapper, ContainerEL } from "./CommentsBlock.styled";
+import { Flex, WrapperEl, PDiscriptionEl } from "../../../../styles/index.styled";
 
-const Comments: FC<ICommentsProps> = ({
+const CommentsBlock: FC<ICommentsBlockProps> = ({
   items,
   setIdSelectComment,
   setSelectComments,
@@ -48,7 +48,7 @@ const Comments: FC<ICommentsProps> = ({
             </Flex>
             <ContainerEL>
               {comment?.subComments && comment?.subComments?.length ? (
-                <Comments
+                <CommentsBlock
                   items={comment.subComments}
                   setIdSelectComment={setIdSelectComment}
                   addSubCommetns={addSubCommetns}
@@ -63,4 +63,4 @@ const Comments: FC<ICommentsProps> = ({
   );
 };
 
-export default Comments;
+export default CommentsBlock;

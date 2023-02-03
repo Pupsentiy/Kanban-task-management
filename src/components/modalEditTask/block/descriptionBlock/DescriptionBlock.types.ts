@@ -1,6 +1,6 @@
-import { ITask } from "../../../store/types/store.types";
+import { ITask } from "../../../../store/types/store.types";
 
-export interface IDescriptionModalEditTaskProps {
+export interface IDescriptionBlockProps {
   setChangeDescriptionTask: React.Dispatch<React.SetStateAction<boolean>>;
   setChangeHeaderTask: React.Dispatch<React.SetStateAction<boolean>>;
   changeDescriptionTask: boolean;

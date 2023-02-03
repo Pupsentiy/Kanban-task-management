@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import Button from "../../button/Button";
-import Input from "../../input/Input";
+import Button from "../../../button/Button";
+import Input from "../../../input/Input";
 
-import { Flex } from "../../../styles/index.styled";
+import { ISubTaskModalProps } from "./SubTaskModal.types";
 
-import { ICreateSubTaskProps } from "./CreateSubTask.types";
+import { Flex } from "../../../../styles/index.styled";
 
-const CreateSubTask: FC<ICreateSubTaskProps> = ({
+const SubTaskModal: FC<ISubTaskModalProps> = ({
   setActiveDropDownSubTask,
   setTask,
   task,
@@ -67,4 +67,4 @@ const CreateSubTask: FC<ICreateSubTaskProps> = ({
   );
 };
 
-export default CreateSubTask;
+export default SubTaskModal;

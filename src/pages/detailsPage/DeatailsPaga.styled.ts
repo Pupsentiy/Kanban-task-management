@@ -5,15 +5,21 @@ import { Flex } from "../../styles/index.styled";
 
 export const ContainerColumn = styled(Flex)`
 
-@media ${device.mobileL} {
+@media ${device.tablet} {
  flex-direction:column;
 }
 `
 export const WrapperColumn = styled.div`
   width: 33.33%;
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
+    width:75%;
+    margin:0 auto;
+    margin-bottom:15px;
+   }
+   @media ${device.mobileL} {
     width:100%;
+    margin:0 auto;
     margin-bottom:15px;
    }
 `;

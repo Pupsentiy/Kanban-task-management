@@ -5,16 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Moment from "react-moment";
 import "moment/locale/ru";
 
-import HeaderModalEditTask from "./headerBlock/HeaderModalEditTask";
-import DescriptionModalEditTask from "./descriptionBlock/DescriptionModalEditTask";
-import ActionModalEditTask from "./actionBlock/ActionModalEditTask";
 import CheckBox from "../checkBox/CheckBox";
-import NavigationTask from "./navigation/NavigationTask";
-import CreateSubTask from "./createSubTask/CreateSubTask";
-import SubTasks from "./subTasks/SubTasks";
-import CreatingMarkerPriority from "./creatingMarkerPriority/CreatingMarkerPriority";
-import Investment from "./investment/Investment";
-import Dates from "./datesBlock/Dates";
+import ActionBlock from "./block/actionBlock/ActionBlock";
+import DescriptionBlock from "./block/descriptionBlock/DescriptionBlock";
+import InvestmentBlock from "./block/investmentBLock/InvestmentBlock";
+import NavigationBlock from "./block/navigationBlock/NavigationBlock";
+import SubTasksBlock from "./block/subTasksBLock/SubTasksBlock";
+import DatesModal from "./modal/datesModal/DatesModal";
+import HeaderBlock from "./modal/headerBlock/HeaderBlock";
+import MarkerPriorityModal from "./modal/MarkerPriorityModal/MarkerPriorityModal";
+import SubTaskModal from "./modal/subTaskModal/SubTaskModal";
+
 import DropDown from "../dropDown/DropDown";
 
 import {
@@ -41,7 +42,7 @@ const ModalEditTask: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const TextAreaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   const selectTask = useSelector(
     (state: RootState) => state.createCardProject.selectTask
   );
@@ -62,7 +63,8 @@ const ModalEditTask: FC = () => {
     useState<boolean>(false);
   const [activeDropDownMarker, setActiveDropDownMarker] =
     useState<boolean>(false);
-    const [activeBlockInvestment,setActiveBlockInvestment] = useState<boolean>(false)
+  const [activeBlockInvestment, setActiveBlockInvestment] =
+    useState<boolean>(false);
 
   useEffect(() => {
     setTask(selectTask);
@@ -119,6 +121,9 @@ const ModalEditTask: FC = () => {
     setActiveDropDownDate(false);
     setActiveDropDownMarker(false);
     setActiveDropDownSubTask(false);
+    if(!task.files.length){
+      setActiveBlockInvestment(false)
+    }
     setCommentTextValue("");
   };
 
@@ -147,7 +152,7 @@ const ModalEditTask: FC = () => {
         active={activeModal}
       >
         <ModalWrapperHeader>
-          <HeaderModalEditTask
+          <HeaderBlock
             setChangeHeaderTask={setChangeHeaderTask}
             changeHeaderTask={changeHeaderTask}
             saveTask={saveTask}
@@ -219,7 +224,7 @@ const ModalEditTask: FC = () => {
                   </WrapperEl>
                 ) : null}
               </TaskDetailsBlock>
-              <DescriptionModalEditTask
+              <DescriptionBlock
                 setChangeDescriptionTask={setChangeDescriptionTask}
                 setChangeHeaderTask={setChangeHeaderTask}
                 changeDescriptionTask={changeDescriptionTask}
@@ -228,11 +233,13 @@ const ModalEditTask: FC = () => {
                 saveTask={saveTask}
               />
               {task?.subTasks?.length > 0 && (
-                <SubTasks task={task} setTask={setTask} />
+                <SubTasksBlock task={task} setTask={setTask} />
               )}
-              {activeBlockInvestment ? <Investment task={task} setTask={setTask}/> :null}
-              
-              <ActionModalEditTask
+              {activeBlockInvestment ? (
+                <InvestmentBlock task={task} setTask={setTask} />
+              ) : null}
+
+              <ActionBlock
                 setIdSelectComment={setIdSelectComment}
                 setSelectComments={setSelectComments}
                 addSubCommetns={addSubCommetns}
@@ -251,7 +258,7 @@ const ModalEditTask: FC = () => {
               >
                 Add to card
               </PDiscriptionEl>
-              <NavigationTask
+              <NavigationBlock
                 setActiveDropDownDate={setActiveDropDownDate}
                 setActiveDropDownSubTask={setActiveDropDownSubTask}
                 setActiveDropDownMarker={setActiveDropDownMarker}
@@ -259,7 +266,7 @@ const ModalEditTask: FC = () => {
               />
               {activeDropDownDate && (
                 <DropDown name="Term" setClose={setActiveDropDownDate}>
-                  <Dates
+                  <DatesModal
                     activeInputDate={activeInputDate}
                     task={task}
                     setTask={setTask}
@@ -273,7 +280,7 @@ const ModalEditTask: FC = () => {
                   name="Adding a task list"
                   setClose={setActiveDropDownSubTask}
                 >
-                  <CreateSubTask
+                  <SubTaskModal
                     setActiveDropDownSubTask={setActiveDropDownSubTask}
                     task={task}
                     setTask={setTask}
@@ -283,7 +290,7 @@ const ModalEditTask: FC = () => {
 
               {activeDropDownMarker && (
                 <DropDown name="Priority" setClose={setActiveDropDownMarker}>
-                  <CreatingMarkerPriority
+                  <MarkerPriorityModal
                     setActiveDropDownMarker={setActiveDropDownMarker}
                     task={task}
                     setTask={setTask}

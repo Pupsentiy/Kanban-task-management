@@ -1,15 +1,15 @@
 import { FC, useState } from "react";
 
-import Button from "../../button/Button";
-import CheckBox from "../../checkBox/CheckBox";
+import Button from "../../../button/Button";
+import CheckBox from "../../../checkBox/CheckBox";
 
-import { ICreatingMarkerPriorityProps } from "./CreatingMarkerPriority.types";
-import { IPriorityMarker } from "../../../store/types/store.types";
+import { IPriorityMarker } from "../../../../store/types/store.types";
 
-import { PDiscriptionEl } from "../../../styles/index.styled";
-import { ContentMarker, WrapperMarker } from "./CreatingMarkerPriority.styled";
+import { ContentMarker, WrapperMarker } from "./MarkerPriorityModal.styled";
+import { IMarkerPriorityModalProps } from "./MarkerPriorityModal.types";
+import { PDiscriptionEl } from "../../../../styles/index.styled";
 
-const CreatingMarkerPriority: FC<ICreatingMarkerPriorityProps> = ({
+const MarkerPriorityModal: FC<IMarkerPriorityModalProps> = ({
   setActiveDropDownMarker,
   setTask,
   task,
@@ -98,4 +98,4 @@ const CreatingMarkerPriority: FC<ICreatingMarkerPriorityProps> = ({
   );
 };
 
-export default CreatingMarkerPriority;
+export default MarkerPriorityModal;

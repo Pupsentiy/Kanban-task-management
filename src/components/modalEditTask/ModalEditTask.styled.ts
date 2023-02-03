@@ -26,6 +26,7 @@ export const ModalContent = styled.div<{ active: boolean }>`
   width: 860px;
   transition: 0.5s all;
   transform: ${({ active }) => (active ? `scale(1)` : `scale(0.2)`)};
+  margin:15px;
 `;
 export const ModalWrapperHeader = styled.div`
   padding: 5px 5px 8px;
