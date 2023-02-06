@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../styles/device.styled";
+import { Flex } from "../../styles/index.styled";
 
 export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
@@ -35,7 +36,6 @@ export const ModalContent = styled.div<{ active: boolean }>`
 export const ModalWrapperHeader = styled.div`
   padding: 5px 5px 8px;
   position: relative;
-  height: 32px;
 `;
 
 export const ModalBodyWrapper = styled.div`
@@ -47,17 +47,26 @@ export const ModalBodyWrapper = styled.div`
 
 export const ModalOtherBlock = styled.div`
   width: 70%;
-  padding: 15px 5px 0 0;
+  padding: 5px 5px 0 0;
+  @media ${device.tablet} {
+    width: 100%;
+  };
 `;
 export const WrapperNavigation = styled.div`
   position: relative;
-  padding: 15px 5px 0 5px;
+  padding: 5px 5px 0 5px;
   width: 30%;
+  @media ${device.tablet} {
+    width: 40%;
+  };
 `;
 
 export const TaskDetailsBlock = styled.div`
   margin-left: 40px;
   display: flex;
+  @media ${device.mobileM} {
+    flex-direction:column;
+  };
 `;
 
 export const WrapperExpirationDate = styled.div`
@@ -86,6 +95,7 @@ export const WrapperExpirationDate = styled.div`
 
 export const Marker = styled.div<{ background: string }>`
   background: ${(props) => props.background};
+  width:60px;
   height: 27px;
   font-size: 12px;
   display: flex;
@@ -104,3 +114,9 @@ export const Marker = styled.div<{ background: string }>`
     border-bottom: 13.5px solid transparent;
   }
 `;
+
+export const ContainerModal = styled(Flex)`
+@media ${device.tablet} {
+  flex-direction:column;
+};
+`

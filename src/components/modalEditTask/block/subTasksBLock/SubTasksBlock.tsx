@@ -92,7 +92,6 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
       <Flex
         flexDirection="column"
         margin="0 0 0 40px"
-        maxWidth="552px"
         width="100%"
       >
         <Flex alignItems="center" padding="12px 0">

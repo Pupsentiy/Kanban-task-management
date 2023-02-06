@@ -1,29 +1,22 @@
 import styled from "styled-components";
-
 import { device } from "../../styles/device.styled";
+
 import { ContainerEl, Flex } from "../../styles/index.styled";
 
 export const ContainerColumn = styled(Flex)`
-
-@media ${device.tablet} {
- flex-direction:column;
+min-height:calc(100vh - 160px);
+@media ${device.mobileL} {
+  min-height:calc(100vh - 166px);
 }
 `
 export const WrapperColumn = styled.div`
-  width: 33.33%;
-
-  @media ${device.tablet} {
-    width:75%;
-    margin:0 auto;
-    margin-bottom:15px;
-   }
-   @media ${device.mobileL} {
-    width:100%;
-    margin:0 auto;
-    margin-bottom:15px;
-   }
+  min-width: 341px;
+  width:100%;
+  @media ${device.mobileM} {
+    min-width: 283px;
+  }
 `;
 
 export const ContainerDetailsPage = styled(ContainerEl)`
-overflow:hidden;
+overflow:auto;
 `

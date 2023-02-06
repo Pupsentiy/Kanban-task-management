@@ -8,21 +8,17 @@ export const ContainerColumn = styled.div<{
 }>`
   background: ${(props) => props.background || "#ebecf0"};
   margin: 0 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   padding: 6px 10px;
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
   min-height: ${(props) => props.minHeight || ""};
-  max-height: calc(100vh - 195px);
   @media ${device.laptopL} {
     margin: 0 15px;
   }
   @media ${device.laptop} {
     margin: 0 8px;
-  }
-  @media ${device.tablet} {
-    margin: 0 4px;
   }
 `;
 export const HeaderColumn = styled.div`
@@ -33,7 +29,8 @@ export const OtherColumn = styled.div`
   padding: 12px 10px 0 10px;
   border-top: 1px solid #000;
   max-height: 655px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const InputTitleTaskEl = styled.textarea`

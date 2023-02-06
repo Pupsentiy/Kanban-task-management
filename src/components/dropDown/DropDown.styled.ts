@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { device } from "../../styles/device.styled";
 
 export const DropDownEl = styled.section`
   position: absolute;
   will-change: top, left;
   top: 35px;
-  left: 0px;
+  right: 0;
   border-radius: 3px;
   background-color: #fff;
   box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
@@ -14,6 +15,10 @@ export const DropDownEl = styled.section`
   z-index: 5;
   padding: 10px;
   min-width: 273px;
+  @media ${device.tablet} {
+    left:0;
+    top:0;
+  };
 `;
 
 export const DropDownHeader = styled.div`

@@ -30,6 +30,7 @@ import {
   WrapperNavigation,
   ModalOtherBlock,
   ModalWrapperHeader,
+  ContainerModal,
 } from "./ModalEditTask.styled";
 import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
 import DetailsBlock from "./block/detailsBlock/DetailsBlock";
@@ -158,7 +159,7 @@ const ModalEditTask: FC = () => {
           />
         </ModalWrapperHeader>
         <ModalBodyWrapper>
-          <Flex width="100%">
+          <ContainerModal width="100%">
             <ModalOtherBlock>
               <Flex margin="10px 0 10px 40px" alignItems="center">
                 <PDiscriptionEl
@@ -249,7 +250,7 @@ const ModalEditTask: FC = () => {
                 </DropDown>
               )}
             </WrapperNavigation>
-          </Flex>
+          </ContainerModal>
         </ModalBodyWrapper>
       </ModalContent>
     </Modal>

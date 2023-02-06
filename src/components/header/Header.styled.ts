@@ -73,4 +73,8 @@ export const ContainerHeader = styled(Flex)`
 
 export const WrapperInputHeader = styled.div`
 width:250px;
+
+@media ${device.mobileM} {
+  width:auto;
+}
 `
