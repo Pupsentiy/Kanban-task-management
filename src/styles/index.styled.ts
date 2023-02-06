@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 
 *{
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 html {
@@ -218,6 +218,7 @@ export const ContainerIcon = styled.div<{
   bottom?: string;
   left?: string;
   right?: string;
+  display?:string;
 }>`
   position: absolute;
   z-index: 2;
@@ -228,6 +229,10 @@ export const ContainerIcon = styled.div<{
   bottom: ${(props) => props.bottom || "auto"};
   left: ${(props) => props.left || "auto"};
   right: ${(props) => props.right || "auto"};
+
+  @media ${device.mobileL} {
+    display:${props => props.display || 'none'};
+  };
 `;
 
 export const ModalTextArea = styled.textarea<{
@@ -256,4 +261,7 @@ export const ModalTextArea = styled.textarea<{
   }
 `;
 
-
+export const WrapperBlock = styled(Flex)`
+@media ${device.mobileL} {
+  margin:0;
+};`

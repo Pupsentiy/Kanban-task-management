@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../../styles/device.styled";
 
 export const WrapperSubTask = styled.div`
   display: flex;
@@ -9,6 +10,9 @@ export const WrapperSubTask = styled.div`
   &:hover {
     background: #091e421c;
   }
+  @media ${device.mobileL} {
+    flex-direction:column;
+  };
 `;
 
 export const ProgressBar = styled.div<{ progressTracking: number }>`

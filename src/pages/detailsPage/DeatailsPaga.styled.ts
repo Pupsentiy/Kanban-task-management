@@ -18,5 +18,6 @@ export const WrapperColumn = styled.div`
 `;
 
 export const ContainerDetailsPage = styled(ContainerEl)`
-overflow:auto;
+    overflow-x: auto;
+    overflow-y: hidden;
 `

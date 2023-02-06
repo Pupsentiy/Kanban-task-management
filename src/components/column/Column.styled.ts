@@ -13,13 +13,14 @@ export const ContainerColumn = styled.div<{
   padding: 6px 10px;
   border-top: ${(props) => `5px ${props.borderColor} solid` || "none"};
   transition: 0.2s all;
-  min-height: ${(props) => props.minHeight || ""};
+  min-height: ${(props) => props.minHeight || "0"};
   @media ${device.laptopL} {
     margin: 0 15px;
   }
   @media ${device.laptop} {
     margin: 0 8px;
   }
+  max-height: 83vh;
 `;
 export const HeaderColumn = styled.div`
   padding: 6px 10px;
@@ -65,6 +66,7 @@ export const ContainerTaks = styled.div<{ background: string }>`
       display: block;
     }
   }
+  
 `;
 
 export const ContentTask = styled.div`

@@ -32,7 +32,7 @@ import {
   ModalWrapperHeader,
   ContainerModal,
 } from "./ModalEditTask.styled";
-import { Flex, H6, PDiscriptionEl } from "../../styles/index.styled";
+import { H6, PDiscriptionEl, WrapperBlock } from "../../styles/index.styled";
 import DetailsBlock from "./block/detailsBlock/DetailsBlock";
 
 const ModalEditTask: FC = () => {
@@ -161,7 +161,7 @@ const ModalEditTask: FC = () => {
         <ModalBodyWrapper>
           <ContainerModal width="100%">
             <ModalOtherBlock>
-              <Flex margin="10px 0 10px 40px" alignItems="center">
+              <WrapperBlock margin="10px 0 10px 40px" alignItems="center">
                 <PDiscriptionEl
                   margin="0 5px 0 0"
                   fontSize="12px"
@@ -170,7 +170,7 @@ const ModalEditTask: FC = () => {
                   Current status:
                 </PDiscriptionEl>
                 <H6 fontSize="14px">{selectTask.column}</H6>
-              </Flex>
+              </WrapperBlock>
               <DetailsBlock
                 task={task}
                 changeLabelDeadline={changeLabelDeadline}

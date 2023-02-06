@@ -13,7 +13,7 @@ import {
   WrapperInput,
   WrapperNameFile,
 } from "./InvestmentBlock.styled";
-import { Flex, ContainerIcon, H6, PDiscriptionEl } from "../../../../styles/index.styled";
+import { Flex, ContainerIcon, H6, PDiscriptionEl, WrapperBlock } from "../../../../styles/index.styled";
 
 const InvestmentBlock: FC<IInvestmentBlockProps> = ({ task, setTask }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ const InvestmentBlock: FC<IInvestmentBlockProps> = ({ task, setTask }) => {
         <ContainerIcon>
           <BsPinAngle fontSize="22px" />
         </ContainerIcon>
-        <Flex
+        <WrapperBlock
           flexDirection="column"
           margin="0 0 0 40px"
           maxWidth="552px"
@@ -103,7 +103,7 @@ const InvestmentBlock: FC<IInvestmentBlockProps> = ({ task, setTask }) => {
               </WrapperInput>
             </ButtonLoadFile>
           </Flex>
-        </Flex>
+        </WrapperBlock>
       </Flex>
     </>
   );

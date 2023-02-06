@@ -6,7 +6,7 @@ import Button from "../../../button/Button";
 
 import { IActionBlock } from "./ActionBlock.types";
 
-import { Flex, ContainerIcon, H6, ModalTextArea } from "../../../../styles/index.styled";
+import { Flex, ContainerIcon, H6, ModalTextArea, WrapperBlock } from "../../../../styles/index.styled";
 
 const ActionBlock: FC<IActionBlock> = ({
   setIdSelectComment,
@@ -23,7 +23,7 @@ const ActionBlock: FC<IActionBlock> = ({
       <ContainerIcon>
         <BsTextIndentLeft fontSize="22px" />
       </ContainerIcon>
-      <Flex
+      <WrapperBlock
         flexDirection="column"
         margin="0 0 0 40px"
         width="100%"
@@ -62,7 +62,7 @@ const ActionBlock: FC<IActionBlock> = ({
           setSelectComments={setSelectComments}
           TextAreaRef={TextAreaRef}
         />
-      </Flex>
+      </WrapperBlock>
     </Flex>
   );
 };

@@ -55,7 +55,7 @@ const HomePage = () => {
           </LiCard>
           {projects &&
             projects.map((project: IProject, i: number) => (
-              <LiCard width="25%" >
+              <LiCard width="25%" key={i} >
               <NavLinkEL
                 key={i}
                 to={`${project.id}`}

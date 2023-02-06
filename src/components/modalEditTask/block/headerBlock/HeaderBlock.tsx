@@ -32,7 +32,7 @@ const HeaderModalEditTask: FC<IHeaderModalEditTaskProps> = ({
   return (
     <>
       <Flex alignItems="start" justifyContent="flex-start">
-        <ContainerIcon top="3px">
+        <ContainerIcon top="3px" display="block">
           <BsLaptop fontSize="20px" />
         </ContainerIcon>
         <Flex flexDirection="column" margin="0 40px" width="100%">
@@ -64,7 +64,7 @@ const HeaderModalEditTask: FC<IHeaderModalEditTaskProps> = ({
             </H2>
           )}
         </Flex>
-        <ContainerIcon right="0" top="3px">
+        <ContainerIcon right="0" top="3px" display="block">
           <TfiClose
             onClick={() => {
               saveTask();

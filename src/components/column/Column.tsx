@@ -170,7 +170,7 @@ const Column: FC<IColumnProps> = ({
             </Flex>
           ) : (
             <Flex
-              margin="10px 0 0 0"
+              margin="10px 0 10px 0"
               alignItems="center"
               justifyContent="center"
             >

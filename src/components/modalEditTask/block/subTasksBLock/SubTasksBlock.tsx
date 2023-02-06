@@ -10,7 +10,7 @@ import Input from "../../../input/Input";
 import { ISubTasksBlockProps } from "./SubTasksBlock.types";
 
 import { ProgressBar, WrapperSubTask } from "./SubTasksBlock.styled";
-import { Flex, ContainerIcon, H6, PDiscriptionEl } from "../../../../styles/index.styled";
+import { Flex, ContainerIcon, H6, PDiscriptionEl, WrapperBlock } from "../../../../styles/index.styled";
 
 const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
   const [checked, setChecked] = useState<boolean>(false);
@@ -89,7 +89,7 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
       <ContainerIcon>
         <IoMdCheckboxOutline fontSize="22px" />
       </ContainerIcon>
-      <Flex
+      <WrapperBlock
         flexDirection="column"
         margin="0 0 0 40px"
         width="100%"
@@ -177,7 +177,7 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
               </WrapperSubTask>
             ))}
         </Flex>
-      </Flex>
+      </WrapperBlock>
     </Flex>
   );
 };

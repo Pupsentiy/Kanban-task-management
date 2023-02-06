@@ -59,6 +59,9 @@ export const WrapperNavigation = styled.div`
   @media ${device.tablet} {
     width: 40%;
   };
+  @media ${device.mobileL} {
+    width: 70%;
+  };
 `;
 
 export const TaskDetailsBlock = styled.div`
@@ -66,6 +69,9 @@ export const TaskDetailsBlock = styled.div`
   display: flex;
   @media ${device.mobileM} {
     flex-direction:column;
+  };
+  @media ${device.mobileL} {
+    margin:0;
   };
 `;
 
