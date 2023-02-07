@@ -136,6 +136,7 @@ const ModalEditTask: FC = () => {
       },
     });
   };
+
   return (
     <Modal
       onClick={() => {
@@ -167,7 +168,7 @@ const ModalEditTask: FC = () => {
                   fontSize="12px"
                   lineHeight="normal"
                 >
-                  Current status:
+                  Current column:
                 </PDiscriptionEl>
                 <H6 fontSize="14px">{selectTask.column}</H6>
               </WrapperBlock>

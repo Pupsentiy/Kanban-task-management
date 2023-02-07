@@ -6,7 +6,3 @@ export interface INavigationBlockProps {
   setActiveBlockInvestment: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface IMockButton { 
-  name:string
-  func: React.Dispatch<React.SetStateAction<boolean>>
-}
