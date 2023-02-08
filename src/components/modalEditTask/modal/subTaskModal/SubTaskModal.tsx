@@ -9,7 +9,7 @@ import { ISubTaskModalProps } from "./SubTaskModal.types";
 import { Flex } from "../../../../styles/index.styled";
 
 const SubTaskModal: FC<ISubTaskModalProps> = ({
-  setActiveDropDownSubTask,
+  setActiveModalSubTask,
   setTask,
   task,
 }) => {
@@ -32,7 +32,7 @@ const SubTaskModal: FC<ISubTaskModalProps> = ({
       });
     }
 
-    setActiveDropDownSubTask(false);
+    setActiveModalSubTask(false);
     setNameSubTask("");
   };
 

@@ -24,11 +24,12 @@ export const ContainerColumn = styled.div<{
 `;
 export const HeaderColumn = styled.div`
   padding: 6px 10px;
+  border-bottom: 1px solid #000;
+  margin-bottom:10px;
 `;
 
 export const OtherColumn = styled.div`
   padding: 12px 10px 0 10px;
-  border-top: 1px solid #000;
   max-height: 655px;
   overflow-y: auto;
   overflow-x: hidden;

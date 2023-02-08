@@ -1,19 +1,28 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Button from "../../../button/Button";
 
 import { INavigationBlockProps } from "./NavigationBlock.types";
+import { RootState } from "../../../../store/store";
 
 import { WrapperEl } from "../../../../styles/index.styled";
+import {
+  setActiveButton,
+  setDeactiveButton,
+} from "../../../../store/actions/actionTypes";
 
 const NavigationBlock: FC<INavigationBlockProps> = ({
-  setActiveDropDownDate,
-  setActiveDropDownSubTask,
-  setActiveDropDownMarker,
+  setActiveModalDate,
+  setActiveModalSubTask,
+  setActiveModalMarker,
   setActiveBlockInvestment,
+  setActiveModalDelete,
 }) => {
-  const [activeButton, setActiveButton] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
+  const activeButton = useSelector(
+    (state: RootState) => state.createCardProject.activeButtonDelete
+  );
   const mockButton = [
     { name: "Date" },
     { name: "Tasks" },
@@ -22,54 +31,55 @@ const NavigationBlock: FC<INavigationBlockProps> = ({
     { name: "Archiving" },
   ];
 
-  const onChangeButton = (name: string) => {
+  const onActiveModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const name = (event.target as HTMLButtonElement).innerHTML;
     switch (name) {
       case "Date":
-        setActiveDropDownDate(true);
+        setActiveModalDate(true);
         break;
       case "Tasks":
-        setActiveDropDownSubTask(true);
+        setActiveModalSubTask(true);
         break;
       case "Priority":
-        setActiveDropDownMarker(true);
+        setActiveModalMarker(true);
         break;
       case "Attach file":
         setActiveBlockInvestment(true);
         break;
       case "Archiving":
-        setActiveButton(true);
+        dispatch(setActiveButton());
         break;
       case "Back":
-        setActiveButton(false);
+        dispatch(setDeactiveButton());
+        break;
+      case "Delete":
+        setActiveModalDelete(true);
         break;
       default:
         break;
     }
   };
 
-  const ButtonBack = (
-    <Button
-      background="#5f9ea094"
-      width="100%"
-      hoverBackColor="#5f9ea0"
-      onClick={() => onChangeButton("Back")}
-    >
-      Back
-    </Button>
-  );
   return (
     <>
       {mockButton &&
         mockButton.map((item, i) => (
           <WrapperEl margin="0 0 6px 0" key={i}>
             {activeButton && item.name === "Archiving" ? (
-              ButtonBack
+              <Button
+                background="#5f9ea094"
+                width="100%"
+                hoverBackColor="#5f9ea0"
+                onClick={(event) => onActiveModal(event)}
+              >
+                Back
+              </Button>
             ) : (
               <Button
                 background="#5f9ea094"
                 width="100%"
                 hoverBackColor="#5f9ea0"
-                onClick={() => onChangeButton(item.name)}
+                onClick={(event) => onActiveModal(event)}
               >
                 {item.name}
               </Button>
@@ -77,7 +87,12 @@ const NavigationBlock: FC<INavigationBlockProps> = ({
           </WrapperEl>
         ))}
       {activeButton ? (
-        <Button background="#b04632" width="100%" hoverBackColor="#933b27">
+        <Button
+          background="#b04632"
+          width="100%"
+          hoverBackColor="#933b27"
+          onClick={(event) => onActiveModal(event)}
+        >
           Delete
         </Button>
       ) : null}

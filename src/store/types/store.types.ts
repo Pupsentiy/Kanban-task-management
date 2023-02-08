@@ -9,6 +9,9 @@ export enum ActionTypes {
   DRAGGABLE_DEVELOPMENT = "DRAGGABLE_DEVELOPMENT",
   DRAGGABLE_DONE = "DRAGGABLE_DONE",
   SEARCH_TASK = "SEARCH_TASK",
+  ACTIVE_BUTTON ='ACTIVE_BUTTON',
+  DEACTIVE_BUTTON='DEACTIVE_BUTTON',
+  DELETE_TASK = 'DELETE_TASK',
 }
 
 export type IColumn = {
@@ -73,6 +76,7 @@ export type TIinitialState = {
   selectTask: ITask;
   searchTask: ITask[];
   toggleModalEditTask: boolean;
+  activeButtonDelete:boolean
 };
 export interface IToggleCreProModal {
   toggleModal: boolean;
@@ -128,6 +132,20 @@ export type TSearchTask = {
   payload: string;
 };
 
+export type TActiveButton = {
+  type: ActionTypes.ACTIVE_BUTTON;
+  payload: boolean;
+};
+
+export type TDeactiveButton = {
+  type: ActionTypes.DEACTIVE_BUTTON;
+  payload: boolean;
+};
+export type TDeleteTask = {
+  type: ActionTypes.DELETE_TASK;
+  payload: ITask;
+};
+
 export type TActionTypes =
   | TCreateCardProjects
   | TCreateTask
@@ -138,4 +156,8 @@ export type TActionTypes =
   | TDraggableQueueTask
   | TDraggableDevelopmentTask
   | TDraggableDoneTask
-  | TSearchTask;
+  | TSearchTask
+  | TActiveButton
+  | TDeactiveButton
+  | TDeleteTask
+

@@ -10,7 +10,7 @@ import { IMarkerPriorityModalProps } from "./MarkerPriorityModal.types";
 import { PDiscriptionEl } from "../../../../styles/index.styled";
 
 const MarkerPriorityModal: FC<IMarkerPriorityModalProps> = ({
-  setActiveDropDownMarker,
+  setActiveModalMarker,
   setTask,
   task,
 }) => {
@@ -51,7 +51,7 @@ const MarkerPriorityModal: FC<IMarkerPriorityModalProps> = ({
       });
     }
 
-    setActiveDropDownMarker(false);
+    setActiveModalMarker(false);
   };
 
   const removeMarker = () => {
@@ -59,7 +59,7 @@ const MarkerPriorityModal: FC<IMarkerPriorityModalProps> = ({
       ...task,
       priorityMarker: null,
     });
-    setActiveDropDownMarker(false);
+    setActiveModalMarker(false);
   };
 
   return (

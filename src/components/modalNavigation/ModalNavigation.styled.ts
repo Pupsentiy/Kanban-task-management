@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "../../styles/device.styled";
 
-export const DropDownEl = styled.section`
+export const ModalNavigationEl = styled.section`
   position: absolute;
   will-change: top, left;
   top: 35px;
@@ -21,7 +21,7 @@ export const DropDownEl = styled.section`
   };
 `;
 
-export const DropDownHeader = styled.div`
+export const ModalNavigationHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

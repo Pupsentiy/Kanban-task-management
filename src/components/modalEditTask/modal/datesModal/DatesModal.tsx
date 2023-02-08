@@ -16,13 +16,13 @@ const DatesModal: FC<IDatesModal> = ({
   task,
   setTask,
   setActiveInputDate,
-  setActiveDropDownDate,
+  setActiveModalDate,
 }) => {
   const [time, setTime] = useState<string>(dataTime);
   const [date, setDate] = useState<string>(dataDate);
 
-  const closeDropDown = () => {
-    setActiveDropDownDate(false);
+  const closeModal = () => {
+    setActiveModalDate(false);
   };
 
   const saveChangeTimeDate = () => {
@@ -97,7 +97,7 @@ const DatesModal: FC<IDatesModal> = ({
         <Button
           onClick={() => {
             saveChangeTimeDate();
-            closeDropDown();
+            closeModal();
           }}
           width="50%"
           padding="6px 12px"

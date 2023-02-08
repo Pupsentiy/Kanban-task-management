@@ -13,11 +13,12 @@ import DatesModal from "./modal/datesModal/DatesModal";
 import HeaderBlock from "./block/headerBlock/HeaderBlock";
 import MarkerPriorityModal from "./modal/MarkerPriorityModal/MarkerPriorityModal";
 import SubTaskModal from "./modal/subTaskModal/SubTaskModal";
-
-import DropDown from "../dropDown/DropDown";
-
+import DeleteTaskModal from "./modal/deleteTaskModal/DeleteTaskModal";
+import ModalNavigation from "../modalNavigation/ModalNavigation";
+ 
 import {
   setCloseEditTaskModal,
+  setDeactiveButton,
   setEditTask,
 } from "../../store/actions/actionTypes";
 import { RootState } from "../../store/store";
@@ -55,14 +56,14 @@ const ModalEditTask: FC = () => {
   const [commentTextValue, setCommentTextValue] = useState<string>("");
   const [selectComment, setSelectComments] = useState<TComment | null>(null);
   const [activeInputDate, setActiveInputDate] = useState<boolean>(false);
-  const [activeDropDownDate, setActiveDropDownDate] = useState<boolean>(false);
-  const [activeDropDownSubTask, setActiveDropDownSubTask] =
+  const [activeModalDate, setActiveModalDate] = useState<boolean>(false);
+  const [activeModalSubTask, setActiveModalSubTask] =
     useState<boolean>(false);
-  const [activeDropDownMarker, setActiveDropDownMarker] =
+  const [activeModalMarker, setActiveModalMarker] =
     useState<boolean>(false);
   const [activeBlockInvestment, setActiveBlockInvestment] =
     useState<boolean>(false);
-
+  const [activeModalDelete, setActiveModalDelete] = useState<boolean>(false)
   useEffect(() => {
     setTask(selectTask);
   }, [selectTask]);
@@ -115,13 +116,15 @@ const ModalEditTask: FC = () => {
   const saveTask = () => {
     dispatch(setEditTask(task, id, selectTask.column));
     setActiveInputDate(false);
-    setActiveDropDownDate(false);
-    setActiveDropDownMarker(false);
-    setActiveDropDownSubTask(false);
+    setActiveModalDate(false);
+    setActiveModalMarker(false);
+    setActiveModalSubTask(false);
+    setActiveModalDelete(false)
     if (!task.files.length) {
       setActiveBlockInvestment(false);
     }
     setCommentTextValue("");
+    dispatch(setDeactiveButton())
   };
 
   const timeIsOverdueDate =
@@ -212,44 +215,50 @@ const ModalEditTask: FC = () => {
                 Add to card
               </PDiscriptionEl>
               <NavigationBlock
-                setActiveDropDownDate={setActiveDropDownDate}
-                setActiveDropDownSubTask={setActiveDropDownSubTask}
-                setActiveDropDownMarker={setActiveDropDownMarker}
+                setActiveModalDate={setActiveModalDate}
+                setActiveModalSubTask={setActiveModalSubTask}
+                setActiveModalMarker={setActiveModalMarker}
                 setActiveBlockInvestment={setActiveBlockInvestment}
+                setActiveModalDelete={setActiveModalDelete}
               />
-              {activeDropDownDate && (
-                <DropDown name="Term" setClose={setActiveDropDownDate}>
+              {activeModalDate && (
+                <ModalNavigation name="Term" setClose={setActiveModalDate}>
                   <DatesModal
                     activeInputDate={activeInputDate}
                     task={task}
                     setTask={setTask}
                     setActiveInputDate={setActiveInputDate}
-                    setActiveDropDownDate={setActiveDropDownDate}
+                    setActiveModalDate={setActiveModalDate}
                   />
-                </DropDown>
+                </ModalNavigation>
               )}
-              {activeDropDownSubTask && (
-                <DropDown
+              {activeModalSubTask && (
+                <ModalNavigation
                   name="Adding a task list"
-                  setClose={setActiveDropDownSubTask}
+                  setClose={setActiveModalSubTask}
                 >
                   <SubTaskModal
-                    setActiveDropDownSubTask={setActiveDropDownSubTask}
+                    setActiveModalSubTask={setActiveModalSubTask}
                     task={task}
                     setTask={setTask}
                   />
-                </DropDown>
+                </ModalNavigation>
               )}
 
-              {activeDropDownMarker && (
-                <DropDown name="Priority" setClose={setActiveDropDownMarker}>
+              {activeModalMarker && (
+                <ModalNavigation name="Priority" setClose={setActiveModalMarker}>
                   <MarkerPriorityModal
-                    setActiveDropDownMarker={setActiveDropDownMarker}
+                    setActiveModalMarker={setActiveModalMarker}
                     task={task}
                     setTask={setTask}
                   />
-                </DropDown>
+                </ModalNavigation>
               )}
+              {activeModalDelete && 
+                  <ModalNavigation name="Deleting a card" setClose={setActiveModalDelete}>
+                  <DeleteTaskModal />
+                </ModalNavigation>
+              }
             </WrapperNavigation>
           </ContainerModal>
         </ModalBodyWrapper>

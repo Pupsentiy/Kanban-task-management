@@ -25,6 +25,7 @@ const initialState: TIinitialState = {
   selectTask: {} as ITask,
   searchTask: [] as ITask[],
   toggleModalEditTask: false,
+  activeButtonDelete: false,
 };
 
 export const createCardProject = (
@@ -206,6 +207,33 @@ export const createCardProject = (
       return {
         ...state,
         toggleModalEditTask: action.payload,
+      };
+    case ActionTypes.ACTIVE_BUTTON:
+      return {
+        ...state,
+        activeButtonDelete: action.payload,
+      };
+    case ActionTypes.DEACTIVE_BUTTON:
+      return {
+        ...state,
+        activeButtonDelete: action.payload,
+      };
+    case ActionTypes.DELETE_TASK:
+       
+      return {
+        ...state,
+        projects: state.projects.map((project) => {
+          if (project.id === action.payload.projectId) {
+            return {
+              ...project,
+              [action.payload.column]: project[
+                action.payload.column as keyof IColumn
+              ].filter((task) => task.id !== action.payload.id),
+            };
+          } else {
+            return project;
+          }
+        })
       };
     default:
       return state;

@@ -1,10 +1,13 @@
 import { ITask } from "../types/store.types";
 import {
+  ACTIVE_BUTTON,
   CLOSE_EDIT_TASK_MODAL,
   CREATE_CARD_PROJECT,
   CREATE_TASK,
   CRETEPROMODAL__CLOSE,
   CRETEPROMODAL__OPEN,
+  DEACTIVE_BUTTON,
+  DELETE_TASK,
   DRAGGABLE_DEVELOPMENT,
   DRAGGABLE_DONE,
   DRAGGABLE_QUEUE,
@@ -85,4 +88,17 @@ export const setDraggableDoneTask = (
 export const setSearchTask = (searchText: string) => ({
   type: SEARCH_TASK,
   payload: searchText,
+});
+
+export const setActiveButton = () => ({
+  type: ACTIVE_BUTTON,
+  payload: true,
+});
+export const setDeactiveButton = () => ({
+  type: DEACTIVE_BUTTON,
+  payload: false,
+});
+export const setToDeleteTask = (task:ITask) => ({
+  type: DELETE_TASK,
+  payload: task,
 });
