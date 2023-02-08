@@ -1,25 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import { IoTrashBin } from "react-icons/io5";
 
 import ModalCreateBoard from "../../components/modalCreateBoard/ModalCreateBoard";
 
 import { setOpenCreateProjModal } from "../../store/actions/actionTypes";
+import { IProject } from "../../store/types/store.types";
 import { RootState } from "../../store/store";
 
-import { AiOutlinePlus } from "react-icons/ai";
+import { ContainerEl, H5, H6, WrapperEl } from "../../styles/index.styled";
 import {
-  ContainerEl,
-  H5,
-  H6,
-  NavLinkEL,
-  WrapperEl,
-} from "../../styles/index.styled";
-import { ListCards, LiCard, WrapperCard } from "./HomePage.styled";
-
-import { IProject } from "../../store/types/store.types";
+  ListCards,
+  LiCard,
+  WrapperCard,
+  ContainerIconEl,
+  NavLinkA,
+} from "./HomePage.styled";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const [index, setIndex] = useState<number>(0);
+  const [color, setColor] = useState<string>('');
   const toggleModalCreProject = useSelector(
     (state: RootState) => state.toggleCreateProModal.toggleModal
   );
@@ -31,7 +33,8 @@ const HomePage = () => {
   };
 
   const onChangeBackgroundColorBody = (backgroundColor: string) => {
-    document.body.style.backgroundColor = backgroundColor;
+    setColor(backgroundColor)
+      document.body.style.backgroundColor = color;
   };
 
   useEffect(() => {
@@ -39,6 +42,10 @@ const HomePage = () => {
       document.body.style.backgroundColor = "#eef2f9";
     }
   }, []);
+
+  const getIdBoard = (i: number) => {
+    setIndex(i);
+  };
 
   return (
     <ContainerEl>
@@ -55,17 +62,32 @@ const HomePage = () => {
           </LiCard>
           {projects &&
             projects.map((project: IProject, i: number) => (
-              <LiCard width="25%" key={i} >
-              <NavLinkEL
+              <LiCard
+                width="25%"
                 key={i}
-                to={`${project.id}`}
-                
-                onClick={() => onChangeBackgroundColorBody(project.background)}
+                onMouseEnter={() => {
+                  getIdBoard(i);
+                }}
               >
+                <NavLinkA
+                  key={i}
+                  to={`${project.id}`}
+                  onClick={() =>
+                    onChangeBackgroundColorBody(project.background)
+                  }
+                >
                   <WrapperCard background={project.background}>
-                    <WrapperEl padding="10px"><H6 textAlign="center">{project.name}</H6></WrapperEl>
+                    <WrapperEl padding="10px">
+                      <H6 textAlign="center">{project.name}</H6>
+                    </WrapperEl>
+
+                    {index === i ? (
+                      <ContainerIconEl right="5px" top="1px">
+                        <IoTrashBin fontSize="16px" />
+                      </ContainerIconEl>
+                    ) : null}
                   </WrapperCard>
-              </NavLinkEL>
+                </NavLinkA>
               </LiCard>
             ))}
         </ListCards>
