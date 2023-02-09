@@ -92,7 +92,7 @@ const Header: FC = () => {
                     key={i}
                     onClick={() => selectTask(task, task.column)}
                   >
-                    <NavLinkSelectTask to={task.projectId}>
+                    <NavLinkSelectTask to={task.boardId}>
                       <Flex width="100%" alignItems="center">
                         <Flex><BiTask fontSize="25px" /></Flex>
                         <PDiscriptionEl

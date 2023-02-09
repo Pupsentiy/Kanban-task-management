@@ -29,7 +29,7 @@ export const HeaderColumn = styled.div`
 `;
 
 export const OtherColumn = styled.div`
-  padding: 12px 10px 0 10px;
+  padding: 0 10px 0 10px;
   max-height: 655px;
   overflow-y: auto;
   overflow-x: hidden;

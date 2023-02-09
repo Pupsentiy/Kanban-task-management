@@ -9,7 +9,7 @@ import {
   setDeleteBoard,
   setOpenCreateProjModal,
 } from "../../store/actions/actionTypes";
-import { IProject } from "../../store/types/store.types";
+import { IBoard } from "../../store/types/store.types";
 import { RootState } from "../../store/store";
 
 import {
@@ -29,27 +29,25 @@ import {
 const HomePage = () => {
   const dispatch = useDispatch();
   const [index, setIndex] = useState<number>(0);
-  const [color, setColor] = useState<string>("");
   const toggleModalCreProject = useSelector(
     (state: RootState) => state.toggleCreateProModal.toggleModal
   );
-  const projects = useSelector(
-    (state: RootState) => state.createCardProject.projects
+  const boards = useSelector(
+    (state: RootState) => state.createCardProject.boards
   );
   const openCreateProModal = () => {
     dispatch(setOpenCreateProjModal());
   };
 
   const onChangeBackgroundColorBody = (backgroundColor: string) => {
-    setColor(backgroundColor);
-    document.body.style.backgroundColor = color;
+    document.body.style.backgroundColor = backgroundColor;
   };
-
+  console.log(window.location.href)
   useEffect(() => {
-    if (window.location.href === "http://localhost:3000/") {
+    if (window.location.href === 'http://localhost:3000/') {
       document.body.style.backgroundColor = "#eef2f9";
     }
-  }, []);
+  });
 
   const getIdBoard = (i: number) => {
     setIndex(i);
@@ -72,8 +70,8 @@ const HomePage = () => {
               <AiOutlinePlus fontSize="20px" />
             </WrapperCard>
           </LiCard>
-          {projects &&
-            projects.map((project: IProject, i: number) => (
+          {boards &&
+            boards.map((project: IBoard, i: number) => (
               <LiCard
                 width="25%"
                 key={i}

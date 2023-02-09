@@ -16,7 +16,6 @@ html {
 }
 
 body {
-  background-color: '#eef2f9';
   min-height: 100%;
   margin: 0;
   padding: 0;

@@ -36,10 +36,6 @@ const Column: FC<IColumnProps> = ({
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addTitle, setAddTitle] = useState<string>("");
-  const activeModal = useSelector(
-    (state: RootState) => state.createCardProject.toggleModalEditTask
-  );
-
   const changeTitleTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddTitle(event.target.value);
   };
@@ -53,10 +49,6 @@ const Column: FC<IColumnProps> = ({
       setAddInput(false);
     }
   };
-
-  useEffect(() => {
-    setAddInput(false);
-  }, [!activeModal]);
 
   const getProccesTime = (ms: Date) => {
     const endTime = new Date();
@@ -77,6 +69,7 @@ const Column: FC<IColumnProps> = ({
     const editTaskTime = { ...task, proccesTime: proccesTime };
     dispatch(setOpenEditTaskModal());
     dispatch(setSelectTask(editTaskTime, column.toLowerCase()));
+    setAddInput(false);
   };
 
   const commentСounter = (task: ITask) => {
@@ -135,7 +128,6 @@ const Column: FC<IColumnProps> = ({
             />
           ))}
         {provided.placeholder}
-       
       </OtherColumn>
       <WrapperEl padding="0 10px 0 10px" >
       {column === "Queue" ? (
@@ -152,7 +144,7 @@ const Column: FC<IColumnProps> = ({
               <Flex
                 alignItems="center"
                 justifyContent="space-between"
-                margin="10px 0 0 0"
+                padding="12px 0 0 0"
               >
                 <Button
                   type="submit"

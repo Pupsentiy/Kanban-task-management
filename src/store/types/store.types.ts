@@ -21,7 +21,7 @@ export type IColumn = {
     done: ITask[];
 }
 
-export interface IProject {
+export interface IBoard {
   id: string;
   name: string;
   background: string;
@@ -36,7 +36,7 @@ export type TFinishTDate = {
 };
 
 export interface ITask {
-  projectId: string;
+  boardId: string;
   column: string;
   id: string;
   numberTask: string;
@@ -73,7 +73,7 @@ export type TComment = {
 };
 
 export type TIinitialState = {
-  projects: IProject[];
+  boards: IBoard[];
   selectTask: ITask;
   searchTask: ITask[];
   toggleModalEditTask: boolean;

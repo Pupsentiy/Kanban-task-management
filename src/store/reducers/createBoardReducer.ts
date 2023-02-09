@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import {
-  IProject,
+  IBoard,
   TIinitialState,
   ITask,
   TComment,
@@ -19,9 +19,9 @@ const getFromLocalStorage = (key: string) => {
 };
 
 const initialState: TIinitialState = {
-  projects: getFromLocalStorage("projects")
-    ? JSON.parse(getFromLocalStorage("projects") || "{}")
-    : ([] as IProject[]),
+  boards: getFromLocalStorage("boards")
+    ? JSON.parse(getFromLocalStorage("boards") || "{}")
+    : ([] as IBoard[]),
   selectTask: {} as ITask,
   searchTask: [] as ITask[],
   toggleModalEditTask: false,
@@ -37,8 +37,8 @@ export const createCardProject = (
       const newProjectId: string = uuidv4();
       return {
         ...state,
-        projects: [
-          ...state.projects,
+        boards: [
+          ...state.boards,
           {
             id: newProjectId,
             name: action.payload.name,
@@ -55,10 +55,10 @@ export const createCardProject = (
       let currentTime = new Date();
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload?.id) {
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload?.id) {
             const newTask = {
-              projectId: project.id,
+              boardId: board.id,
               column: "queue",
               id: newIdTask,
               titleTask: action.payload.titleTask,
@@ -74,17 +74,17 @@ export const createCardProject = (
               comments: [] as TComment[],
             };
             return {
-              ...project,
-              queue: [...project.queue, newTask],
+              ...board,
+              queue: [...board.queue, newTask],
             };
           } else {
-            return project;
+            return board;
           }
         }),
       };
     case ActionTypes.SELECTE_TASK:
       const editTask = {
-        projectId: action.payload.task.projectId,
+        boardId: action.payload.task.boardId,
         column: action.payload.column,
         id: action.payload.task.id,
         titleTask: action.payload.task.titleTask,
@@ -108,14 +108,14 @@ export const createCardProject = (
       const column: string = action.payload.column;
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload?.id) {
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload?.id) {
             return {
-              ...project,
-              [column]: project[column as keyof IColumn].map((task: ITask) => {
+              ...board,
+              [column]: board[column as keyof IColumn].map((task: ITask) => {
                 if (task.id === action.payload.task.id) {
                   const editTask = {
-                    projectId: project.id,
+                    boardsId: board.id,
                     column: column,
                     id: action.payload.task.id,
                     titleTask: action.payload.task.titleTask,
@@ -137,7 +137,7 @@ export const createCardProject = (
               }),
             };
           } else {
-            return project;
+            return board;
           }
         }),
       };
@@ -145,41 +145,41 @@ export const createCardProject = (
     case ActionTypes.DRAGGABLE_QUEUE:
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload.id) {
-            project.queue = action.payload.queue;
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload.id) {
+            board.queue = action.payload.queue;
           }
-          return project;
+          return board;
         }),
       };
     case ActionTypes.DRAGGABLE_DEVELOPMENT:
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload.id) {
-            project.development = action.payload.development;
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload.id) {
+            board.development = action.payload.development;
           }
-          return project;
+          return board;
         }),
       };
 
     case ActionTypes.DRAGGABLE_DONE:
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload.id) {
-            project.done = action.payload.done;
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload.id) {
+            board.done = action.payload.done;
           }
-          return project;
+          return board;
         }),
       };
 
     case ActionTypes.SEARCH_TASK:
       let arr: ITask[] = [];
-      state.projects.map((project) =>
-        Object.values(project).forEach((project: IProject) => {
-          if (Array.isArray(project)) {
-            let newArr: ITask[] = project.filter((task: ITask) =>
+      state.boards.map((board) =>
+        Object.values(board).forEach((board: IBoard) => {
+          if (Array.isArray(board)) {
+            let newArr: ITask[] = board.filter((task: ITask) =>
               task.titleTask.includes(action.payload)
             );
             if (newArr.length > 0) {
@@ -221,24 +221,24 @@ export const createCardProject = (
     case ActionTypes.DELETE_TASK:
       return {
         ...state,
-        projects: state.projects.map((project) => {
-          if (project.id === action.payload.projectId) {
+        boards: state.boards.map((board) => {
+          if (board.id === action.payload.boardId) {
             return {
-              ...project,
-              [action.payload.column]: project[
+              ...board,
+              [action.payload.column]: board[
                 action.payload.column as keyof IColumn
               ].filter((task) => task.id !== action.payload.id),
             };
           } else {
-            return project;
+            return board;
           }
         }),
       };
     case ActionTypes.DELETE_BOARD:
       return {
         ...state,
-        projects: state.projects.filter(
-          (project) => project.id !== action.payload
+        boards: state.boards.filter(
+          (board) => board.id !== action.payload
         ),
       };
     default:

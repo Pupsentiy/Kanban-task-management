@@ -1,14 +1,14 @@
 import { compose, legacy_createStore as createStore } from "redux";
 import { combineReducers } from "redux";
 
-import { createCardProject } from "./reducers/createCardProjectReducer";
+import { createCardProject } from "./reducers/createBoardReducer";
 import { toggleCreateProModal } from "./reducers/creteProModalToggleReducer";
 
-import { IProject } from "./types/store.types";
+import { IBoard } from "./types/store.types";
 
-const saveToLocalStorage = (state: IProject[]) => {
+const saveToLocalStorage = (state: IBoard[]) => {
   try {
-    localStorage.setItem("projects", JSON.stringify(state));
+    localStorage.setItem("boards", JSON.stringify(state));
   } catch (e) {
     console.error(e);
   }
@@ -31,7 +31,7 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  saveToLocalStorage(store.getState().createCardProject.projects);
+  saveToLocalStorage(store.getState().createCardProject.boards);
 });
  
 export default store;

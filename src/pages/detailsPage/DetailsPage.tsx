@@ -1,4 +1,5 @@
 import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -12,7 +13,7 @@ import {
   setDraggableQueueTask,
 } from "../../store/actions/actionTypes";
 import { RootState } from "../../store/store";
-import { IProject } from "../../store/types/store.types";
+import { IBoard } from "../../store/types/store.types";
 
 import {
   Flex,
@@ -23,19 +24,19 @@ import { ContainerColumn, ContainerDetailsPage, WrapperColumn } from "./Deatails
 const DetailsPage = () => {
   const { id } = useParams();
 
-  const projects = useSelector(
-    (state: RootState) => state.createCardProject.projects
+  const boards = useSelector(
+    (state: RootState) => state.createCardProject.boards
   );
   const dispatch = useDispatch();
 
   const title = { queue: "Queue", development: "Development", done: "Done" };
 
-  const selectProject: IProject | undefined = Object.values(projects).find(
-    (project) => project.id === id
+  const selectBoard: IBoard | undefined = Object.values(boards).find(
+    (board) => board.id === id
   );
-
+  
   const onDragEnd = (result: DropResult) => {
-    if (selectProject) {
+    if (selectBoard) {
       if (!result.destination) return;
       if (
         result.destination.droppableId === result.source.droppableId &&
@@ -44,9 +45,9 @@ const DetailsPage = () => {
         return;
       const { source, destination } = result;
       let add,
-        queue = selectProject.queue,
-        development = selectProject.development,
-        done = selectProject.done;
+        queue = selectBoard.queue,
+        development = selectBoard.development,
+        done = selectBoard.done;
 
       if (source.droppableId === "Queue") {
         add = queue[source.index];
@@ -71,13 +72,20 @@ const DetailsPage = () => {
       dispatch(setDraggableDoneTask(done, id));
     }
   };
+
+  useEffect(() => {
+    if(selectBoard !== undefined){
+      document.body.style.backgroundColor = selectBoard?.background;
+    }
+  });
+
   return (
     <>
-      {selectProject && (
+      {selectBoard && (
         <ContainerDetailsPage >
           <Flex margin="0 0 10px 0" padding="0 8px" justifyContent="center">
             <H5 fontWeight="500" color="#181717" fontSize="28px">
-              Board: {selectProject.name}
+              Board: {selectBoard.name}
             </H5>
           </Flex>
           <ContainerColumn justifyContent="space-beetwen" >
@@ -89,7 +97,7 @@ const DetailsPage = () => {
                     {...provided.droppableProps}
                   >
                     <Column
-                      project={selectProject?.queue}
+                      project={selectBoard?.queue}
                       column={title.queue}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ff0000"
@@ -106,7 +114,7 @@ const DetailsPage = () => {
                     {...provided.droppableProps}
                   >
                     <Column
-                      project={selectProject?.development}
+                      project={selectBoard?.development}
                       column={title.development}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#ffa500"
@@ -123,7 +131,7 @@ const DetailsPage = () => {
                     {...provided.droppableProps}
                   >
                     <Column
-                      project={selectProject?.done}
+                      project={selectBoard?.done}
                       column={title.done}
                       background={snapshot.isDraggingOver ? "#dadadb" : ""}
                       borderColor="#41cd3f"
