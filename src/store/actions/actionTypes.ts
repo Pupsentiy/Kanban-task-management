@@ -7,6 +7,7 @@ import {
   CRETEPROMODAL__CLOSE,
   CRETEPROMODAL__OPEN,
   DEACTIVE_BUTTON,
+  DELETE_BOARD,
   DELETE_TASK,
   DRAGGABLE_DEVELOPMENT,
   DRAGGABLE_DONE,
@@ -98,7 +99,11 @@ export const setDeactiveButton = () => ({
   type: DEACTIVE_BUTTON,
   payload: false,
 });
-export const setToDeleteTask = (task:ITask) => ({
+export const setDeleteTask = (task:ITask) => ({
   type: DELETE_TASK,
   payload: task,
+});
+export const setDeleteBoard = (id:string) => ({
+  type: DELETE_BOARD,
+  payload: id,
 });

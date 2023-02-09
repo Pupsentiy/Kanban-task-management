@@ -5,23 +5,31 @@ import { IoTrashBin } from "react-icons/io5";
 
 import ModalCreateBoard from "../../components/modalCreateBoard/ModalCreateBoard";
 
-import { setOpenCreateProjModal } from "../../store/actions/actionTypes";
+import {
+  setDeleteBoard,
+  setOpenCreateProjModal,
+} from "../../store/actions/actionTypes";
 import { IProject } from "../../store/types/store.types";
 import { RootState } from "../../store/store";
 
-import { ContainerEl, H5, H6, WrapperEl } from "../../styles/index.styled";
+import {
+  ContainerEl,
+  H5,
+  H6,
+  NavLinkEL,
+  WrapperEl,
+} from "../../styles/index.styled";
 import {
   ListCards,
   LiCard,
   WrapperCard,
-  ContainerIconEl,
-  NavLinkA,
+  ButtonTrash,
 } from "./HomePage.styled";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [index, setIndex] = useState<number>(0);
-  const [color, setColor] = useState<string>('');
+  const [color, setColor] = useState<string>("");
   const toggleModalCreProject = useSelector(
     (state: RootState) => state.toggleCreateProModal.toggleModal
   );
@@ -33,8 +41,8 @@ const HomePage = () => {
   };
 
   const onChangeBackgroundColorBody = (backgroundColor: string) => {
-    setColor(backgroundColor)
-      document.body.style.backgroundColor = color;
+    setColor(backgroundColor);
+    document.body.style.backgroundColor = color;
   };
 
   useEffect(() => {
@@ -45,6 +53,10 @@ const HomePage = () => {
 
   const getIdBoard = (i: number) => {
     setIndex(i);
+  };
+
+  const deleteBoard = (id: string) => {
+    dispatch(setDeleteBoard(id));
   };
 
   return (
@@ -69,7 +81,7 @@ const HomePage = () => {
                   getIdBoard(i);
                 }}
               >
-                <NavLinkA
+                <NavLinkEL
                   key={i}
                   to={`${project.id}`}
                   onClick={() =>
@@ -80,14 +92,20 @@ const HomePage = () => {
                     <WrapperEl padding="10px">
                       <H6 textAlign="center">{project.name}</H6>
                     </WrapperEl>
-
-                    {index === i ? (
-                      <ContainerIconEl right="5px" top="1px">
-                        <IoTrashBin fontSize="16px" />
-                      </ContainerIconEl>
-                    ) : null}
                   </WrapperCard>
-                </NavLinkA>
+                </NavLinkEL>
+                {index === i ? (
+                  <ButtonTrash
+                    type="button"
+                    margin="0"
+                    padding="0"
+                    onClick={() => {
+                      deleteBoard(project.id);
+                    }}
+                  >
+                    <IoTrashBin fontSize="16px" />
+                  </ButtonTrash>
+                ) : null}
               </LiCard>
             ))}
         </ListCards>

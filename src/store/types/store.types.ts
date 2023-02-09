@@ -12,6 +12,7 @@ export enum ActionTypes {
   ACTIVE_BUTTON ='ACTIVE_BUTTON',
   DEACTIVE_BUTTON='DEACTIVE_BUTTON',
   DELETE_TASK = 'DELETE_TASK',
+  DELETE_BOARD='DELETE_BOARD'
 }
 
 export type IColumn = {
@@ -145,6 +146,10 @@ export type TDeleteTask = {
   type: ActionTypes.DELETE_TASK;
   payload: ITask;
 };
+export type TDeleteBoard = {
+  type: ActionTypes.DELETE_BOARD;
+  payload: string;
+};
 
 export type TActionTypes =
   | TCreateCardProjects
@@ -160,4 +165,5 @@ export type TActionTypes =
   | TActiveButton
   | TDeactiveButton
   | TDeleteTask
+  | TDeleteBoard
 

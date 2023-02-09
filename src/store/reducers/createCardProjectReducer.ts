@@ -219,7 +219,6 @@ export const createCardProject = (
         activeButtonDelete: action.payload,
       };
     case ActionTypes.DELETE_TASK:
-       
       return {
         ...state,
         projects: state.projects.map((project) => {
@@ -233,7 +232,14 @@ export const createCardProject = (
           } else {
             return project;
           }
-        })
+        }),
+      };
+    case ActionTypes.DELETE_BOARD:
+      return {
+        ...state,
+        projects: state.projects.filter(
+          (project) => project.id !== action.payload
+        ),
       };
     default:
       return state;

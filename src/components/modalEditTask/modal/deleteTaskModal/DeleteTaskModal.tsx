@@ -8,7 +8,7 @@ import { RootState } from "../../../../store/store";
 import { ITask } from "../../../../store/types/store.types";
 
 import { PDiscriptionEl } from "../../../../styles/index.styled";
-import { setCloseEditTaskModal, setToDeleteTask } from "../../../../store/actions/actionTypes";
+import { setCloseEditTaskModal, setDeleteTask } from "../../../../store/actions/actionTypes";
 
 const DeleteTaskModal: FC = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const DeleteTaskModal: FC = () => {
   );
 
     const toDeletTask = (selectTask:ITask) => { 
-      dispatch(setToDeleteTask(selectTask))
+      dispatch(setDeleteTask(selectTask))
       dispatch(setCloseEditTaskModal());
     }
 
