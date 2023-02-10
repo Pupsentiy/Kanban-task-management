@@ -80,6 +80,7 @@ const ModalEditTask: FC = () => {
 
   const closeModal = () => {
     dispatch(setCloseEditTaskModal());
+    document.body.style.overflow = 'hidden!important'
   };
 
   const newComment: TComment = {
@@ -125,6 +126,7 @@ const ModalEditTask: FC = () => {
     }
     setCommentTextValue("");
     dispatch(setDeactiveButton())
+    document.body.style.overflow = 'hidden!important'
   };
 
   const timeIsOverdueDate =

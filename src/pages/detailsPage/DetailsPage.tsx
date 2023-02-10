@@ -77,6 +77,7 @@ const DetailsPage = () => {
     if(selectBoard !== undefined){
       document.body.style.backgroundColor = selectBoard?.background;
     }
+    
   });
 
   return (

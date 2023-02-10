@@ -6,7 +6,7 @@ export const Modal = styled.div<{ active: boolean }>`
   width: 100%;
   padding: 20px 0;
   background-color: #000000d1;
-  overflow-y: auto;
+  overflow-y: auto!important;
   position: absolute;
   top: 0;
   left: 0;

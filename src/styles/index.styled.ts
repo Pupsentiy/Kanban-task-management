@@ -16,10 +16,16 @@ html {
 }
 
 body {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  position:relative;
+  overflow: hidden;
+  height: 100vh;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+
+  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left); /* iOS 11.0 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* iOS 11.2 */
 }
 
 
@@ -146,6 +152,7 @@ export const ContainerEl = styled.div`
   padding: 10px 15px;
   max-width: 1440px;
   margin: 0 auto;
+  height:100%;
 `;
 
 export const Flex = styled.div<{

@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { TfiClose } from "react-icons/tfi";
 
@@ -17,12 +17,12 @@ import { IColumnProps } from "./Column.types";
 
 import {
   ContainerColumn,
+  Div,
   HeaderColumn,
   InputTitleTaskEl,
   OtherColumn,
 } from "./Column.styled";
 import { Flex, H6, WrapperEl } from "../../styles/index.styled";
-import { RootState } from "../../store/store";
 
 const Column: FC<IColumnProps> = ({
   borderColor,
@@ -36,6 +36,7 @@ const Column: FC<IColumnProps> = ({
   const dispatch = useDispatch();
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addTitle, setAddTitle] = useState<string>("");
+
   const changeTitleTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAddTitle(event.target.value);
   };
@@ -70,6 +71,7 @@ const Column: FC<IColumnProps> = ({
     dispatch(setOpenEditTaskModal());
     dispatch(setSelectTask(editTaskTime, column.toLowerCase()));
     setAddInput(false);
+    document.body.style.overflow = 'auto'
   };
 
   const commentСounter = (task: ITask) => {
@@ -114,6 +116,7 @@ const Column: FC<IColumnProps> = ({
       <HeaderColumn>
         <H6>{column}</H6>
       </HeaderColumn>
+      <Div>
       <OtherColumn>
         {project &&
           project.map((task: ITask, i: number) => (
@@ -129,6 +132,7 @@ const Column: FC<IColumnProps> = ({
           ))}
         {provided.placeholder}
       </OtherColumn>
+      </Div>
       <WrapperEl padding="0 10px 0 10px" >
       {column === "Queue" ? (
           addInput ? (

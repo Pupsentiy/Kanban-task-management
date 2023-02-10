@@ -9,6 +9,7 @@ import {
   setDeleteBoard,
   setOpenCreateProjModal,
 } from "../../store/actions/actionTypes";
+
 import { IBoard } from "../../store/types/store.types";
 import { RootState } from "../../store/store";
 
@@ -19,12 +20,7 @@ import {
   NavLinkEL,
   WrapperEl,
 } from "../../styles/index.styled";
-import {
-  ListCards,
-  LiCard,
-  WrapperCard,
-  ButtonTrash,
-} from "./HomePage.styled";
+import { ListCards, LiCard, WrapperCard, ButtonTrash } from "./HomePage.styled";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -42,9 +38,9 @@ const HomePage = () => {
   const onChangeBackgroundColorBody = (backgroundColor: string) => {
     document.body.style.backgroundColor = backgroundColor;
   };
-  console.log(window.location.href)
+
   useEffect(() => {
-    if (window.location.href === 'http://localhost:3000/') {
+    if (window.location.href === "http://localhost:3000/") {
       document.body.style.backgroundColor = "#eef2f9";
     }
   });

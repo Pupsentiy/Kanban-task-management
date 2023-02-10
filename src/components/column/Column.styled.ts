@@ -7,7 +7,7 @@ export const ContainerColumn = styled.div<{
   minHeight?: string;
 }>`
   background: ${(props) => props.background || "#ebecf0"};
-  margin: 0 30px;
+  margin: 0 30px 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   padding: 6px 10px;
@@ -15,12 +15,12 @@ export const ContainerColumn = styled.div<{
   transition: 0.2s all;
   min-height: ${(props) => props.minHeight || "0"};
   @media ${device.laptopL} {
-    margin: 0 15px;
+    margin: 0 15px 10px;
   }
   @media ${device.laptop} {
-    margin: 0 8px;
+    margin: 0 8px 10px;
   }
-  max-height: 83vh;
+  overflow:hidden;
 `;
 export const HeaderColumn = styled.div`
   padding: 6px 10px;
@@ -28,9 +28,13 @@ export const HeaderColumn = styled.div`
   margin-bottom:10px;
 `;
 
+export const Div = styled.div`
+overflow-x: hidden;
+max-height: calc(100vh - 270px);
+`;
+
 export const OtherColumn = styled.div`
   padding: 0 10px 0 10px;
-  max-height: 655px;
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -56,7 +60,7 @@ export const ContainerTaks = styled.div<{ background: string }>`
   background: ${(props) => props.background || "#fff"};
   min-height: 20px;
   border-radius: 2px;
-  margin-bottom: 10px;
+  margin:3px 0 10px 0;
   padding: 10px 8px 2px;
   box-shadow: 0px 0px 2px 1px #aba6a6;
   transition: 0.2s all;
