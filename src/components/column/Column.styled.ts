@@ -30,7 +30,7 @@ export const HeaderColumn = styled.div`
 
 export const Div = styled.div`
 overflow-x: hidden;
-max-height: calc(100vh - 270px);
+max-height: calc(100vh - 340px);
 `;
 
 export const OtherColumn = styled.div`

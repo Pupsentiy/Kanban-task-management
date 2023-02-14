@@ -77,4 +77,7 @@ width:250px;
 @media ${device.mobileM} {
   width:auto;
 }
+@media ${device.mobileL} {
+  width:190px;
+}
 `
