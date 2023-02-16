@@ -119,6 +119,7 @@ export const Marker = styled.div<{ background: string }>`
     border-left: 15px solid ${(props) => props.background};
     border-bottom: 13.5px solid transparent;
   }
+  white-space:nowrap;
 `;
 
 export const ContainerModal = styled(Flex)`
