@@ -14,8 +14,8 @@
 ## Реализовано
 - Все данные сохраняются в LocalStorage.
 - Проект содержит 2 страницы:
-    - Страница с выбором проекта
-    - Страница с задачами
+    - Страница с выбором проекта.
+    - Страница с задачами.
 - Каждая доска имеет 3 колонки c возможностью изменения статуса с помощью drag-n-drop: 
     - Queue
     - Development
@@ -78,9 +78,10 @@
 5. Номер задачи.
 6. Название Задачи.
 
+![Screemshot](src/assets/img/imgReadme/screen12.png)
+
 - Адаптивная верстка:
 
-![Screemshot](src/assets/img/imgReadme/screen12.png)
 ![Screemshot](src/assets/img/imgReadme/screen5.png)
 ![Screemshot](src/assets/img/imgReadme/screen4.jpg)
 ![Screemshot](src/assets/img/imgReadme/screen13.png)
