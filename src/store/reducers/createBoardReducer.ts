@@ -180,7 +180,7 @@ export const createCardProject = (
         Object.values(board).forEach((board: IBoard) => {
           if (Array.isArray(board)) {
             let newArr: ITask[] = board.filter((task: ITask) =>
-              task.titleTask.includes(action.payload)
+              task.titleTask.includes(action.payload.toLowerCase() && action.payload.toUpperCase() )
             );
             if (newArr.length > 0) {
               newArr.forEach((element) => {

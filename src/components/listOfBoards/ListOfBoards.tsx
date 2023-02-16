@@ -66,7 +66,7 @@ const ListOfBoards: FC = () => {
                 onClick={() => onChangeBackgroundColorBody(project.background)}
               >
                 <WrapperCard background={project.background}>
-                  <WrapperEl padding="10px">
+                  <WrapperEl padding="10px" margin="5px 0 0 0">
                     <H6 textAlign="center">{project.name}</H6>
                   </WrapperEl>
                 </WrapperCard>
