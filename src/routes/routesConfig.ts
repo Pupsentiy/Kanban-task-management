@@ -12,12 +12,12 @@ export type TRoutesConfig = {
 export const routesConfig: TRoutesConfig = {
   home: {
     title: "Home",
-    path: "/",
+    path: "/Kanban-task-management",
     component: HomePage,
   },
   details: {
     title: null,
-    path: "/:id",
+    path: "/Kanban-task-management/:id",
     component: DetailsPage,
   },
 };

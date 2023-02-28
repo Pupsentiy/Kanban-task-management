@@ -5,7 +5,7 @@ import InternalRoutes from "./routes/Routes";
 
 function App() {
   return (
-    <HashRouter basename="/Kanban-task-management/#">
+    <HashRouter >
       <Header />
       <InternalRoutes />
     </HashRouter>
