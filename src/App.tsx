@@ -5,7 +5,7 @@ import InternalRoutes from "./routes/Routes";
 
 function App() {
   return (
-    <Router basename="/Kanban-task-management">
+    <Router basename="/">
       <Header />
       <InternalRoutes />
     </Router>
