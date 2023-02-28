@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/Kanban-task-management/static/js/main.bb7025c2.js",
+    "static/media/checked.svg": "/Kanban-task-management/static/media/checked.75e1c2898038bd577d95183af053b68d.svg",
+    "index.html": "/Kanban-task-management/index.html",
+    "main.bb7025c2.js.map": "/Kanban-task-management/static/js/main.bb7025c2.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bb7025c2.js"
+  ]
+}
