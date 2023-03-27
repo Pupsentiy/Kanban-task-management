@@ -2,7 +2,6 @@
   "name": "dashboard-todolist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pupsentiy.github.io/Kanban-task-management",
   "dependencies": {
     "@hello-pangea/dnd": "^16.2.0",
     "@react-icons/all-files": "^4.1.0",
