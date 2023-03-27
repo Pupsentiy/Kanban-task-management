@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { IoTrashBin } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
@@ -19,7 +19,7 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
   const [idSubTask, setIdSubTask] = useState<string>("");
   const [activeInput, setActiveInput] = useState<boolean>(false);
 
-  const checkProgressBar = () => {
+  const checkProgressBar = useCallback(() => {
     let sum =
       task.subTasks.filter((subTask) => subTask.check === true).length === 0
         ? 0
@@ -30,7 +30,7 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
           );
 
     setProgressTracking(sum);
-  };
+  },[task.subTasks]);
 
   const completedSubTask = (id: string) => {
     setChecked(!checked);
@@ -82,7 +82,7 @@ const SubTasksBlock: FC<ISubTasksBlockProps> = ({ task, setTask }) => {
 
   useEffect(() => {
     checkProgressBar();
-  }, [task?.subTasks.length, checked]);
+  }, [task.subTasks.length, checked, checkProgressBar]);
 
   return (
     <Flex alignItems="top" margin="5px 0">
