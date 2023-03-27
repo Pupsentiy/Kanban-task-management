@@ -7,16 +7,17 @@ import ListOfBoards from "../../components/listOfBoards/ListOfBoards";
 import { RootState } from "../../store/store";
 
 import { ContainerEl, H5, WrapperEl } from "../../styles/index.styled";
+import { useParams } from "react-router-dom";
 
 const HomePage = () => {
+  const id = useParams()
+  console.log(id)
   const toggleModalCreProject = useSelector(
     (state: RootState) => state.toggleCreateProModal.toggleModal
   );
 
   useEffect(() => {
-    if (window.location.href === "http://localhost:3000/") {
       document.body.style.backgroundColor = "#eef2f9";
-    }
   });
 
   return (
