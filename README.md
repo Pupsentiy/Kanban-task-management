@@ -11,6 +11,8 @@
 - Redux
 - LocalStorage
 
+# deploy: https://luxury-concha-092729.netlify.app
+
 ## Реализовано
 - Все данные сохраняются в LocalStorage.
 - Проект содержит 2 страницы:
