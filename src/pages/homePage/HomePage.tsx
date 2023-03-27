@@ -14,7 +14,7 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    if (window.location.href === "http://localhost:3000/Kanban-task-management") {
+    if (window.location.href === "http://localhost:3000/") {
       document.body.style.backgroundColor = "#eef2f9";
     }
   });
